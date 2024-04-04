@@ -1,0 +1,55 @@
+---
+title: "Probability and Statistics"
+subtitle: "The Evolution of Computer Processors: A statistic on Common Properties"
+author: "Chau Dang Minh - 2013748 <br> Provide your name guys"
+output: 
+  # pdf_document: default
+  html_document: default
+---
+
+```{r setup}
+# Libraries and options
+library(dplyr)
+library(here)
+library(knitr)
+library(kableExtra)
+library(htmltools)
+
+# Load the function from utils.R
+source("utils.R")
+
+# Indicate the current directory to be worked
+setwd(here())
+```
+
+# Dataset inspection
+```{r}
+# Read the CSV file into a data frame
+cpu_data <- read.csv("dataset/Intel_CPUs.csv")
+gpu_data <- read.csv("dataset/All_GPUs.csv")
+```
+
+
+```{r}
+# Inspect the cpu data
+kable(head(cpu_data), format = "html") %>%
+  kable_styling()
+cpu_columns <- colnames(cpu_data)
+cpu_columns
+num_cpu <- count(cpu_data)
+num_cpu
+cpu_instance <- cpu_data[1, ]
+cpu_instance
+collection <- extract_tier_and_generation(cpu_instance$Product_Collection)
+collection
+```
+
+```{r}
+# Inspect the gpu data
+kable(head(gpu_data), format = "html") %>%
+  kable_styling()
+gpu_columns <- colnames(gpu_data)
+gpu_columns
+num_gpu <- count(gpu_data)
+num_gpu
+```
