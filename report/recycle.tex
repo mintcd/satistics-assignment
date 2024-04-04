@@ -1,0 +1,24 @@
+\begin{figure}[H]
+    \centering
+    \includegraphics[height = 15cm]{Img/Architecture.drawio.png}
+    \vspace{0.5cm}
+    \caption{Quy trình toàn hệ thống}
+\end{figure}
+Với video ghi hình trực tiếp bãi đỗ xe, thực chất là tập hợp các frame liên tiếp nhau. Việc theo dõi một xe máy vào bãi đỗ xe thực hiện như sau:
+\begin{enumerate}
+    \item Nhận diện xe máy bằng contour
+    \item Kiểm tra các bounding box nhận diện xe máy trên có đúng là xe máy hay không
+    \item Với đúng là xe máy:
+    \begin{itemize}
+        \item Nếu là xe mới: cấp ID và tạo một tracker bắt đầu theo dõi
+        \item Nếu là xe đang được theo dõi: cập nhật vị trí mới
+    \end{itemize}
+    \item Khi xe đã đỗ: tracker vào trạng thái sleep (giảm luồng tính toán của máy chủ). Đồng thời có một process sẽ theo dõi động tĩnh của các xe trong bãi đỗ
+    \item Khi phát hiện có xe máy bắt đầu chuyển động trong bãi đỗ. Tracker được đánh thức và theo dõi đến khi xe ra khỏi bãi
+\end{enumerate}
+
+Các class chính sử dụng
+\begin{itemize}
+    \item ObjectDetector
+    \item ObjectTrackers gồm các methods: khởi tạo tracker mới, update các trackers, xóa tracker.
+\end{itemize}

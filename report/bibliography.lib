@@ -1,0 +1,22 @@
+@article{Kamolov2019,
+   abstract = {It is indisputable that a great deal of brand new technologies such as the internet of things, (IoT) big data, and cloud computing are conquering every aspect of our life. So, in the branch of marine technology, the mentioned technologies are also being applied to obtain more features and to automate marine-related operations as well as creating novel smart devices. As a result of this, traditional ports and ships are being replaced by smart ports and vessels. To achieve this transition, numerous applications need to be developed to make them smart. The purpose of this paper is to present a dedicated an IoT-based system for automating linkage procedures by searching for available locations via port-mounted sensors and planned ship notification. In the experimental system, we have used smartphone as an alternative to the client-side vessel of the system and created an Android app called “Smart Ship Berthing” instead of the charging program, for instance, NORIVIS 4, VDASH, ODYSSEY, etc. To test our proposed server-side system, we used Raspberry Pi with a combination of an ultrasonic sensor to detect the ship and modify the empty berth for anchoring. The experimental results show that the set of UR sensors have high accuracy to detect ships at the port for ship berthing and our proposed system is very amenable to implementation in the real marine environment.},
+   author = {Ahmadhon Kamolov and Suhyun Park},
+   doi = {10.3390/s19235181},
+   issn = {14248220},
+   issue = {23},
+   journal = {Sensors (Switzerland)},
+   keywords = {Internet of things (IoT),Marine IT,Smart ports,Smart ship berthing,Smart ships},
+   month = {12},
+   pmid = {31779227},
+   publisher = {MDPI AG},
+   title = {An iot-based ship berthing method using a set of ultrasonic sensors},
+   volume = {19},
+   year = {2019},
+}
+
+
+@report{rp1,
+   abstract = {A problem faced in major metropolitan areas, is the search for parking space. In this paper, we proposed a novel way for automatic parking lots detection. In our approach, we first extract features by generating detection patchs and building Gaussian ground model from input video frames. Then this model is used to train an eight-calss multi-SVM classi-fier. Finally, the classfication is optimized globally via applying Markov Random Field.},
+   author = {Qi Wu and Yi Zhang},
+   title = {Parking Lots Space Detection},
+}
