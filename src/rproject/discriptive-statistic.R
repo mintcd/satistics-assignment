@@ -280,3 +280,105 @@ options(repr.plot.width = 15, repr.plot.height =8)
 ggplot(Intel_clean,aes(Recommended_Customer_Price,Cache_Size,colour=Cache_Type)) +
   geom_point() +
   labs(x="Price",y="Cache Size",title="Scatterplot of Price and Cache Size with Cache Type")
+
+#  THIS IS GPU PART
+
+All_GPUs = read.csv("All_GPUs.csv",na.strings = c("", "N/A","Unknown Release Date"))
+summary(All_GPUs)
+print(apply(is.na(All_GPUs),2,sum))
+View(All_GPUs)
+barplot(apply(!is.na(All_GPUs),2,sum))
+
+key_columns <- c("Best_Resolution", "Core_Speed", "Manufacturer", "Memory", "Memory_Bandwidth","Name", "Release_Date")
+clean_GPUs = All_GPUs[,key_columns]
+print(apply(is.na(clean_GPUs),2,sum))
+View(clean_GPUs)
+
+
+# Release date
+clean_GPUs <- clean_GPUs[!grepl("Unknown Release Date", clean_GPUs$Release_Date), ]
+clean_GPUs <- separate(clean_GPUs,Release_Date,into = c("Release_Day","Release_Month","Release_Year"),sep="-")
+clean_GPUs$Release_Year <- as.integer((clean_GPUs$Release_Year))
+month_names <- c("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec")
+clean_GPUs$Release_Month <- match(clean_GPUs$Release_Month, month_names)
+clean_GPUs$Release_Day <- as.integer((clean_GPUs$Release_Day))
+
+year_counts <- table(clean_GPUs$Release_Year)
+months_counts <- table(clean_GPUs$Release_Month)
+View(year_counts)
+
+# Manufacturers
+
+freq <- table(clean_GPUs$Manufacturer, clean_GPUs$Release_Year)
+total_count <- colSums(freq)
+percentage <- prop.table(freq, margin = 2) * 100
+View(total_count)
+View(percentage)
+
+# Memory
+clean_GPUs$Memory <- as.integer(gsub(" MB","",clean_GPUs$Memory))
+clean_GPUs$Memory[is.na(clean_GPUs$Memory)] <- 0
+
+to_GBs <-function(a){
+  if (grepl('GB/s',a)) {
+    return (as.double(gsub("GB/sec","",a)))
+  }
+  return (as.double(gsub("MB/sec","",a))/1024)
+}
+clean_GPUs$Memory_Bandwidth <- sapply(clean_GPUs$Memory_Bandwidth,to_GBs)
+clean_GPUs$Memory_Bandwidth[is.na(clean_GPUs$Memory_Bandwidth)] <- 0
+
+memory_summary <- clean_GPUs %>%
+  group_by(Release_Year) %>%
+  summarise(mean_memory = mean(Memory),
+            median_memory = median(Memory))
+
+
+
+barplot(percentage,
+        legend.text = TRUE,
+        main = "Market Share Percentage by Year",
+        xlab = "Year",
+        ylab = "Percentage",
+        col = c("skyblue", "salmon", "lightgreen", "yellow", "purple", "orange", "cyan", "pink"),
+        border = "black")
+
+
+barplot(year_counts,
+        main = "Counts of Each Year", 
+        xlab = "Year", 
+        ylab = "Count",
+        col = "steelblue",
+        border = "black")
+
+scatter_plot <- ggplot(clean_GPUs, aes(x = Release_Year + Release_Month/12, y = Memory, color = Manufacturer)) +
+  geom_point() +
+  labs(x = "Year", y = "GPU Memory", title = "Scatter Plot of GPU Memory vs Year") +
+  theme_minimal()
+print(scatter_plot)
+
+line_plot <- ggplot(memory_summary, aes(x = Release_Year)) +
+  geom_line(aes(y = mean_memory, color = "Mean")) +
+  geom_line(aes(y = median_memory, color = "Median")) +
+  scale_color_manual(values = c("Mean" = "blue", "Median" = "red")) +
+  labs(x = "Year", y = "Memory", title = "Mean and Median Memory by Year") +
+  theme_minimal()
+print(line_plot)
+
+moore_law <- data.frame(
+  Release_Year = seq(min(memory_summary$Release_Year), max(memory_summary$Release_Year), 1),
+  Memory = 2^(0.5 * (seq(min(memory_summary$Release_Year), max(memory_summary$Release_Year), 1) - min(memory_summary$Release_Year - 8)))
+)
+
+memory_summary$log_mean_memory <- log(memory_summary$mean_memory)
+memory_summary$log_median_memory <- log(memory_summary$median_memory)
+
+line_plot <- ggplot(memory_summary, aes(x = Release_Year)) +
+  geom_line(aes(y = log_mean_memory, color = "Log Mean"), size = 1.1) +
+  geom_line(aes(y = log_median_memory, color = "Log Median"), size = 1.1) +
+  geom_line(data = moore_law, aes(y = log(Memory), color = "Moore's Law"), size = 1.1) +
+  scale_color_manual(values = c("Log Mean" = "blue", "Log Median" = "red", "Moore's Law" = "green4")) +
+  labs(x = "Year", y = "Log Memory", title = "Log of Mean and Median Memory by Year") +
+  theme_minimal()
+
+print(line_plot)
