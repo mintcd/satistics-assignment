@@ -9,3 +9,13 @@ extract_tier_and_generation <- function(product_collection) {
   result <- list(tier = tier, generation = generation)
   return(result)
 }
+
+is_valid <- function(value) {
+  return(!is.na(value)
+         & !is.null(value)
+         & !value == ""
+         & !value == "N/A"
+         & !value == "missing"
+         & !value == "unknown")
+  # Add your criteria
+}

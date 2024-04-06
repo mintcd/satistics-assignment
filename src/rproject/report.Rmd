@@ -1,0 +1,80 @@
+---
+title: "Probability and Statistics"
+subtitle: "The Evolution of Computer Processors: A statistic on Common Properties"
+author: "Chau Dang Minh - 2013748 <br> Provide your name guys"
+output: 
+  # pdf_document: default
+  html_document: default
+---
+
+```{r message=FALSE}
+# Libraries and options
+library(dplyr)
+library(here)
+library(knitr)
+library(kableExtra)
+
+# Self-defined functions
+source("utils.R")
+
+# Working directory
+setwd(here())
+```
+
+# Dataset inspection
+
+```{r}
+# Read the CSV file into a data frame
+cpu_data <- read.csv("dataset/Intel_CPUs.csv")
+gpu_data <- read.csv("dataset/All_GPUs.csv")
+```
+
+Get the formatted first rows of the data
+
+```{r}
+# Inspect the CPU data
+kable(head(cpu_data), format = "html") %>%
+  kable_styling()
+```
+
+Take a look at the columns.
+
+```{r}
+cpu_columns <- colnames(cpu_data)
+cpu_columns
+```
+
+```{r}
+cpu_collections <- unique(cpu_data$Product_Collection)
+length(cpu_collections)
+```
+
+There are 75 distinct values of <code>Product_Collection</code>. We will find out the key of this data.
+
+```{r}
+difference <- nrow(cpu_data) - nrow(unique(cpu_data[, c("Product_Collection", "Vertical_Segment", "Processor_Number", "Launch_Date")]))
+difference
+```
+
+Let us check that the key of this data is the tuple <code>(Product_Collection, Processor_Number)</code>.
+
+# Statistics
+
+## How $\texttt{Recommended_Customer_Price}$ depends on other manufacturing properties
+
+-   Filter out instances with no $\texttt{Recommended_Customer_Price}$
+-   Choose concerned properties
+
+```{r}
+price_available_cpu_data <- 
+  cpu_data[grepl("^\\$", cpu_data$Recommended_Customer_Price), ]
+
+price_available_cpu_data_chosen_columns <- price_available_cpu_data[, c("Recommended_Customer_Price", 
+  "nb_of_Cores", 
+  "nb_of_Threads", 
+  "Processor_Base_Frequency",
+  "Bus_Speed")]
+filtered_price_available_cpu_data_chosen_columns <- 
+  price_available_cpu_data_chosen_columns[
+    apply(price_available_cpu_data_chosen_columns, 1, function(row) !any(row == "" & is.na(row))), ]
+```
