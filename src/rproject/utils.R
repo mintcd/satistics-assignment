@@ -1,3 +1,5 @@
+# Reusable functions
+
 extract_tier_and_generation <- function(product_collection) {
   # Splitting the product_collection string by spaces
   product_info <- strsplit(product_collection, " ")[[1]]
