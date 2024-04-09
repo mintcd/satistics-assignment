@@ -1550,9 +1550,738 @@ Yes
 </tr>
 </tbody>
 </table>
+<pre class="r"><code>kable(head(gpu_data), format = &quot;html&quot;) %&gt;%
+  kable_styling()</code></pre>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Architecture
+</th>
+<th style="text-align:left;">
+Best_Resolution
+</th>
+<th style="text-align:left;">
+Boost_Clock
+</th>
+<th style="text-align:left;">
+Core_Speed
+</th>
+<th style="text-align:right;">
+DVI_Connection
+</th>
+<th style="text-align:left;">
+Dedicated
+</th>
+<th style="text-align:left;">
+Direct_X
+</th>
+<th style="text-align:right;">
+DisplayPort_Connection
+</th>
+<th style="text-align:right;">
+HDMI_Connection
+</th>
+<th style="text-align:left;">
+Integrated
+</th>
+<th style="text-align:left;">
+L2_Cache
+</th>
+<th style="text-align:left;">
+Manufacturer
+</th>
+<th style="text-align:left;">
+Max_Power
+</th>
+<th style="text-align:left;">
+Memory
+</th>
+<th style="text-align:left;">
+Memory_Bandwidth
+</th>
+<th style="text-align:left;">
+Memory_Bus
+</th>
+<th style="text-align:left;">
+Memory_Speed
+</th>
+<th style="text-align:left;">
+Memory_Type
+</th>
+<th style="text-align:left;">
+Name
+</th>
+<th style="text-align:left;">
+Notebook_GPU
+</th>
+<th style="text-align:right;">
+Open_GL
+</th>
+<th style="text-align:left;">
+PSU
+</th>
+<th style="text-align:left;">
+Pixel_Rate
+</th>
+<th style="text-align:left;">
+Power_Connector
+</th>
+<th style="text-align:left;">
+Process
+</th>
+<th style="text-align:left;">
+ROPs
+</th>
+<th style="text-align:left;">
+Release_Date
+</th>
+<th style="text-align:left;">
+Release_Price
+</th>
+<th style="text-align:left;">
+Resolution_WxH
+</th>
+<th style="text-align:left;">
+SLI_Crossfire
+</th>
+<th style="text-align:right;">
+Shader
+</th>
+<th style="text-align:right;">
+TMUs
+</th>
+<th style="text-align:left;">
+Texture_Rate
+</th>
+<th style="text-align:right;">
+VGA_Connection
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Tesla G92b
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+738 MHz
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+DX 10.0
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+0KB
+</td>
+<td style="text-align:left;">
+Nvidia
+</td>
+<td style="text-align:left;">
+141 Watts
+</td>
+<td style="text-align:left;">
+1024 MB
+</td>
+<td style="text-align:left;">
+64GB/sec
+</td>
+<td style="text-align:left;">
+256 Bit
+</td>
+<td style="text-align:left;">
+1000 MHz
+</td>
+<td style="text-align:left;">
+GDDR3
+</td>
+<td style="text-align:left;">
+GeForce GTS 150
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:right;">
+3.3
+</td>
+<td style="text-align:left;">
+450 Watt &amp; 38 Amps
+</td>
+<td style="text-align:left;">
+12 GPixel/s
+</td>
+<td style="text-align:left;">
+None
+</td>
+<td style="text-align:left;">
+55nm
+</td>
+<td style="text-align:left;">
+16
+</td>
+<td style="text-align:left;">
+01-Mar-2009
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+2560x1600
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+64
+</td>
+<td style="text-align:left;">
+47 GTexel/s
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R600 XT
+</td>
+<td style="text-align:left;">
+1366 x 768
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+DX 10
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+0KB
+</td>
+<td style="text-align:left;">
+AMD
+</td>
+<td style="text-align:left;">
+215 Watts
+</td>
+<td style="text-align:left;">
+512 MB
+</td>
+<td style="text-align:left;">
+106GB/sec
+</td>
+<td style="text-align:left;">
+512 Bit
+</td>
+<td style="text-align:left;">
+828 MHz
+</td>
+<td style="text-align:left;">
+GDDR3
+</td>
+<td style="text-align:left;">
+Radeon HD 2900 XT 512MB
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:right;">
+3.1
+</td>
+<td style="text-align:left;">
+550 Watt &amp; 35 Amps
+</td>
+<td style="text-align:left;">
+12 GPixel/s
+</td>
+<td style="text-align:left;">
+None
+</td>
+<td style="text-align:left;">
+80nm
+</td>
+<td style="text-align:left;">
+16
+</td>
+<td style="text-align:left;">
+14-May-2007
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+2560x1600
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:left;">
+12 GTexel/s
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R600 PRO
+</td>
+<td style="text-align:left;">
+1366 x 768
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+DX 10
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+0KB
+</td>
+<td style="text-align:left;">
+AMD
+</td>
+<td style="text-align:left;">
+200 Watts
+</td>
+<td style="text-align:left;">
+512 MB
+</td>
+<td style="text-align:left;">
+51.2GB/sec
+</td>
+<td style="text-align:left;">
+256 Bit
+</td>
+<td style="text-align:left;">
+800 MHz
+</td>
+<td style="text-align:left;">
+GDDR3
+</td>
+<td style="text-align:left;">
+Radeon HD 2900 Pro
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:right;">
+3.1
+</td>
+<td style="text-align:left;">
+550 Watt &amp; 35 Amps
+</td>
+<td style="text-align:left;">
+10 GPixel/s
+</td>
+<td style="text-align:left;">
+None
+</td>
+<td style="text-align:left;">
+80nm
+</td>
+<td style="text-align:left;">
+16
+</td>
+<td style="text-align:left;">
+07-Dec-2007
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+2560x1600
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:left;">
+10 GTexel/s
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RV630
+</td>
+<td style="text-align:left;">
+1024 x 768
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+DX 10
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+0KB
+</td>
+<td style="text-align:left;">
+AMD
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+256 MB
+</td>
+<td style="text-align:left;">
+36.8GB/sec
+</td>
+<td style="text-align:left;">
+128 Bit
+</td>
+<td style="text-align:left;">
+1150 MHz
+</td>
+<td style="text-align:left;">
+GDDR4
+</td>
+<td style="text-align:left;">
+Radeon HD 2600 XT Diamond Edition
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:right;">
+3.3
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+3 GPixel/s
+</td>
+<td style="text-align:left;">
+None
+</td>
+<td style="text-align:left;">
+65nm
+</td>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:left;">
+01-Jul-2007
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+2560x1600
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:left;">
+7 GTexel/s
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RV630
+</td>
+<td style="text-align:left;">
+1024 x 768
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+DX 10
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+0KB
+</td>
+<td style="text-align:left;">
+AMD
+</td>
+<td style="text-align:left;">
+45 Watts
+</td>
+<td style="text-align:left;">
+256 MB
+</td>
+<td style="text-align:left;">
+22.4GB/sec
+</td>
+<td style="text-align:left;">
+128 Bit
+</td>
+<td style="text-align:left;">
+700 MHz
+</td>
+<td style="text-align:left;">
+GDDR3
+</td>
+<td style="text-align:left;">
+Radeon HD 2600 XT
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:right;">
+3.1
+</td>
+<td style="text-align:left;">
+400 Watt &amp; 25 Amps
+</td>
+<td style="text-align:left;">
+3 GPixel/s
+</td>
+<td style="text-align:left;">
+None
+</td>
+<td style="text-align:left;">
+65nm
+</td>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:left;">
+28-Jun-2007
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+2560x1600
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:left;">
+6 GTexel/s
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RV630
+</td>
+<td style="text-align:left;">
+1024 x 768
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+DX 10
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+0KB
+</td>
+<td style="text-align:left;">
+AMD
+</td>
+<td style="text-align:left;">
+50 Watts
+</td>
+<td style="text-align:left;">
+256 MB
+</td>
+<td style="text-align:left;">
+35.2GB/sec
+</td>
+<td style="text-align:left;">
+128 Bit
+</td>
+<td style="text-align:left;">
+1100 MHz
+</td>
+<td style="text-align:left;">
+GDDR4
+</td>
+<td style="text-align:left;">
+Radeon HD 2600 XT 256MB GDDR4
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:right;">
+3.3
+</td>
+<td style="text-align:left;">
+400 Watt &amp; 26 Amps
+</td>
+<td style="text-align:left;">
+3 GPixel/s
+</td>
+<td style="text-align:left;">
+None
+</td>
+<td style="text-align:left;">
+65nm
+</td>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:left;">
+26-Jun-2007
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+2560x1600
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:left;">
+6 GTexel/s
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
 <p>Take a look at the columns.</p>
 <pre class="r"><code>cpu_columns &lt;- colnames(cpu_data)
-cpu_columns</code></pre>
+gpu_columns &lt;- colnames(gpu_data)
+intersect(cpu_columns, gpu_columns)</code></pre>
+<pre><code>## character(0)</code></pre>
+<pre class="r"><code>cpu_columns</code></pre>
 <pre><code>##  [1] &quot;Product_Collection&quot;                      
 ##  [2] &quot;Vertical_Segment&quot;                        
 ##  [3] &quot;Processor_Number&quot;                        
@@ -1598,6 +2327,21 @@ cpu_columns</code></pre>
 ## [43] &quot;Thermal_Monitoring_Technologies&quot;         
 ## [44] &quot;Secure_Key&quot;                              
 ## [45] &quot;Execute_Disable_Bit&quot;</code></pre>
+<pre class="r"><code>gpu_columns</code></pre>
+<pre><code>##  [1] &quot;Architecture&quot;           &quot;Best_Resolution&quot;        &quot;Boost_Clock&quot;           
+##  [4] &quot;Core_Speed&quot;             &quot;DVI_Connection&quot;         &quot;Dedicated&quot;             
+##  [7] &quot;Direct_X&quot;               &quot;DisplayPort_Connection&quot; &quot;HDMI_Connection&quot;       
+## [10] &quot;Integrated&quot;             &quot;L2_Cache&quot;               &quot;Manufacturer&quot;          
+## [13] &quot;Max_Power&quot;              &quot;Memory&quot;                 &quot;Memory_Bandwidth&quot;      
+## [16] &quot;Memory_Bus&quot;             &quot;Memory_Speed&quot;           &quot;Memory_Type&quot;           
+## [19] &quot;Name&quot;                   &quot;Notebook_GPU&quot;           &quot;Open_GL&quot;               
+## [22] &quot;PSU&quot;                    &quot;Pixel_Rate&quot;             &quot;Power_Connector&quot;       
+## [25] &quot;Process&quot;                &quot;ROPs&quot;                   &quot;Release_Date&quot;          
+## [28] &quot;Release_Price&quot;          &quot;Resolution_WxH&quot;         &quot;SLI_Crossfire&quot;         
+## [31] &quot;Shader&quot;                 &quot;TMUs&quot;                   &quot;Texture_Rate&quot;          
+## [34] &quot;VGA_Connection&quot;</code></pre>
+<pre class="r"><code>length(unique(gpu_data$Architecture))</code></pre>
+<pre><code>## [1] 705</code></pre>
 <pre class="r"><code>cpu_collections &lt;- unique(cpu_data$Product_Collection)
 length(cpu_collections)</code></pre>
 <pre><code>## [1] 75</code></pre>
@@ -1618,17 +2362,1463 @@ depends on other manufacturing properties</h2>
 <li>Filter out instances with no <span class="math inline">\(\texttt{Recommended_Customer_Price}\)</span></li>
 <li>Choose concerned properties</li>
 </ul>
-<pre class="r"><code>price_available_cpu_data &lt;- 
-  cpu_data[grepl(&quot;^\\$&quot;, cpu_data$Recommended_Customer_Price), ]
+<pre class="r"><code>filtered_cpu_data &lt;- filtered_data(cpu_data, 0.4)
 
-price_available_cpu_data_chosen_columns &lt;- price_available_cpu_data[, c(&quot;Recommended_Customer_Price&quot;, 
-  &quot;nb_of_Cores&quot;, 
-  &quot;nb_of_Threads&quot;, 
-  &quot;Processor_Base_Frequency&quot;,
-  &quot;Bus_Speed&quot;)]
-filtered_price_available_cpu_data_chosen_columns &lt;- 
-  price_available_cpu_data_chosen_columns[
-    apply(price_available_cpu_data_chosen_columns, 1, function(row) !any(row == &quot;&quot; &amp; is.na(row))), ]</code></pre>
+processed_cpu_data &lt;- 
+  filtered_cpu_data[
+    apply(filtered_cpu_data, 1, function(row) all(sapply(row, is_valid))), ]
+
+selected_cpu_data &lt;- processed_cpu_data
+
+# Adjust selected columns for your later needs
+
+kable(head(selected_cpu_data), format = &quot;html&quot;) %&gt;%
+  kable_styling()</code></pre>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+Product_Collection
+</th>
+<th style="text-align:left;">
+Vertical_Segment
+</th>
+<th style="text-align:left;">
+Processor_Number
+</th>
+<th style="text-align:left;">
+Status
+</th>
+<th style="text-align:left;">
+Launch_Date
+</th>
+<th style="text-align:left;">
+Lithography
+</th>
+<th style="text-align:left;">
+Recommended_Customer_Price
+</th>
+<th style="text-align:right;">
+nb_of_Cores
+</th>
+<th style="text-align:right;">
+nb_of_Threads
+</th>
+<th style="text-align:left;">
+Processor_Base_Frequency
+</th>
+<th style="text-align:left;">
+Max_Turbo_Frequency
+</th>
+<th style="text-align:left;">
+Cache
+</th>
+<th style="text-align:left;">
+Bus_Speed
+</th>
+<th style="text-align:left;">
+TDP
+</th>
+<th style="text-align:left;">
+Embedded_Options_Available
+</th>
+<th style="text-align:left;">
+Conflict_Free
+</th>
+<th style="text-align:left;">
+Max_Memory_Size
+</th>
+<th style="text-align:left;">
+Memory_Types
+</th>
+<th style="text-align:right;">
+Max_nb_of_Memory_Channels
+</th>
+<th style="text-align:left;">
+Max_Memory_Bandwidth
+</th>
+<th style="text-align:left;">
+ECC_Memory_Supported
+</th>
+<th style="text-align:left;">
+PCI_Express_Revision
+</th>
+<th style="text-align:left;">
+PCI_Express_Configurations_
+</th>
+<th style="text-align:right;">
+Max_nb_of_PCI_Express_Lanes
+</th>
+<th style="text-align:left;">
+T
+</th>
+<th style="text-align:left;">
+Intel_Hyper_Threading_Technology_
+</th>
+<th style="text-align:left;">
+Intel_Virtualization_Technology_VTx_
+</th>
+<th style="text-align:left;">
+Intel_64_
+</th>
+<th style="text-align:left;">
+Instruction_Set
+</th>
+<th style="text-align:left;">
+Instruction_Set_Extensions
+</th>
+<th style="text-align:left;">
+Idle_States
+</th>
+<th style="text-align:left;">
+Thermal_Monitoring_Technologies
+</th>
+<th style="text-align:left;">
+Execute_Disable_Bit
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+7th Generation Intel® Core™ i7 Processors
+</td>
+<td style="text-align:left;">
+Mobile
+</td>
+<td style="text-align:left;">
+i7-7Y75
+</td>
+<td style="text-align:left;">
+Launched
+</td>
+<td style="text-align:left;">
+Q3’16
+</td>
+<td style="text-align:left;">
+14 nm
+</td>
+<td style="text-align:left;">
+$393.00
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+1.30 GHz
+</td>
+<td style="text-align:left;">
+3.60 GHz
+</td>
+<td style="text-align:left;">
+4 MB SmartCache
+</td>
+<td style="text-align:left;">
+4 GT/s OPI
+</td>
+<td style="text-align:left;">
+4.5 W
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+16 GB
+</td>
+<td style="text-align:left;">
+LPDDR3-1866, DDR3L-1600
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+29.8 GB/s
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+1x4, 2x2, 1x2+2x1 and 4x1
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+100°C
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+64-bit
+</td>
+<td style="text-align:left;">
+SSE4.1/4.2, AVX 2.0
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+8th Generation Intel® Core™ i5 Processors
+</td>
+<td style="text-align:left;">
+Mobile
+</td>
+<td style="text-align:left;">
+i5-8250U
+</td>
+<td style="text-align:left;">
+Launched
+</td>
+<td style="text-align:left;">
+Q3’17
+</td>
+<td style="text-align:left;">
+14 nm
+</td>
+<td style="text-align:left;">
+$297.00
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:left;">
+1.60 GHz
+</td>
+<td style="text-align:left;">
+3.40 GHz
+</td>
+<td style="text-align:left;">
+6 MB SmartCache
+</td>
+<td style="text-align:left;">
+4 GT/s OPI
+</td>
+<td style="text-align:left;">
+15 W
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+32 GB
+</td>
+<td style="text-align:left;">
+DDR4-2400, LPDDR3-2133
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+34.1 GB/s
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+1x4, 2x2, 1x2+2x1 and 4x1
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:left;">
+100°C
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+64-bit
+</td>
+<td style="text-align:left;">
+SSE4.1/4.2, AVX 2.0
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+8th Generation Intel® Core™ i7 Processors
+</td>
+<td style="text-align:left;">
+Mobile
+</td>
+<td style="text-align:left;">
+i7-8550U
+</td>
+<td style="text-align:left;">
+Launched
+</td>
+<td style="text-align:left;">
+Q3’17
+</td>
+<td style="text-align:left;">
+14 nm
+</td>
+<td style="text-align:left;">
+$409.00
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:left;">
+1.80 GHz
+</td>
+<td style="text-align:left;">
+4.00 GHz
+</td>
+<td style="text-align:left;">
+8 MB SmartCache
+</td>
+<td style="text-align:left;">
+4 GT/s OPI
+</td>
+<td style="text-align:left;">
+15 W
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+32 GB
+</td>
+<td style="text-align:left;">
+DDR4-2400, LPDDR3-2133
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+34.1 GB/s
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+1x4, 2x2, 1x2+2x1 and 4x1
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:left;">
+100°C
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+64-bit
+</td>
+<td style="text-align:left;">
+SSE4.1/4.2, AVX 2.0
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:left;">
+7th Generation Intel® Core™ i5 Processors
+</td>
+<td style="text-align:left;">
+Mobile
+</td>
+<td style="text-align:left;">
+i5-7Y57
+</td>
+<td style="text-align:left;">
+Launched
+</td>
+<td style="text-align:left;">
+Q1’17
+</td>
+<td style="text-align:left;">
+14 nm
+</td>
+<td style="text-align:left;">
+$281.00
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+1.20 GHz
+</td>
+<td style="text-align:left;">
+3.30 GHz
+</td>
+<td style="text-align:left;">
+4 MB SmartCache
+</td>
+<td style="text-align:left;">
+4 GT/s OPI
+</td>
+<td style="text-align:left;">
+4.5 W
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+16 GB
+</td>
+<td style="text-align:left;">
+LPDDR3-1866, DDR3L-1600
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+29.8 GB/s
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+1x4, 2x2, 1x2+2x1 and 4x1
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+100°C
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+64-bit
+</td>
+<td style="text-align:left;">
+SSE4.1/4.2, AVX 2.0
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+423
+</td>
+<td style="text-align:left;">
+7th Generation Intel® Core™ i5 Processors
+</td>
+<td style="text-align:left;">
+Mobile
+</td>
+<td style="text-align:left;">
+i5-7Y54
+</td>
+<td style="text-align:left;">
+Launched
+</td>
+<td style="text-align:left;">
+Q3’16
+</td>
+<td style="text-align:left;">
+14 nm
+</td>
+<td style="text-align:left;">
+$281.00
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+1.20 GHz
+</td>
+<td style="text-align:left;">
+3.20 GHz
+</td>
+<td style="text-align:left;">
+4 MB SmartCache
+</td>
+<td style="text-align:left;">
+4 GT/s OPI
+</td>
+<td style="text-align:left;">
+4.5 W
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+16 GB
+</td>
+<td style="text-align:left;">
+LPDDR3-1866, DDR3L-1600
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+29.8 GB/s
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+1x4, 2x2, 1x2+2x1 and 4x1
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:left;">
+100°C
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+64-bit
+</td>
+<td style="text-align:left;">
+SSE4.1/4.2, AVX 2.0
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+424
+</td>
+<td style="text-align:left;">
+7th Generation Intel® Core™ i5 Processors
+</td>
+<td style="text-align:left;">
+Mobile
+</td>
+<td style="text-align:left;">
+i5-7200U
+</td>
+<td style="text-align:left;">
+Launched
+</td>
+<td style="text-align:left;">
+Q3’16
+</td>
+<td style="text-align:left;">
+14 nm
+</td>
+<td style="text-align:left;">
+$281.00
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+2.50 GHz
+</td>
+<td style="text-align:left;">
+3.10 GHz
+</td>
+<td style="text-align:left;">
+3 MB SmartCache
+</td>
+<td style="text-align:left;">
+4 GT/s OPI
+</td>
+<td style="text-align:left;">
+15 W
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+32 GB
+</td>
+<td style="text-align:left;">
+DDR4-2133, LPDDR3-1866, DDR3L-1600
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+34.1 GB/s
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+1x4, 2x2, 1x2+2x1 and 4x1
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:left;">
+100°C
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+64-bit
+</td>
+<td style="text-align:left;">
+SSE4.1/4.2, AVX 2.0
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>filtered_gpu_data &lt;- filtered_data(gpu_data, 0.4)
+
+processed_gpu_data &lt;- 
+  filtered_gpu_data[
+    apply(filtered_cpu_data, 1, function(row) all(sapply(row, is_valid))), ]
+
+selected_gpu_data &lt;- processed_gpu_data
+
+# Adjust selected columns for your later needs
+
+kable(head(selected_gpu_data), format = &quot;html&quot;) %&gt;%
+  kable_styling()</code></pre>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+Architecture
+</th>
+<th style="text-align:left;">
+Best_Resolution
+</th>
+<th style="text-align:left;">
+Boost_Clock
+</th>
+<th style="text-align:left;">
+Core_Speed
+</th>
+<th style="text-align:right;">
+DVI_Connection
+</th>
+<th style="text-align:left;">
+Dedicated
+</th>
+<th style="text-align:left;">
+Direct_X
+</th>
+<th style="text-align:right;">
+HDMI_Connection
+</th>
+<th style="text-align:left;">
+Integrated
+</th>
+<th style="text-align:left;">
+L2_Cache
+</th>
+<th style="text-align:left;">
+Manufacturer
+</th>
+<th style="text-align:left;">
+Max_Power
+</th>
+<th style="text-align:left;">
+Memory
+</th>
+<th style="text-align:left;">
+Memory_Bandwidth
+</th>
+<th style="text-align:left;">
+Memory_Bus
+</th>
+<th style="text-align:left;">
+Memory_Speed
+</th>
+<th style="text-align:left;">
+Memory_Type
+</th>
+<th style="text-align:left;">
+Name
+</th>
+<th style="text-align:left;">
+Notebook_GPU
+</th>
+<th style="text-align:right;">
+Open_GL
+</th>
+<th style="text-align:left;">
+PSU
+</th>
+<th style="text-align:left;">
+Pixel_Rate
+</th>
+<th style="text-align:left;">
+Power_Connector
+</th>
+<th style="text-align:left;">
+Process
+</th>
+<th style="text-align:left;">
+ROPs
+</th>
+<th style="text-align:left;">
+Release_Date
+</th>
+<th style="text-align:left;">
+Resolution_WxH
+</th>
+<th style="text-align:left;">
+SLI_Crossfire
+</th>
+<th style="text-align:right;">
+Shader
+</th>
+<th style="text-align:right;">
+TMUs
+</th>
+<th style="text-align:left;">
+Texture_Rate
+</th>
+<th style="text-align:right;">
+VGA_Connection
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+Tesla G92b
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+738 MHz
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+DX 10.0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+0KB
+</td>
+<td style="text-align:left;">
+Nvidia
+</td>
+<td style="text-align:left;">
+141 Watts
+</td>
+<td style="text-align:left;">
+1024 MB
+</td>
+<td style="text-align:left;">
+64GB/sec
+</td>
+<td style="text-align:left;">
+256 Bit
+</td>
+<td style="text-align:left;">
+1000 MHz
+</td>
+<td style="text-align:left;">
+GDDR3
+</td>
+<td style="text-align:left;">
+GeForce GTS 150
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:right;">
+3.3
+</td>
+<td style="text-align:left;">
+450 Watt &amp; 38 Amps
+</td>
+<td style="text-align:left;">
+12 GPixel/s
+</td>
+<td style="text-align:left;">
+None
+</td>
+<td style="text-align:left;">
+55nm
+</td>
+<td style="text-align:left;">
+16
+</td>
+<td style="text-align:left;">
+01-Mar-2009
+</td>
+<td style="text-align:left;">
+2560x1600
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:right;">
+4.0
+</td>
+<td style="text-align:right;">
+64
+</td>
+<td style="text-align:left;">
+47 GTexel/s
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+R600 XT
+</td>
+<td style="text-align:left;">
+1366 x 768
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+DX 10
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+0KB
+</td>
+<td style="text-align:left;">
+AMD
+</td>
+<td style="text-align:left;">
+215 Watts
+</td>
+<td style="text-align:left;">
+512 MB
+</td>
+<td style="text-align:left;">
+106GB/sec
+</td>
+<td style="text-align:left;">
+512 Bit
+</td>
+<td style="text-align:left;">
+828 MHz
+</td>
+<td style="text-align:left;">
+GDDR3
+</td>
+<td style="text-align:left;">
+Radeon HD 2900 XT 512MB
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:right;">
+3.1
+</td>
+<td style="text-align:left;">
+550 Watt &amp; 35 Amps
+</td>
+<td style="text-align:left;">
+12 GPixel/s
+</td>
+<td style="text-align:left;">
+None
+</td>
+<td style="text-align:left;">
+80nm
+</td>
+<td style="text-align:left;">
+16
+</td>
+<td style="text-align:left;">
+14-May-2007
+</td>
+<td style="text-align:left;">
+2560x1600
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:right;">
+4.0
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:left;">
+12 GTexel/s
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+R600 PRO
+</td>
+<td style="text-align:left;">
+1366 x 768
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+DX 10
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+0KB
+</td>
+<td style="text-align:left;">
+AMD
+</td>
+<td style="text-align:left;">
+200 Watts
+</td>
+<td style="text-align:left;">
+512 MB
+</td>
+<td style="text-align:left;">
+51.2GB/sec
+</td>
+<td style="text-align:left;">
+256 Bit
+</td>
+<td style="text-align:left;">
+800 MHz
+</td>
+<td style="text-align:left;">
+GDDR3
+</td>
+<td style="text-align:left;">
+Radeon HD 2900 Pro
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:right;">
+3.1
+</td>
+<td style="text-align:left;">
+550 Watt &amp; 35 Amps
+</td>
+<td style="text-align:left;">
+10 GPixel/s
+</td>
+<td style="text-align:left;">
+None
+</td>
+<td style="text-align:left;">
+80nm
+</td>
+<td style="text-align:left;">
+16
+</td>
+<td style="text-align:left;">
+07-Dec-2007
+</td>
+<td style="text-align:left;">
+2560x1600
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:right;">
+4.0
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:left;">
+10 GTexel/s
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:left;">
+RV630
+</td>
+<td style="text-align:left;">
+1024 x 768
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+DX 10
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+0KB
+</td>
+<td style="text-align:left;">
+AMD
+</td>
+<td style="text-align:left;">
+45 Watts
+</td>
+<td style="text-align:left;">
+256 MB
+</td>
+<td style="text-align:left;">
+22.4GB/sec
+</td>
+<td style="text-align:left;">
+128 Bit
+</td>
+<td style="text-align:left;">
+700 MHz
+</td>
+<td style="text-align:left;">
+GDDR3
+</td>
+<td style="text-align:left;">
+Radeon HD 2600 XT
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:right;">
+3.1
+</td>
+<td style="text-align:left;">
+400 Watt &amp; 25 Amps
+</td>
+<td style="text-align:left;">
+3 GPixel/s
+</td>
+<td style="text-align:left;">
+None
+</td>
+<td style="text-align:left;">
+65nm
+</td>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:left;">
+28-Jun-2007
+</td>
+<td style="text-align:left;">
+2560x1600
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:right;">
+4.0
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:left;">
+6 GTexel/s
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+423
+</td>
+<td style="text-align:left;">
+Sandy Bridge
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+DX 10.1
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+0KB
+</td>
+<td style="text-align:left;">
+Intel
+</td>
+<td style="text-align:left;">
+35 Watts
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+21.3GB/sec
+</td>
+<td style="text-align:left;">
+128 Bit
+</td>
+<td style="text-align:left;">
+667 MHz
+</td>
+<td style="text-align:left;">
+DDR3
+</td>
+<td style="text-align:left;">
+HD i5 2410M
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:right;">
+3.1
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+30-Mar-2011
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:right;">
+4.1
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+424
+</td>
+<td style="text-align:left;">
+Arrandale
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+DX 10
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+0KB
+</td>
+<td style="text-align:left;">
+Intel
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+17.1GB/sec
+</td>
+<td style="text-align:left;">
+128 Bit
+</td>
+<td style="text-align:left;">
+533 MHz
+</td>
+<td style="text-align:left;">
+DDR3
+</td>
+<td style="text-align:left;">
+HD i3 M390
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:right;">
+2.1
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+30-Mar-2010
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:right;">
+4.0
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+</tbody>
+</table></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<pre class="r"><code>colnames(selected_gpu_data)</code></pre>
+<pre><code>##  [1] &quot;Architecture&quot;     &quot;Best_Resolution&quot;  &quot;Boost_Clock&quot;      &quot;Core_Speed&quot;      
+##  [5] &quot;DVI_Connection&quot;   &quot;Dedicated&quot;        &quot;Direct_X&quot;         &quot;HDMI_Connection&quot; 
+##  [9] &quot;Integrated&quot;       &quot;L2_Cache&quot;         &quot;Manufacturer&quot;     &quot;Max_Power&quot;       
+## [13] &quot;Memory&quot;           &quot;Memory_Bandwidth&quot; &quot;Memory_Bus&quot;       &quot;Memory_Speed&quot;    
+## [17] &quot;Memory_Type&quot;      &quot;Name&quot;             &quot;Notebook_GPU&quot;     &quot;Open_GL&quot;         
+## [21] &quot;PSU&quot;              &quot;Pixel_Rate&quot;       &quot;Power_Connector&quot;  &quot;Process&quot;         
+## [25] &quot;ROPs&quot;             &quot;Release_Date&quot;     &quot;Resolution_WxH&quot;   &quot;SLI_Crossfire&quot;   
+## [29] &quot;Shader&quot;           &quot;TMUs&quot;             &quot;Texture_Rate&quot;     &quot;VGA_Connection&quot;</code></pre>
 </div>
 </div>
 

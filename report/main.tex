@@ -60,12 +60,12 @@
 \usepackage[normalem]{ulem}
 
 \def\thesislayout{
-	\geometry{
-		a4paper,
-		total={160mm,240mm}, 
-		left=30mm,
-		top=30mm,
-	}
+    \geometry{
+        a4paper,
+        total={160mm,240mm}, 
+        left=30mm,
+        top=30mm,
+    }
 }
 \thesislayout
 
@@ -77,19 +77,19 @@
     \begin{picture}(25,15)(0,0)
     \put(0,-8){\includegraphics[width=8mm, height=8mm]{hcmut.png}}
    \end{picture}&
-	\begin{tabular}{l}
-		\textbf{\bf \ttfamily Ho Chi Minh City University of Technology}\\
-	\end{tabular} 	
+    \begin{tabular}{l}
+        \textbf{\bf \ttfamily Ho Chi Minh City University of Technology}\\
+    \end{tabular}     
  \end{tabular}
 }
 \fancyhead[R]{
-	\begin{tabular}{l}
-		\tiny \bf \\
-		\tiny \bf 
-	\end{tabular}  }
+    \begin{tabular}{l}
+        \tiny \bf \\
+        \tiny \bf 
+    \end{tabular}  }
 \fancyfoot{} % clear all footer fields
-\fancyfoot[L]{\scriptsize \ttfamily Đồ án đa ngành - hướng trí tuệ nhân tạo}
-\fancyfoot[R]{\scriptsize \ttfamily Trang {\thepage}/\pageref{LastPage}}
+\fancyfoot[L]{\scriptsize \ttfamily Probability and Statistics}
+\fancyfoot[R]{\scriptsize \ttfamily Page {\thepage}/\pageref{LastPage}}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\footrulewidth}{0.3pt}
 \setcounter{secnumdepth}{4}
@@ -119,21 +119,26 @@
 \thesislayout
 
 %%%%%%%% LSTLISTING SETUP %%%%%%%%
-\lstset{frame=tb,
-  aboveskip=3mm,
-  belowskip=3mm,
-  showstringspaces=false,
-  columns=flexible,
-  basicstyle={\small\ttfamily},
-  numbers=left,
-  numberstyle=\tiny\color{gray},
-  keywordstyle=\color{blue},
-  commentstyle=\color{dkgreen},
-  stringstyle=\color{dkgreen},
-  breaklines=true,
-  breakatwhitespace=true,
-  tabsize=3,
-  backgroundcolor=\color{backcolor}
+\lstset{language=R,
+    basicstyle=\small\ttfamily,
+    otherkeywords={0,1,2,3,4,5,6,7,8,9},
+    morekeywords={TRUE,FALSE},
+    deletekeywords={data,frame,length,as,character},
+    keywordstyle=\color{blue},
+    commentstyle=\color{dkgreen},
+    stringstyle=\color{dkgreen},
+    numberstyle=\tiny\color{gray},
+    frame=tb,
+    aboveskip=3mm,
+    belowskip=3mm,
+    showstringspaces=false,
+    columns=flexible,
+    basicstyle={\small\ttfamily},
+    numbers=left,
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=3,
+    backgroundcolor=\color{backcolor}
 }
 
 \everymath{\color{black}}
@@ -183,7 +188,7 @@
     \begin{tabular}{rrl}
       \hspace{5 cm} & Supervisor: & Nguyen Thi Mong Ngoc, PhD \\
 
-                    & Students:   & Châu Đăng Minh - 2013748
+                    & Students:   & Chau Dang Minh - 2013748
     \end{tabular}
   \end{table}
   \vspace{1.5cm}
@@ -192,11 +197,39 @@
   \end{center}
 \end{titlepage}
 
-\tableofcontents
-
 \include{contents/evaluation}
 
+\tableofcontents
+
+% Redefine plain page style to match fancy style
+\fancypagestyle{plain}{%
+  \fancyhf{} % clear all header and footer fields
+  \fancyhead[L]{
+    \begin{tabular}{rl}
+      \begin{picture}(25,15)(0,0)
+        \put(0,-8){\includegraphics[width=8mm, height=8mm]{hcmut.png}}
+      \end{picture} &
+      \begin{tabular}{l}
+        \textbf{\bf \ttfamily Ho Chi Minh City University of Technology} \\
+      \end{tabular}
+    \end{tabular}
+  }
+  \fancyhead[R]{
+    \begin{tabular}{l}
+      \tiny \bf \\
+      \tiny \bf
+    \end{tabular}  }
+  \fancyfoot{} % clear all footer fields
+  \fancyfoot[L]{\scriptsize \ttfamily Probability and Statistics}
+  \fancyfoot[R]{\scriptsize \ttfamily Page {\thepage}/\pageref{LastPage}}
+  \renewcommand{\headrulewidth}{0.3pt}
+  \renewcommand{\footrulewidth}{0.3pt}
+}
+
+\include{contents/intro}
+
 \include{contents/data-overview}
+\include{contents/preprocessing}
 
 
 

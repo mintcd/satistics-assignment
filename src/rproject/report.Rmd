@@ -27,6 +27,7 @@ setwd(here())
 # Read the CSV file into a data frame
 cpu_data <- read.csv("dataset/Intel_CPUs.csv")
 gpu_data <- read.csv("dataset/All_GPUs.csv")
+
 ```
 
 Get the formatted first rows of the data
@@ -37,11 +38,27 @@ kable(head(cpu_data), format = "html") %>%
   kable_styling()
 ```
 
+```{r}
+kable(head(gpu_data), format = "html") %>%
+  kable_styling()
+```
+
 Take a look at the columns.
 
 ```{r}
 cpu_columns <- colnames(cpu_data)
+gpu_columns <- colnames(gpu_data)
+intersect(cpu_columns, gpu_columns)
+```
+
+```{r}
 cpu_columns
+```
+```{r}
+gpu_columns
+```
+```{r}
+length(unique(gpu_data$Architecture))
 ```
 
 ```{r}
@@ -66,12 +83,37 @@ Let us check that the key of this data is the tuple <code>(Product_Collection, P
 -   Choose concerned properties
 
 ```{r}
-selected_cpu_data <- cpu_data[, c("Recommended_Customer_Price", 
-  "nb_of_Cores", 
-  "nb_of_Threads", 
-  "Processor_Base_Frequency",
-  "Bus_Speed")]
+filtered_cpu_data <- filtered_data(cpu_data, 0.4)
+
 processed_cpu_data <- 
-  selected_cpu_data[
-    apply(selected_cpu_data, 1, function(row) all(sapply(row, is_valid))), ]
+  filtered_cpu_data[
+    apply(filtered_cpu_data, 1, function(row) all(sapply(row, is_valid))), ]
+
+selected_cpu_data <- processed_cpu_data
+
+# Adjust selected columns for your later needs
+
+kable(head(selected_cpu_data), format = "html") %>%
+  kable_styling()
+```
+
+
+
+```{r}
+filtered_gpu_data <- filtered_data(gpu_data, 0.4)
+
+processed_gpu_data <- 
+  filtered_gpu_data[
+    apply(filtered_cpu_data, 1, function(row) all(sapply(row, is_valid))), ]
+
+selected_gpu_data <- processed_gpu_data
+
+# Adjust selected columns for your later needs
+
+kable(head(selected_gpu_data), format = "html") %>%
+  kable_styling()
+```
+
+```{r}
+colnames(selected_gpu_data)
 ```

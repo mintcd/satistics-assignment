@@ -17,7 +17,23 @@ is_valid <- function(value) {
          & !is.null(value)
          & !value == ""
          & !value == "N/A"
+         & !value == "-"
          & !value == "missing"
          & !value == "unknown")
   # Add your criteria
+}
+
+filtered_data <- function(data, valid_percentage=0.8) {
+  selected_columns <- character(0) 
+  
+  for (col in colnames(data)) { 
+    valid_count <- sum(is_valid(data[[col]])) 
+    total_instances <- length(data[[col]]) 
+    
+    if ((valid_count / total_instances) >= valid_percentage) {
+      selected_columns <- c(selected_columns, col)
+    }
+  }
+  
+  return(data[selected_columns])
 }

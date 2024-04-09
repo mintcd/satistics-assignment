@@ -1,5 +1,6 @@
 \ProvidesPackage{bkthesis}
 \RequirePackage{graphicx}
+\RequirePackage{listings}
 
 \newcommand{\IncImg}[3]{
     \begin{figure}[htp]
@@ -14,10 +15,12 @@
     \end{figure}
 }
 
+\AtBeginDocument{
+    \renewcommand{\thelstlisting}{\arabic{chapter}.\arabic{lstlisting}}
+}
 
 \renewcommand\thesection{\arabic{section}}
 \renewcommand\thechapter{\Roman{chapter}}
-
 
 \renewcommand{\chaptername}{Chapter}
 \renewcommand{\figurename}{Figure}

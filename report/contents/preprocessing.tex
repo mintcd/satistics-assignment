@@ -1,0 +1,113 @@
+\chapter{Preprocessing}
+
+\section{Data Cleaning}
+
+With \texttt{RStudio}, the working directory is automatically determined. Otherwise, it can be indicated by \texttt{here} library.
+
+\begin{lstlisting}[caption={Required libraries and working directory setup}]
+  # Libraries and options
+  library(dplyr)
+  library(here)
+  library(knitr)
+  library(kableExtra)
+  
+  # Self-defined functions
+  source("utils.R")
+  
+  # Working directory
+  setwd(here())
+  \end{lstlisting}
+
+Now our working directory have been explicated, we can use relative paths to read the data. With \texttt{RMarkdown}, we can prettify the rendering.
+
+\begin{lstlisting}[caption={RStudio data object initialization}]
+    # Read the CSV file into a data frame
+    cpu_data <- read.csv("dataset/Intel_CPUs.csv")
+    gpu_data <- read.csv("dataset/All_GPUs.csv")
+    
+    # Inspect the CPU data
+    kable(head(cpu_data), format = "html") %>%
+      kable_styling()
+    \end{lstlisting}
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=\textwidth]{img/cpu-head.png}
+  \vspace{0.5cm}
+  \caption{First instances of CPUs data}
+\end{figure}
+
+Invalid cells may contain \texttt{NA}, an empty string, or other values showing us that this cell's data was not collecting correctly. At the very first step, we want to selected only columns whose the percentage of valid cells exceeds our predefined value. Then we filter out all instances with invalid features. Note that careful column selection possibly remains more instances for later tasks.
+
+\begin{lstlisting}[caption={Cleaning functions}]
+  # Check if a cell has a valid value
+  is_valid <- function(value) {
+    return(!is.na(value)
+           & !is.null(value)
+           & !value == ""
+           & !value == "N/A"
+           & !value == "-"
+           & !value == "missing"
+           & !value == "unknown")
+    # Add your criteria
+  }
+  
+  # Select columns with enough valid cells
+  filtered_data <- function(data, valid_percentage=0.8) {
+  selected_columns <- character(0) 
+  
+  for (col in colnames(data)) { 
+    valid_count <- sum(is_valid(data[[col]])) 
+    total_instances <- length(data[[col]]) 
+    
+    if ((valid_count / total_instances) >= fill) {
+      selected_columns <- c(selected_columns, col)
+    }
+  }
+  
+  return(data[selected_columns])
+}
+  \end{lstlisting}
+
+
+\begin{lstlisting}[caption={Cleaned data and selected features}]
+  filtered_cpu_data <- filtered_data(cpu_data, 0.4)
+
+  processed_cpu_data <- 
+    filtered_cpu_data[
+      apply(filtered_cpu_data, 1, function(row) all(sapply(row, is_valid))), ]
+  
+  selected_cpu_data <- processed_cpu_data[, c("Recommended_Customer_Price",
+                                              "Product_Collection",
+                                              "Launch_Date",
+                                              "nb_of_Cores",
+                                              "nb_of_Threads", 
+                                              "Processor_Base_Frequency",
+                                              "Bus_Speed")]
+  
+  # Adjust selected columns for your later needs
+
+  kable(head(selected_cpu_data), format = "html") %>%
+  kable_styling()
+\end{lstlisting}
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=\textwidth]{img/cpu-selected-head.png}
+  \vspace{0.5cm}
+  \caption{First instances of selected CPUs data}
+\end{figure}
+
+\section{Data Pre-computation}
+
+Some features in our data have values that need to be reformatted for easily later sorting and analyses. Therefore, we need to gain a good understand on the features.
+
+
+\begin{lstlisting}[caption={A processing for selected features}]
+  cpu_columns <- colnames(cpu_data)
+  gpu_columns <- colnames(gpu_data)
+  intersect(cpu_columns, gpu_columns)
+  # Output: character(0)
+\end{lstlisting}
+
+Since the data files have no common features, let us take a look at them independently.
