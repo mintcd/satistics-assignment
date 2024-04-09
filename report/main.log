@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.13)  9 APR 2024 12:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.13)  9 APR 2024 21:34
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1598,32 +1598,54 @@ Package pdftex.def Info: hcmut.png  used on input line 229.
 
  (./contents/data-overview.tex
 Chapter II.
-)
+> Step: init table outer spec.
+> Step: parse table options.
+> Step: split table.
+> Step: init table inner spec.
+> Step: parse table inner spec.
+> Step: execute table commands.
+> Step: calculate cell and line sizes.
+
+Underfull \hbox (badness 10000) in paragraph at lines 54--54
+[]\T5/cmr/m/n/10 Thermal Mon-i-tor-ing
+ []
+
+> Step: build the whole table.
 File: hcmut.png Graphic file (type png)
 <use hcmut.png>
-Package pdftex.def Info: hcmut.png  used on input line 231.
+Package pdftex.def Info: hcmut.png  used on input line 54.
 (pdftex.def)             Requested size: 22.75812pt x 22.75842pt.
- [4
+[4
 
 
 
 
 ]
+Underfull \hbox (badness 10000) in paragraph at lines 54--54
+[]\T5/cmr/m/n/10 Thermal Mon-i-tor-ing
+ []
+
+)
+File: hcmut.png Graphic file (type png)
+<use hcmut.png>
+Package pdftex.def Info: hcmut.png  used on input line 231.
+(pdftex.def)             Requested size: 22.75812pt x 22.75842pt.
+ [5]
 \openout2 = `contents/preprocessing.aux'.
 
  (./contents/preprocessing.tex
 Chapter III.
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 7.
-<img/cpu-head.png, id=74, 874.467pt x 369.17924pt>
+<img/cpu-head.png, id=80, 874.467pt x 369.17924pt>
 File: img/cpu-head.png Graphic file (type png)
 <use img/cpu-head.png>
 Package pdftex.def Info: img/cpu-head.png  used on input line 35.
 (pdftex.def)             Requested size: 455.24408pt x 192.194pt.
 File: hcmut.png Graphic file (type png)
 <use hcmut.png>
-Package pdftex.def Info: hcmut.png  used on input line 51.
+Package pdftex.def Info: hcmut.png  used on input line 50.
 (pdftex.def)             Requested size: 22.75812pt x 22.75842pt.
-[5
+[6
 
 
 
@@ -1631,20 +1653,29 @@ Package pdftex.def Info: hcmut.png  used on input line 51.
 ]
 File: hcmut.png Graphic file (type png)
 <use hcmut.png>
-Package pdftex.def Info: hcmut.png  used on input line 92.
+Package pdftex.def Info: hcmut.png  used on input line 91.
 (pdftex.def)             Requested size: 22.75812pt x 22.75842pt.
- [6 <./img/cpu-head.png>]
-<img/cpu-selected-head.png, id=160, 879.88725pt x 204.765pt>
+ [7 <./img/cpu-head.png>]
+<img/cpu-selected-head.png, id=162, 877.47826pt x 392.667pt>
 File: img/cpu-selected-head.png Graphic file (type png)
 <use img/cpu-selected-head.png>
-Package pdftex.def Info: img/cpu-selected-head.png  used on input line 96.
-(pdftex.def)             Requested size: 455.24408pt x 105.94412pt.
-)
+Package pdftex.def Info: img/cpu-selected-head.png  used on input line 102.
+(pdftex.def)             Requested size: 455.24408pt x 203.72067pt.
+<img/gpu-selected-head.png, id=163, 843.75224pt x 505.89pt>
+File: img/gpu-selected-head.png Graphic file (type png)
+<use img/gpu-selected-head.png>
+Package pdftex.def Info: img/gpu-selected-head.png  used on input line 109.
+(pdftex.def)             Requested size: 455.24408pt x 272.94495pt.
+File: hcmut.png Graphic file (type png)
+<use hcmut.png>
+Package pdftex.def Info: hcmut.png  used on input line 116.
+(pdftex.def)             Requested size: 22.75812pt x 22.75842pt.
+ [8 <./img/cpu-selected-head.png> <./img/gpu-selected-head.png>])
 File: hcmut.png Graphic file (type png)
 <use hcmut.png>
 Package pdftex.def Info: hcmut.png  used on input line 232.
 (pdftex.def)             Requested size: 22.75812pt x 22.75842pt.
- [7 <./img/cpu-selected-head.png>] 
+ [9] 
 enddocument/afterlastpage: lastpage setting LastPage.
 (./main.aux (./contents/evaluation.aux) (./contents/intro.aux) (./contents/data-overview.aux) (./contents/preprocessing.aux))
  ***********
@@ -1655,18 +1686,18 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 0193735053B021BBC453851454EAE5F8;657.
  ) 
 Here is how much of TeX's memory you used:
- 33426 strings out of 474175
- 606816 string characters out of 5749697
- 1992460 words of memory out of 5000000
- 55011 multiletter control sequences out of 15000+600000
- 576602 words of font info for 67 fonts, out of 8000000 for 9000
+ 33832 strings out of 474175
+ 620114 string characters out of 5749697
+ 2008460 words of memory out of 5000000
+ 55372 multiletter control sequences out of 15000+600000
+ 578606 words of font info for 70 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 109i,26n,125p,571b,2183s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 109i,26n,125p,616b,2183s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2023/texmf-dist/fonts/type1/vntex/vnr/vnbx10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/vntex/vnr/vnbx12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/vntex/vnr/vnbx9.pfb><c:/texlive/2023/texmf-dist/fonts/type1/vntex/vnr/vnr10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/vntex/vnr/vnr5.pfb><c:/texlive/2023/texmf-dist/fonts/type1/vntex/vnr/vnr8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/vntex/vnr/vnti9.pfb><c:/texlive/2023/texmf-dist/fonts/type1/vntex/vnr/vntt10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/vntex/vnr/vntt8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/vntex/vnr/vntt9.pfb>
-Output written on main.pdf (8 pages, 260241 bytes).
+Output written on main.pdf (10 pages, 303353 bytes).
 PDF statistics:
- 237 PDF objects out of 1000 (max. 8388607)
- 199 compressed objects within 2 object streams
- 94 named destinations out of 1000 (max. 500000)
- 68 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 302 PDF objects out of 1000 (max. 8388607)
+ 259 compressed objects within 3 object streams
+ 139 named destinations out of 1000 (max. 500000)
+ 73 words of extra memory for PDF output out of 10000 (max. 10000000)
 

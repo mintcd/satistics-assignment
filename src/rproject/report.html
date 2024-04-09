@@ -2362,15 +2362,14 @@ depends on other manufacturing properties</h2>
 <li>Filter out instances with no <span class="math inline">\(\texttt{Recommended_Customer_Price}\)</span></li>
 <li>Choose concerned properties</li>
 </ul>
-<pre class="r"><code>filtered_cpu_data &lt;- filtered_data(cpu_data, 0.4)
+<pre class="r"><code>filtered_cpu_data &lt;- filtered_data(cpu_data, valid_percentage=0.5)
 
 processed_cpu_data &lt;- 
   filtered_cpu_data[
     apply(filtered_cpu_data, 1, function(row) all(sapply(row, is_valid))), ]
 
-selected_cpu_data &lt;- processed_cpu_data
-
-# Adjust selected columns for your later needs
+selected_cpu_data &lt;- processed_cpu_data[] # Adjust selected columns for your later needs
+selected_cpu_data &lt;- unique(selected_cpu_data)
 
 kable(head(selected_cpu_data), format = &quot;html&quot;) %&gt;%
   kable_styling()</code></pre>
@@ -2410,9 +2409,6 @@ nb_of_Threads
 Processor_Base_Frequency
 </th>
 <th style="text-align:left;">
-Max_Turbo_Frequency
-</th>
-<th style="text-align:left;">
 Cache
 </th>
 <th style="text-align:left;">
@@ -2444,9 +2440,6 @@ ECC_Memory_Supported
 </th>
 <th style="text-align:left;">
 PCI_Express_Revision
-</th>
-<th style="text-align:left;">
-PCI_Express_Configurations_
 </th>
 <th style="text-align:right;">
 Max_nb_of_PCI_Express_Lanes
@@ -2516,9 +2509,6 @@ $393.00
 1.30 GHz
 </td>
 <td style="text-align:left;">
-3.60 GHz
-</td>
-<td style="text-align:left;">
 4 MB SmartCache
 </td>
 <td style="text-align:left;">
@@ -2550,9 +2540,6 @@ No
 </td>
 <td style="text-align:left;">
 3
-</td>
-<td style="text-align:left;">
-1x4, 2x2, 1x2+2x1 and 4x1
 </td>
 <td style="text-align:right;">
 10
@@ -2620,9 +2607,6 @@ $297.00
 1.60 GHz
 </td>
 <td style="text-align:left;">
-3.40 GHz
-</td>
-<td style="text-align:left;">
 6 MB SmartCache
 </td>
 <td style="text-align:left;">
@@ -2654,9 +2638,6 @@ No
 </td>
 <td style="text-align:left;">
 3
-</td>
-<td style="text-align:left;">
-1x4, 2x2, 1x2+2x1 and 4x1
 </td>
 <td style="text-align:right;">
 12
@@ -2724,9 +2705,6 @@ $409.00
 1.80 GHz
 </td>
 <td style="text-align:left;">
-4.00 GHz
-</td>
-<td style="text-align:left;">
 8 MB SmartCache
 </td>
 <td style="text-align:left;">
@@ -2758,9 +2736,6 @@ No
 </td>
 <td style="text-align:left;">
 3
-</td>
-<td style="text-align:left;">
-1x4, 2x2, 1x2+2x1 and 4x1
 </td>
 <td style="text-align:right;">
 12
@@ -2828,9 +2803,6 @@ $281.00
 1.20 GHz
 </td>
 <td style="text-align:left;">
-3.30 GHz
-</td>
-<td style="text-align:left;">
 4 MB SmartCache
 </td>
 <td style="text-align:left;">
@@ -2862,9 +2834,6 @@ No
 </td>
 <td style="text-align:left;">
 3
-</td>
-<td style="text-align:left;">
-1x4, 2x2, 1x2+2x1 and 4x1
 </td>
 <td style="text-align:right;">
 10
@@ -2899,49 +2868,46 @@ Yes
 </tr>
 <tr>
 <td style="text-align:left;">
-423
+11
 </td>
 <td style="text-align:left;">
-7th Generation Intel® Core™ i5 Processors
+Intel® Pentium® Processor 2000 Series
 </td>
 <td style="text-align:left;">
 Mobile
 </td>
 <td style="text-align:left;">
-i5-7Y54
+2020M
 </td>
 <td style="text-align:left;">
 Launched
 </td>
 <td style="text-align:left;">
-Q3’16
+Q3’12
 </td>
 <td style="text-align:left;">
-14 nm
+22 nm
 </td>
 <td style="text-align:left;">
-$281.00
+$134.00
 </td>
 <td style="text-align:right;">
 2
 </td>
 <td style="text-align:right;">
-4
+2
 </td>
 <td style="text-align:left;">
-1.20 GHz
+2.40 GHz
 </td>
 <td style="text-align:left;">
-3.20 GHz
+2 MB SmartCache
 </td>
 <td style="text-align:left;">
-4 MB SmartCache
+5 GT/s DMI
 </td>
 <td style="text-align:left;">
-4 GT/s OPI
-</td>
-<td style="text-align:left;">
-4.5 W
+35 W
 </td>
 <td style="text-align:left;">
 No
@@ -2950,34 +2916,31 @@ No
 Yes
 </td>
 <td style="text-align:left;">
-16 GB
+32 GB
 </td>
 <td style="text-align:left;">
-LPDDR3-1866, DDR3L-1600
+DDR3/L/-RS 1333/1600
 </td>
 <td style="text-align:right;">
 2
 </td>
 <td style="text-align:left;">
-29.8 GB/s
+25.6 GB/s
 </td>
 <td style="text-align:left;">
 No
 </td>
 <td style="text-align:left;">
-3
-</td>
-<td style="text-align:left;">
-1x4, 2x2, 1x2+2x1 and 4x1
+2
 </td>
 <td style="text-align:right;">
-10
+1
 </td>
 <td style="text-align:left;">
-100°C
+90 C
 </td>
 <td style="text-align:left;">
-Yes
+No
 </td>
 <td style="text-align:left;">
 Yes
@@ -2989,7 +2952,7 @@ Yes
 64-bit
 </td>
 <td style="text-align:left;">
-SSE4.1/4.2, AVX 2.0
+SSE4.x
 </td>
 <td style="text-align:left;">
 Yes
@@ -3003,28 +2966,28 @@ Yes
 </tr>
 <tr>
 <td style="text-align:left;">
-424
+14
 </td>
 <td style="text-align:left;">
-7th Generation Intel® Core™ i5 Processors
+Intel® Pentium® Processor 4000 Series
 </td>
 <td style="text-align:left;">
 Mobile
 </td>
 <td style="text-align:left;">
-i5-7200U
+4405U
 </td>
 <td style="text-align:left;">
 Launched
 </td>
 <td style="text-align:left;">
-Q3’16
+Q3’15
 </td>
 <td style="text-align:left;">
 14 nm
 </td>
 <td style="text-align:left;">
-$281.00
+$161.00
 </td>
 <td style="text-align:right;">
 2
@@ -3033,13 +2996,10 @@ $281.00
 4
 </td>
 <td style="text-align:left;">
-2.50 GHz
+2.10 GHz
 </td>
 <td style="text-align:left;">
-3.10 GHz
-</td>
-<td style="text-align:left;">
-3 MB SmartCache
+2 MB SmartCache
 </td>
 <td style="text-align:left;">
 4 GT/s OPI
@@ -3057,7 +3017,7 @@ Yes
 32 GB
 </td>
 <td style="text-align:left;">
-DDR4-2133, LPDDR3-1866, DDR3L-1600
+DDR4-1866/2133, LPDDR3-1600/1866
 </td>
 <td style="text-align:right;">
 2
@@ -3069,13 +3029,10 @@ DDR4-2133, LPDDR3-1866, DDR3L-1600
 No
 </td>
 <td style="text-align:left;">
-3
-</td>
-<td style="text-align:left;">
-1x4, 2x2, 1x2+2x1 and 4x1
+2
 </td>
 <td style="text-align:right;">
-12
+10
 </td>
 <td style="text-align:left;">
 100°C
@@ -3093,7 +3050,7 @@ Yes
 64-bit
 </td>
 <td style="text-align:left;">
-SSE4.1/4.2, AVX 2.0
+SSE4.1/4.2
 </td>
 <td style="text-align:left;">
 Yes
@@ -3107,16 +3064,17 @@ Yes
 </tr>
 </tbody>
 </table>
-<pre class="r"><code>filtered_gpu_data &lt;- filtered_data(gpu_data, 0.4)
+<pre class="r"><code>nrow(selected_cpu_data)-nrow(unique(selected_cpu_data[, c(&quot;Product_Collection&quot;, &quot;Processor_Number&quot;)]))</code></pre>
+<pre><code>## [1] 0</code></pre>
+<pre class="r"><code># Assuming selected_cpu_data is your data frame</code></pre>
+<pre class="r"><code>filtered_gpu_data &lt;- filtered_data(gpu_data, valid_percentage=0.5)
 
 processed_gpu_data &lt;- 
   filtered_gpu_data[
-    apply(filtered_cpu_data, 1, function(row) all(sapply(row, is_valid))), ]
+    apply(filtered_gpu_data, 1, function(row) all(sapply(row, is_valid))), ]
 
-selected_gpu_data &lt;- processed_gpu_data
-
-# Adjust selected columns for your later needs
-
+selected_gpu_data &lt;- processed_gpu_data[] # Adjust selected columns for your later needs
+selected_gpu_data &lt;- unique(selected_gpu_data)
 kable(head(selected_gpu_data), format = &quot;html&quot;) %&gt;%
   kable_styling()</code></pre>
 <table class="table" style="margin-left: auto; margin-right: auto;">
@@ -3129,9 +3087,6 @@ Architecture
 </th>
 <th style="text-align:left;">
 Best_Resolution
-</th>
-<th style="text-align:left;">
-Boost_Clock
 </th>
 <th style="text-align:left;">
 Core_Speed
@@ -3225,29 +3180,28 @@ VGA_Connection
 <tbody>
 <tr>
 <td style="text-align:left;">
-1
+7
 </td>
 <td style="text-align:left;">
-Tesla G92b
+R700 RV790 XT
 </td>
 <td style="text-align:left;">
+1920 x 1080
 </td>
 <td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-738 MHz
+870 MHz
 </td>
 <td style="text-align:right;">
-2
+1
 </td>
 <td style="text-align:left;">
 Yes
 </td>
 <td style="text-align:left;">
-DX 10.0
+DX 10.1
 </td>
 <td style="text-align:right;">
-0
+1
 </td>
 <td style="text-align:left;">
 No
@@ -3256,28 +3210,28 @@ No
 0KB
 </td>
 <td style="text-align:left;">
-Nvidia
+AMD
 </td>
 <td style="text-align:left;">
-141 Watts
+190 Watts
 </td>
 <td style="text-align:left;">
-1024 MB
+2048 MB
 </td>
 <td style="text-align:left;">
-64GB/sec
+134.4GB/sec
 </td>
 <td style="text-align:left;">
 256 Bit
 </td>
 <td style="text-align:left;">
-1000 MHz
+1050 MHz
 </td>
 <td style="text-align:left;">
-GDDR3
+GDDR5
 </td>
 <td style="text-align:left;">
-GeForce GTS 150
+Radeon HD 4890 Sapphire Vapor-X OC 2GB Edition
 </td>
 <td style="text-align:left;">
 No
@@ -3286,13 +3240,13 @@ No
 3.3
 </td>
 <td style="text-align:left;">
-450 Watt &amp; 38 Amps
+500 Watt &amp; 37 Amps
 </td>
 <td style="text-align:left;">
-12 GPixel/s
+14 GPixel/s
 </td>
 <td style="text-align:left;">
-None
+2x 6-pin
 </td>
 <td style="text-align:left;">
 55nm
@@ -3301,524 +3255,525 @@ None
 16
 </td>
 <td style="text-align:left;">
-01-Mar-2009
+13-Jul-2009
 </td>
 <td style="text-align:left;">
 2560x1600
 </td>
 <td style="text-align:left;">
 Yes
-</td>
-<td style="text-align:right;">
-4.0
-</td>
-<td style="text-align:right;">
-64
-</td>
-<td style="text-align:left;">
-47 GTexel/s
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-2
-</td>
-<td style="text-align:left;">
-R600 XT
-</td>
-<td style="text-align:left;">
-1366 x 768
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-<ul>
-<li></td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:left;">
-DX 10
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:left;">
-No
-</td>
-<td style="text-align:left;">
-0KB
-</td>
-<td style="text-align:left;">
-AMD
-</td>
-<td style="text-align:left;">
-215 Watts
-</td>
-<td style="text-align:left;">
-512 MB
-</td>
-<td style="text-align:left;">
-106GB/sec
-</td>
-<td style="text-align:left;">
-512 Bit
-</td>
-<td style="text-align:left;">
-828 MHz
-</td>
-<td style="text-align:left;">
-GDDR3
-</td>
-<td style="text-align:left;">
-Radeon HD 2900 XT 512MB
-</td>
-<td style="text-align:left;">
-No
-</td>
-<td style="text-align:right;">
-3.1
-</td>
-<td style="text-align:left;">
-550 Watt &amp; 35 Amps
-</td>
-<td style="text-align:left;">
-12 GPixel/s
-</td>
-<td style="text-align:left;">
-None
-</td>
-<td style="text-align:left;">
-80nm
-</td>
-<td style="text-align:left;">
-16
-</td>
-<td style="text-align:left;">
-14-May-2007
-</td>
-<td style="text-align:left;">
-2560x1600
-</td>
-<td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:right;">
-4.0
-</td>
-<td style="text-align:right;">
-16
-</td>
-<td style="text-align:left;">
-12 GTexel/s
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-3
-</td>
-<td style="text-align:left;">
-R600 PRO
-</td>
-<td style="text-align:left;">
-1366 x 768
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-<ul>
-<li></td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:left;">
-DX 10
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:left;">
-No
-</td>
-<td style="text-align:left;">
-0KB
-</td>
-<td style="text-align:left;">
-AMD
-</td>
-<td style="text-align:left;">
-200 Watts
-</td>
-<td style="text-align:left;">
-512 MB
-</td>
-<td style="text-align:left;">
-51.2GB/sec
-</td>
-<td style="text-align:left;">
-256 Bit
-</td>
-<td style="text-align:left;">
-800 MHz
-</td>
-<td style="text-align:left;">
-GDDR3
-</td>
-<td style="text-align:left;">
-Radeon HD 2900 Pro
-</td>
-<td style="text-align:left;">
-No
-</td>
-<td style="text-align:right;">
-3.1
-</td>
-<td style="text-align:left;">
-550 Watt &amp; 35 Amps
-</td>
-<td style="text-align:left;">
-10 GPixel/s
-</td>
-<td style="text-align:left;">
-None
-</td>
-<td style="text-align:left;">
-80nm
-</td>
-<td style="text-align:left;">
-16
-</td>
-<td style="text-align:left;">
-07-Dec-2007
-</td>
-<td style="text-align:left;">
-2560x1600
-</td>
-<td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:right;">
-4.0
-</td>
-<td style="text-align:right;">
-16
-</td>
-<td style="text-align:left;">
-10 GTexel/s
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-5
-</td>
-<td style="text-align:left;">
-RV630
-</td>
-<td style="text-align:left;">
-1024 x 768
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-<ul>
-<li></td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:left;">
-DX 10
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:left;">
-No
-</td>
-<td style="text-align:left;">
-0KB
-</td>
-<td style="text-align:left;">
-AMD
-</td>
-<td style="text-align:left;">
-45 Watts
-</td>
-<td style="text-align:left;">
-256 MB
-</td>
-<td style="text-align:left;">
-22.4GB/sec
-</td>
-<td style="text-align:left;">
-128 Bit
-</td>
-<td style="text-align:left;">
-700 MHz
-</td>
-<td style="text-align:left;">
-GDDR3
-</td>
-<td style="text-align:left;">
-Radeon HD 2600 XT
-</td>
-<td style="text-align:left;">
-No
-</td>
-<td style="text-align:right;">
-3.1
-</td>
-<td style="text-align:left;">
-400 Watt &amp; 25 Amps
-</td>
-<td style="text-align:left;">
-3 GPixel/s
-</td>
-<td style="text-align:left;">
-None
-</td>
-<td style="text-align:left;">
-65nm
-</td>
-<td style="text-align:left;">
-4
-</td>
-<td style="text-align:left;">
-28-Jun-2007
-</td>
-<td style="text-align:left;">
-2560x1600
-</td>
-<td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:right;">
-4.0
-</td>
-<td style="text-align:right;">
-8
-</td>
-<td style="text-align:left;">
-6 GTexel/s
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-423
-</td>
-<td style="text-align:left;">
-Sandy Bridge
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-<ul>
-<li></td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:left;">
-No
-</td>
-<td style="text-align:left;">
-DX 10.1
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:left;">
-0KB
-</td>
-<td style="text-align:left;">
-Intel
-</td>
-<td style="text-align:left;">
-35 Watts
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-21.3GB/sec
-</td>
-<td style="text-align:left;">
-128 Bit
-</td>
-<td style="text-align:left;">
-667 MHz
-</td>
-<td style="text-align:left;">
-DDR3
-</td>
-<td style="text-align:left;">
-HD i5 2410M
-</td>
-<td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:right;">
-3.1
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-30-Mar-2011
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-No
 </td>
 <td style="text-align:right;">
 4.1
 </td>
 <td style="text-align:right;">
-NA
+40
 </td>
 <td style="text-align:left;">
+35 GTexel/s
 </td>
 <td style="text-align:right;">
-NA
+1
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-424
+12
 </td>
 <td style="text-align:left;">
-Arrandale
+Fermi GF110
 </td>
 <td style="text-align:left;">
+1920 x 1080
 </td>
 <td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-<ul>
-<li></td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:left;">
-No
-</td>
-<td style="text-align:left;">
-DX 10
+650 MHz
 </td>
 <td style="text-align:right;">
-NA
+2
 </td>
 <td style="text-align:left;">
 Yes
 </td>
 <td style="text-align:left;">
-0KB
+DX 12.0
+</td>
+<td style="text-align:right;">
+1
 </td>
 <td style="text-align:left;">
-Intel
+No
 </td>
 <td style="text-align:left;">
+768KB
 </td>
 <td style="text-align:left;">
+Nvidia
 </td>
 <td style="text-align:left;">
-17.1GB/sec
+250 Watts
+</td>
+<td style="text-align:left;">
+6144 MB
+</td>
+<td style="text-align:left;">
+177.6GB/sec
+</td>
+<td style="text-align:left;">
+384 Bit
+</td>
+<td style="text-align:left;">
+925 MHz
+</td>
+<td style="text-align:left;">
+GDDR5
+</td>
+<td style="text-align:left;">
+Tesla M2090
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:right;">
+4.5
+</td>
+<td style="text-align:left;">
+600 Watt &amp; 42 Amps
+</td>
+<td style="text-align:left;">
+31 GPixel/s
+</td>
+<td style="text-align:left;">
+1x 6-pin + 1x 8-pin
+</td>
+<td style="text-align:left;">
+40nm
+</td>
+<td style="text-align:left;">
+48
+</td>
+<td style="text-align:left;">
+25-Jul-2011
+</td>
+<td style="text-align:left;">
+2560x1600
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:right;">
+5.0
+</td>
+<td style="text-align:right;">
+56
+</td>
+<td style="text-align:left;">
+36 GTexel/s
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+16
+</td>
+<td style="text-align:left;">
+GCN 1.1 Oland XT + Kaveri
+</td>
+<td style="text-align:left;">
+1600 x 900
+</td>
+<td style="text-align:left;">
+1050 MHz
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+DX 12.0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+2304KB(x2)
+</td>
+<td style="text-align:left;">
+AMD
+</td>
+<td style="text-align:left;">
+150 Watts
+</td>
+<td style="text-align:left;">
+3072 MB
+</td>
+<td style="text-align:left;">
+57.6GB/sec
 </td>
 <td style="text-align:left;">
 128 Bit
 </td>
 <td style="text-align:left;">
-533 MHz
+900 MHz
 </td>
 <td style="text-align:left;">
 DDR3
 </td>
 <td style="text-align:left;">
-HD i3 M390
-</td>
-<td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:right;">
-2.1
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-30-Mar-2010
-</td>
-<td style="text-align:left;">
+Radeon R7 250 v2 MSI OC 2GB + Radeon R7 7870K Dual
 </td>
 <td style="text-align:left;">
 No
 </td>
 <td style="text-align:right;">
-4.0
-</td>
-<td style="text-align:right;">
-NA
+4.4
 </td>
 <td style="text-align:left;">
+400 Watt &amp; 27 Amps
+</td>
+<td style="text-align:left;">
+18 GPixel/s
+</td>
+<td style="text-align:left;">
+None
+</td>
+<td style="text-align:left;">
+28nm
+</td>
+<td style="text-align:left;">
+8 (x2)
+</td>
+<td style="text-align:left;">
+28-May-2015
+</td>
+<td style="text-align:left;">
+2560x1600
+</td>
+<td style="text-align:left;">
+Yes
 </td>
 <td style="text-align:right;">
-NA
+5.0
+</td>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:left;">
+62 GTexel/s
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+47
+</td>
+<td style="text-align:left;">
+Kepler GK110-400-A1
+</td>
+<td style="text-align:left;">
+2560 x 1440
+</td>
+<td style="text-align:left;">
+837 MHz
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+DX 12.0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+1536KB
+</td>
+<td style="text-align:left;">
+Nvidia
+</td>
+<td style="text-align:left;">
+250 Watts
+</td>
+<td style="text-align:left;">
+6144 MB
+</td>
+<td style="text-align:left;">
+288.4GB/sec
+</td>
+<td style="text-align:left;">
+384 Bit
+</td>
+<td style="text-align:left;">
+1502 MHz
+</td>
+<td style="text-align:left;">
+GDDR5
+</td>
+<td style="text-align:left;">
+GeForce GTX Titan Zotac Edition
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:right;">
+4.5
+</td>
+<td style="text-align:left;">
+600 Watt &amp; 42 Amps
+</td>
+<td style="text-align:left;">
+42 GPixel/s
+</td>
+<td style="text-align:left;">
+None
+</td>
+<td style="text-align:left;">
+28nm
+</td>
+<td style="text-align:left;">
+48
+</td>
+<td style="text-align:left;">
+19-Feb-2013
+</td>
+<td style="text-align:left;">
+4096x2160
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:right;">
+5.0
+</td>
+<td style="text-align:right;">
+224
+</td>
+<td style="text-align:left;">
+196 GTexel/s
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+48
+</td>
+<td style="text-align:left;">
+Kepler GK110-430-B1 (x2)
+</td>
+<td style="text-align:left;">
+5760 x 1600
+</td>
+<td style="text-align:left;">
+705 MHz
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+DX 12.0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+1536KB(x2)
+</td>
+<td style="text-align:left;">
+Nvidia
+</td>
+<td style="text-align:left;">
+375 Watts
+</td>
+<td style="text-align:left;">
+12288 MB
+</td>
+<td style="text-align:left;">
+672GB/sec
+</td>
+<td style="text-align:left;">
+384 Bit
+</td>
+<td style="text-align:left;">
+1750 MHz
+</td>
+<td style="text-align:left;">
+GDDR5
+</td>
+<td style="text-align:left;">
+GeForce GTX Titan Z Palit 12GB Edition
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:right;">
+4.5
+</td>
+<td style="text-align:left;">
+700 Watt &amp; 42 Amps
+</td>
+<td style="text-align:left;">
+84 GPixel/s
+</td>
+<td style="text-align:left;">
+2x 8-pin
+</td>
+<td style="text-align:left;">
+28nm
+</td>
+<td style="text-align:left;">
+48 (x2)
+</td>
+<td style="text-align:left;">
+28-May-2014
+</td>
+<td style="text-align:left;">
+4096x2160
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:right;">
+5.0
+</td>
+<td style="text-align:right;">
+240
+</td>
+<td style="text-align:left;">
+420 GTexel/s
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+50
+</td>
+<td style="text-align:left;">
+Kepler GK110-430-B1 (x2)
+</td>
+<td style="text-align:left;">
+3840 x 2160
+</td>
+<td style="text-align:left;">
+705 MHz
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+DX 12.0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+1536KB(x2)
+</td>
+<td style="text-align:left;">
+Nvidia
+</td>
+<td style="text-align:left;">
+375 Watts
+</td>
+<td style="text-align:left;">
+12288 MB
+</td>
+<td style="text-align:left;">
+672GB/sec
+</td>
+<td style="text-align:left;">
+384 Bit
+</td>
+<td style="text-align:left;">
+1750 MHz
+</td>
+<td style="text-align:left;">
+GDDR5
+</td>
+<td style="text-align:left;">
+GeForce GTX Titan Z
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:right;">
+4.5
+</td>
+<td style="text-align:left;">
+700 Watt &amp; 42 Amps
+</td>
+<td style="text-align:left;">
+84 GPixel/s
+</td>
+<td style="text-align:left;">
+2x 8-pin
+</td>
+<td style="text-align:left;">
+28nm
+</td>
+<td style="text-align:left;">
+48 (x2)
+</td>
+<td style="text-align:left;">
+28-May-2014
+</td>
+<td style="text-align:left;">
+4096x2160
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:right;">
+5.0
+</td>
+<td style="text-align:right;">
+240
+</td>
+<td style="text-align:left;">
+420 GTexel/s
+</td>
+<td style="text-align:right;">
+0
 </td>
 </tr>
 </tbody>
-</table></li>
-</ul></li>
-</ul></li>
-</ul></li>
-</ul></li>
-</ul>
-<pre class="r"><code>colnames(selected_gpu_data)</code></pre>
-<pre><code>##  [1] &quot;Architecture&quot;     &quot;Best_Resolution&quot;  &quot;Boost_Clock&quot;      &quot;Core_Speed&quot;      
-##  [5] &quot;DVI_Connection&quot;   &quot;Dedicated&quot;        &quot;Direct_X&quot;         &quot;HDMI_Connection&quot; 
-##  [9] &quot;Integrated&quot;       &quot;L2_Cache&quot;         &quot;Manufacturer&quot;     &quot;Max_Power&quot;       
-## [13] &quot;Memory&quot;           &quot;Memory_Bandwidth&quot; &quot;Memory_Bus&quot;       &quot;Memory_Speed&quot;    
-## [17] &quot;Memory_Type&quot;      &quot;Name&quot;             &quot;Notebook_GPU&quot;     &quot;Open_GL&quot;         
-## [21] &quot;PSU&quot;              &quot;Pixel_Rate&quot;       &quot;Power_Connector&quot;  &quot;Process&quot;         
-## [25] &quot;ROPs&quot;             &quot;Release_Date&quot;     &quot;Resolution_WxH&quot;   &quot;SLI_Crossfire&quot;   
-## [29] &quot;Shader&quot;           &quot;TMUs&quot;             &quot;Texture_Rate&quot;     &quot;VGA_Connection&quot;</code></pre>
+</table>
+<pre class="r"><code>  nrow(selected_cpu_data) - nrow(selected_cpu_data[, c(&quot;Product_Collection&quot;, 
+                                                       &quot;Processor_Number&quot;)])</code></pre>
+<pre><code>## [1] 0</code></pre>
+<pre class="r"><code>  nrow(selected_gpu_data) - nrow(selected_gpu_data[, c(&quot;Name&quot;)])</code></pre>
+<pre><code>## integer(0)</code></pre>
+<pre class="r"><code>  # Outputs: 0</code></pre>
 </div>
 </div>
 

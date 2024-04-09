@@ -1,4 +1,55 @@
 \chapter{Overview of the Dataset}
 
-As Computer Science students, we are assigned to analyze a \href{https://www.kaggle.com/datasets/iliassekkaf/computerparts/data}{dataset about computer processors}, namely CPUs and GPUs. Our dataset is credited to Intel, Game-Debate, and the companies involved in producing the part. Information of CPUs and GPUs are collected separately into two files, namely \texttt{Intel\_CPUs.csv} and \texttt{All\_GPUs.csv}.
+As Computer Science students, we are assigned to analyze a \href{https://www.kaggle.com/datasets/iliassekkaf/computerparts/data}{dataset about computer processors}, namely CPUs and GPUs. Our dataset is credited to Intel, Game-Debate, and the companies involved in producing the part. Information of CPUs and GPUs are collected separately into two files, namely \texttt{Intel\_CPUs.csv} and \texttt{All\_GPUs.csv}. Let us get familiar to some technical features, given in the metadata or acquired over the internet.
 
+\begin{center}
+  \begin{longtblr}[caption={Some technical features of CPUs and GPUs}]{|c|p{4cm}|c|p{7cm}|}
+
+    \hline
+    \textbf{N.O.} & \textbf{Feature name}           & \textbf{Relevant to} & \textbf{Details}                                                                                                                                                          \\
+    \hline
+    1             & Lithography                     & CPU, GPU             & The semiconductor technology used to manufacture an integrated circuit, and is reported in nanometer                                                                      \\
+    \hline
+    2             & Number of Cores                 & CPU                  & A hardware term that describes the number of independent central processing units                                                                                         \\
+    \hline
+    3             & Number of Threads               & CPU                  & A Thread, or thread of execution, is a software term for the basic ordered sequence of instructions that can be passed                                                    \\
+    \hline
+    4             & Base Frequency                  & CPU                  & Describes the rate at which the processor's transistors open and close.                                                                                                   \\
+    \hline
+    5             & Cache                           & CPU                  & An area of fast memory located on the processor.                                                                                                                          \\
+    \hline
+    6             & Thermal Design Power            & CPU                  & Represents the average power, in watts, the processor dissipates when operating at Base Frequency with all cores active under an Intel-defined, high-complexity workload.
+    \\
+    \hline
+    7             & Embedded Availability           & CPU                  & In essence, an embedded processor is a CPU chip used in a system which is not a general-purpose workstation, laptop or desktop computer.
+    \\
+    \hline
+    8             & Embedded Availability           & CPU                  & In essence, an embedded processor is a CPU chip used in a system which is not a general-purpose workstation, laptop or desktop computer.
+    \\
+    \hline
+    9             & Memory Types                    & CPU                  & Single Channel, Dual Channel, Triple Channel, and Flex Mode.
+    \\
+    \hline
+    10            & Instruction Set                 & CPU                  &
+    \\
+    \hline
+    11            & Maximal Temperature             & CPU                  &
+    \\
+    \hline
+    12            & Architecture                    & GPU                  &
+    \\
+    \hline
+    13            & Dedicated and Integrated        & GPU                  & Whether the GPU is solely used or shares memory with a CPU
+    \\
+    \hline
+    14            & (Front-side) Bus Speed          & CPU, GPU             & The speed at which data is transferred between the processors and other components such as the memory, chipset, and peripherals.
+    \\
+    \hline
+    15            & No-Execute Bit                  & CPU                  & Hardware-based security feature that can reduce exposure to viruses and malicious-code attacks.
+    \\
+    \hline
+    16            & Thermal Monitoring Technologies & CPU                  & Protects the processor package and the system from thermal failure through several thermal management features.
+    \\
+    \hline
+  \end{longtblr}
+\end{center}

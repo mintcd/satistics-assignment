@@ -481,6 +481,10 @@ OUTPUT contents/data-overview.aux
 INPUT ./contents/data-overview.tex
 INPUT ./contents/data-overview.tex
 INPUT contents/data-overview.tex
+INPUT c:/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
+INPUT c:/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
+INPUT c:/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
+INPUT ./hcmut.png
 INPUT ./hcmut.png
 INPUT ./contents/preprocessing.tex
 INPUT ./contents/preprocessing.tex
@@ -505,6 +509,12 @@ INPUT ./img/cpu-selected-head.png
 INPUT ./img/cpu-selected-head.png
 INPUT ./img/cpu-selected-head.png
 INPUT ./img/cpu-selected-head.png
+INPUT ./img/gpu-selected-head.png
+INPUT ./img/gpu-selected-head.png
+INPUT ./img/gpu-selected-head.png
+INPUT ./img/gpu-selected-head.png
+INPUT ./img/gpu-selected-head.png
+INPUT ./hcmut.png
 INPUT ./hcmut.png
 INPUT main.aux
 INPUT ./contents/evaluation.aux

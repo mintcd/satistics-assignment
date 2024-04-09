@@ -13,13 +13,14 @@ extract_tier_and_generation <- function(product_collection) {
 }
 
 is_valid <- function(value) {
+  value <- tolower(value)
   return(!is.na(value)
          & !is.null(value)
          & !value == ""
          & !value == "N/A"
-         & !value == "-"
-         & !value == "missing"
-         & !value == "unknown")
+         & !trimws(value) == "-"
+         & !grepl("missing", value)
+         & !grepl("unknown", value))
   # Add your criteria
 }
 
@@ -36,4 +37,22 @@ filtered_data <- function(data, valid_percentage=0.8) {
   }
   
   return(data[selected_columns])
+}
+
+month_to_quarter <- function(month) {
+  quarter <- switch(month,
+                    "Jan" = "1",
+                    "Feb" = "1",
+                    "Mar" = "1",
+                    "Apr" = "2",
+                    "May" = "2",
+                    "Jun" = "2",
+                    "Jul" = "3",
+                    "Aug" = "3",
+                    "Sep" = "3",
+                    "Oct" = "4",
+                    "Nov" = "4",
+                    "Dec" = "4",
+                    "Unknown")
+  return(quarter)
 }
