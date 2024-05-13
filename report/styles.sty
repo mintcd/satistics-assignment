@@ -1,18 +1,23 @@
 \ProvidesPackage{styles}
 
 \RequirePackage{graphicx}
-\RequirePackage{algorithmic}
-\RequirePackage{algorithm}
+% \RequirePackage{algorithmic}
+% \RequirePackage{algorithm}
 
 %%%%%%%% LSTLISTING SETUP %%%%%%%%
-%%%%%%%% DEFINE %%%%%%%%
+
 \definecolor{BLUE}{rgb}{0.54,0.86,0.87}
 \definecolor{ORANGE}{rgb}{0.99, 0.95, 0,96}
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{backcolor}{rgb}{0.95,0.95,0.92}
-%%%%%%%% LSTLISTING SETUP %%%%%%%%
-\lstset{language=R,
+
+% \newcounter{lstlisting}[section]
+% \renewcommand{\thelstlisting}{\arabic{chapter}.\arabic{section}.\arabic{lstlisting}}
+
+
+\lstset{
+  language=R,
     basicstyle=\small\ttfamily,
     otherkeywords={0,1,2,3,4,5,6,7,8,9},
     morekeywords={TRUE,FALSE},

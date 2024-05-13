@@ -1,8 +1,8 @@
 \chapter{Foundations}
 
-The Statistical Hypothesis is a statement or assumption about the parameters of one or more populations, which may be true or false. Each such truth value can be expressed in the form of a hypothesis, usually denoted as $H_0$, called the null hypothesis, and an alternative hypothesis, usually denoted as $H_1$ or Halt, which is its complement.
+A statistical Hypothesis is a statement or assumption about the parameters of one or more populations, which may be true or false. Each such truth value can be expressed in the form of a hypothesis, usually denoted as $H_0$, called the null hypothesis, and an alternative hypothesis, usually denoted as $H_1$ or Halt, which is its complement.
 
-\section{Theoretical Foundation of Sampling}
+\section{Theory of Sampling}
 \subsection{Terminology}
 \begin{enumerate}
  \item A population is a set $\{x_i\}_{i=1}^N$ of elements belonging to the object under study, which need to be observed, collected, and analyzed based on certain characteristics. A parameter is a numerical description of a population.
@@ -20,7 +20,7 @@ Statistical characteristics are important properties on a population, a sample o
 \end{enumerate}
 
 In details, these quantities are formulated as followings.
-\begin{itemize}
+\begin{enumerate}
  \item Population mean
        \begin{equation}
         \mu = \frac{1}{N} \sum_{i=1}^N x_i.
@@ -58,22 +58,22 @@ In details, these quantities are formulated as followings.
  \item Suppose that the sample $\{x_{i_j}\}_{j=1}^n$ is in increasing order. The sample median is calculated as
        \begin{equation}
         \mathrm{med} = \begin{cases}
-         x_{i_{k+1}},                           & \text{ if } n = 2k+1 \\
-         \frac{1}{2} (x_{i_{k}} + x_{i_{k+1}}), & \text{ if } n = 2k.
+         x_{i_{k+1}},                            & \text{ if } n = 2k+1 \\
+         \dfrac{1}{2} (x_{i_{k}} + x_{i_{k+1}}), & \text{ if } n = 2k.
         \end{cases}
        \end{equation}
  \item Quartiles include three values $Q_1,Q_2$ and $Q_3$. Where $Q_2$ is the median, $Q_1$ and $Q_3$ is the median of the set of samples less than and more than $Q_2$, respectively. The quantity $\mathrm{IQR} = Q_3-Q_1$ is called the interquartile range.
  \item An outlier is a point outsize $(Q1 - 1.5 \times IQR, Q3 + 1.5 \times IQR)$.
-\end{itemize}
+\end{enumerate}
 
-\section{Some General Principles of Statistical Hypothesis Testing}
+\section{Statistical Hypothesis Testing}
 The process of testing a statistical hypothesis is a standardized procedure for making decisions to reject or not reject a hypothesis based on sample data. This process is called hypothesis testing and typically involves four steps:
 
 \begin{enumerate}
- \item \textbf{Setting Hypotheses:} This step involves stating which hypothesis is null and which is alternative. The hypotheses are formulated in a mutually exclusive manner, meaning if one is true, the other must be false.
- \item \textbf{Constructing an Analysis Plan:} The analysis plan outlines how sample data will be used to evaluate the null hypothesis. Evaluation typically centers around a single test statistic.
- \item \textbf{Analyzing Sample Data:} Determine the values of the sample statistic (mean, proportion, t-statistic, z-score, etc.) as described in the analysis plan.
- \item \textbf{Interpreting Results:} Apply decision rules outlined in the analysis plan. If the observed result is inconsistent with the null hypothesis, reject it.
+ \item \textbf{Setting Hypotheses} involves stating which hypothesis is null and which is alternative. The hypotheses are formulated in a mutually exclusive manner, meaning if one is true, the other must be false.
+ \item \textbf{Constructing an Analysis Plan} outlines how sample data will be used to evaluate the null hypothesis. Evaluation typically centers around a single test statistic.
+ \item \textbf{Analyzing Sample Data} determines the values of the sample statistic (mean, proportion, $t$-statistic, $z$-score, etc.) as described in the analysis plan.
+ \item \textbf{Interpreting Results} applies decision rules outlined in the analysis plan. If the observed result is inconsistent with the null hypothesis, reject it.
 \end{enumerate}
 
 Similar to estimation, statistical hypothesis testing does not provide results with 100\% certainty but rather with a certain level of confidence, and errors can occur. Errors can be classified into two types:
@@ -89,13 +89,49 @@ Both types of errors can have adverse consequences. Depending on the situation, 
 To make decisions about rejecting the null hypothesis, statisticians rely on specific rules. These rules are listed in the analysis plan. Traditionally, statisticians describe these decision rules in two ways: referencing a p-value or referencing a region of acceptance.
 
 \begin{itemize}
- \item \textbf{$p$-value:} The strength of evidence in favor of a null hypothesis is measured by the p-value. Suppose the test statistic is denoted by S. The p-value is the probability of observing a test statistic as extreme as S, assuming the null hypothesis is true. If the p-value is smaller than the significance level, we reject the null hypothesis.
+ \item \textbf{$p$-value:} The strength of evidence in favor of a null hypothesis is measured by the $p$-value. Suppose the test statistic is denoted by S. The $p$-value is the probability of observing a test statistic as extreme as $S$, assuming the null hypothesis is true. If the $p$-value is smaller than the significance level, we reject the null hypothesis.
  \item \textbf{Region of Acceptance:} The region of acceptance is a range of values. If the sample statistic falls within the region of acceptance, the null hypothesis is not rejected. The region of acceptance is set so that the probability of committing a Type I error is equivalent to the significance level.
 \end{itemize}
 
 Values outside the region of acceptance are called the region of rejection. If the sample statistic falls within the region of rejection, the null hypothesis is rejected. In such cases, it's said that the null hypothesis has been rejected at the  significance level.
 
-% \subsection{Hồi quy tuyến tính}
+\section{Linear Regression}
+Linear regression constructs a linear model between independent variables $\mathbf{x}=(0, x_1,\ldots, x_d)\in\RR^{d+1}$ and a dependent variable $y\in\RR$. Traditionally, the relation is expressed as
+
+\begin{equation}
+ \begin{aligned}
+  y
+   & = w_0 + \sum\limits_{i=1}^n w_ix_i \\
+   & = \mathbf{x}^\top\mathbf{w},
+ \end{aligned}
+\end{equation}
+
+where $\{w_i\}_{i=0}^d$ are parameters to learn. Let $\{(\mathbf{x}_n, \hat{y}_n)\}_{n=1}^N$ be collected observations. Our objective is to minimize the error
+\begin{equation}
+ \begin{aligned}
+  \L(\mathbf{w})
+   & = \sum\limits_{n=1}^N (y-\hat{y})^2                                                              \\
+   & = \sum\limits_{n=1}^N (\mathbf{w}^\top \mathbf{x}_n-\hat{y}_n)^2                                 \\
+   & = \|\mathbf{X} \mathbf{w} - \hat{\mathbf{y}}\|^2                                               ,
+ \end{aligned}
+\end{equation}
+where $\hat{\mathbf{y}} = (\hat{y}_1,\ldots,\hat{y}_n)^\top \in \RR^n$ and $\mathbf{X} = (\mathbf{x}_1,\ldots,\mathbf{x}_n)\in\RR^{n\times(d+1)}$.
+Taking the derivative of $\L$, we have
+$$\dfrac{\d\L(\mathbf{w})}{\d \mathbf{w}} = 2\mathbf{X}^\top(\mathbf{X} \mathbf{w} - \hat{\mathbf{y}}).$$
+
+Equivalently, $\mathbf{X}^\top \mathbf{X} \mathbf{w} =  \mathbf{X}^\top\hat{\mathbf{y}}$. If $\mathbf{X}^\top \mathbf{X}$ is invertible i.e. the independent variables are linearly independent, we have the unique solution
+\begin{equation}
+ \mathbf{w} = (\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{X}^\top\hat{\mathbf{y}}.
+\end{equation}
+
+Along with the independence of independent variables, some requirements need to be satisfies for an accurate and reliable solution.
+
+\begin{enumerate}
+ \item  Linearity: The independent and dependent variables correlate. This means that the change in one or more independent variables induces the change in the dependent variable.
+ \item Independence: The observed data in the dataset are independent of each other. This means that the value of the dependent variable for one observed data point does not depend on the value of the dependent variable for another observed data point.
+ \item Across all levels of the independent variables, the variance of the errors remains constant. This indicates that the number of independent variables does not affect the variability of the errors.
+ \item Normality: The errors in the model follow a normal distribution.
+\end{enumerate}
 
 % \subsubsection{Hai loại hồi quy tuyến tính}
 
@@ -113,20 +149,6 @@ Values outside the region of acceptance are called the region of rejection. If t
 % + Trong đó: $Y$ là biến độc lập, $\beta_0$ là giao điểm của $Y$ khi $x$ bằng 0, $\beta_1$ là hệ số của $x$, $\varepsilon$ là hệ số độc lập của mô hình.\\
 % + Tức là $Y_i = \beta_0 + \beta_{1}x_1 + ... + \beta_{i}x_i  \varepsilon_i $ với $i=1,2,...,n$.\\
 
-% \subsubsection{Mô hình hồi quy tuyến tính}
-% - Hồi quy tuyến tính là một công cụ hữu ích để tìm hiểu và dự đoán cách thức hoạt động của một biến, tuy nhiên nó cần phải đáp ứng một số điều kiện để có thể trở thành giải pháp chính xác và đáng tin cậy.
-
-% - Tính tuyến tính: Các biến độc lập và biến phụ thuộc có mối quan hệ tuyến tính với nhau. Điều này có nghĩa rằng những thay đổi trong biến phụ thuộc sẽ theo sau những thay đổi trong một hoặc nhiều biến độc lập một cách tuyến tính.
-
-% - Tính độc lập: Các dữ liệu quan sát được trong tập dữ liệu độc lập với nhau. Điều này có nghĩa là giá trị của biến phụ thuộc cho một dữ liệu quan sát được không phụ thuộc vào giá trị của biến phụ thuộc cho một dữ liệu quan sát được khác.
-
-% - Tính đồng nhất: Trên tất cả các cấp độ của các biến độc lập, phương sai của sai số luôn không thay đổi. Điều này chỉ ra rằng số lượng các biến độc lập không có tác động đến sự khác biệt của các lỗi.
-
-% - Tính phân phối chuẩn: Các sai số trong mô hình có phân phối chuẩn.
-
-% - Không đa cộng tuyến: Không có sự tương quan cao giữa các biến độc lập. Cái này chỉ ra rằng có rất ít hoặc thậm chí không có mối tương quan nào giữa các biến độc lập.
-% \subsection{Hồi quy từng bước}
-
 % \subsubsection{Định nghĩa hồi quy từng bước}
 
 % - Hồi quy từng bước là một phương pháp điều chỉnh mô hình hồi quy bằng cách lặp đi lặp lại, thêm hoặc loại bỏ các biến. Nó được sử dụng để xây dựng một mô hình chính xác và chi tiết, có nghĩa là nó có số lượng biến nhỏ nhất có thể giải thích dữ liệu.
@@ -143,44 +165,35 @@ Values outside the region of acceptance are called the region of rejection. If t
 
 % - Tóm lại, hồi quy tuyến tính là phương pháp mô hình hóa mối quan hệ giữa phản hồi và một hoặc nhiều biến dự đoán, trong khi hồi quy từng bước là phương pháp xây dựng mô hình hồi quy bằng cách lặp đi lặp lại thêm hoặc loại bỏ các yếu tố dự đoán.
 
-% \subsection{Phân tích phương sai (ANOVA)}
+\section{Analysis of Variance}
 
-% \subsubsection{Định nghĩa phân tích phương sai:}
-% - Phân tích phương sai (ANOVA) là một công cụ phân tích được sử dụng trong thống kê nhằm mục đích phân chia biến thiên tổng hợp quan sát được tìm thấy trong một tập dữ liệu thành hai phần gồm: Các yếu tố hệ thống và Các yếu tố ngẫu nhiên. Các yếu tố hệ thống có ảnh hưởng thống kê đến tập dữ liệu nhất định, trong khi đó các yếu tố ngẫu nhiên thì không. Chúng ta sử dụng phân tích ANOVA để xác định sự ảnh hưởng của các biến độc lập đến biến phụ thuộc trong nghiên cứu hồi quy.
+Analysis of Variance (ANOVA) is a statistical analysis tool used to partition the total observed variability found in a dataset into two parts: Systematic factors and Random factors. Systematic factors statistically influence a certain dataset, while random factors do not. We use ANOVA to determine the influence of independent variables on the dependent variable in regression studies.
 
-% - Các phương pháp kiểm định T (T-Test) và kiểm định Z (Z-Test) được phát triển trong thế kỷ 20 được sử dụng để phân tích thống kê cho đến năm 1918, khi Ronald Fisher tạo ra phương pháp phân tích phương sai.
-% - ANOVA còn được gọi là phân tích phương sai của Fisher và là phần mở rộng của các kiểm định T và kiểm định Z. Cả hai đều đóng vai trò kiểm tra giả thuyết để đánh giá liệu có sự khác biệt đáng chú ý nào giữa các phương tiện hay không.
+The T-Test and Z-Test methods, developed in the 20th century, were used for statistical analysis until 1918 when Ronald Fisher introduced the Analysis of Variance method. Both serve as hypothesis tests to assess whether there is any significant difference between means. The T-Test is used when the population variance is unknown or the sample size is small $(n < 30)$. Meanwhile, the Z-Test is applied when the population variance is known and the sample size is large $(n > 30)$. The T-Test uses the Student's t-distribution, while the Z-Test uses the standard normal distribution. As the sample size increases, the T-distribution converges to the standard normal distribution. The T-Test can be understood as a statistical test used to compare and analyze whether the mean values of two populations are different when the standard deviation is unknown. Conversely, the Z-Test is a parametric test applied when the standard deviation is known to determine whether the means of two datasets are different. ANOVA is also known as Fisher's analysis of variance and is an extension of both T-Tests and Z-Tests.
 
-% - Kiểm định T được sử dụng khi chưa biết phương sai tổng thể hoặc cỡ mẫu nhỏ (n < 30). Đồng thời, kiểm định Z được áp dụng khi đã biết phương sai tổng thể và cỡ mẫu là lớn (n > 30). Kiểm định T sử dụng phân phối Student, trong khi kiểm định Z sử dụng phân phối chuẩn chuẩn. Khi cỡ mẫu tăng lên, phân phối T sẽ hội tụ về phân phối chuẩn hóa.
+\subsection{ANOVA Usecases}
 
-% - Kiểm định T có thể được hiểu là một kiểm định thống kê dùng để so sánh và phân tích xem liệu giá trị trung bình của hai tổng thể có khác nhau hay không khi độ lệch chuẩn không được biết đến. Ngược lại với nó, thì kiểm định Z lại là một thử nghiệm tham số, được áp dụng khi biết độ lệch chuẩn, để xác định xem phương tiện của hai bộ dữ liệu có khác nhau hay không.
+ANOVA test is the initial step in analyzing factors influencing a specific dataset. Upon completing a test, additional checks on measurable methodological factors contributing to dataset inconsistency are conducted. The results, using $F$-distribution, can be utilized to generate supplementary data suitable for proposed regression models.
 
-% \subsubsection{Phân tích phương sai (ANOVA) có tác dụng như thế nào}
+ANOVA test enables comparison of more than two groups simultaneously to determine whether a relationship exists among them. The outcome of ANOVA analysis, the F-statistic (also known as the F-ratio), allows for analysis across multiple datasets to ascertain variation between samples and within samples.
 
-% - Thử nghiệm ANOVA là bước đầu trong việc phân tích các yếu tố ảnh hưởng đến một tập dữ liệu nhất định. Khi kiểm tra kết thúc một lần kiểm tra, ta sẽ thực hiện kiểm tra bổ sung về các yếu tố phương pháp có thể đo lường được góp phần vào sự không nhất quán của tập dữ liệu. Ta có thể sử dụng kết quả kiểm tra ANOVA trong chuẩn F để tạo dữ liệu bổ sung phù hợp với các mô hình hồi quy được đề xuất.
+If no significant differences exist among the tested groups (known as the null hypothesis), the $F$-statistic result of ANOVA will be close to $1$. The distribution of all possible values of the F-statistic follows the $F$-distribution. This is a family of probability distributions characterized by two parameters, known as the degrees of freedom of the numerator and the degrees of freedom of the denominator.
 
-% - Thử nghiệm ANOVA cho phép so sánh nhiều hơn hai nhóm cùng một lúc để xác định giữa họ có tồn tại mối quan hệ hay không. Kết quả của công thức phân tích ANOVA, thống kê F (còn được gọi là tỷ lệ F), cho phép phân tích nhiều nhóm dữ liệu để xác định độ biến thiên giữa các mẫu và trong các mẫu.
+\subsection{Types of ANOVA}
 
-% - Nếu không có sự khác biệt đáng kể nào giữa các nhóm được kiểm tra (được gọi là giả thuyết khống) thì kết quả thống kê F của ANOVA sẽ gần bằng 1. Phân phối của tất cả các giá trị có thể có của thống kê F là phân phối F. Đây là một nhóm hàm phân bố, có hai số đặc trưng, được gọi là bậc tự do của tử số và bậc tự do của mẫu số.
+There are two main types of ANOVA: one-way ANOVA and two-way ANOVA. Additionally, there are variations of ANOVA such as  Multivariate ANOVA (MANOVA), which differs from ANOVA in that the former tests multiple dependent variables simultaneously while the latter evaluates only one dependent variable at a time. One-way or two-way refers to the number of independent variables in the analysis of variance. Furthermore, ANOVA relies on assumptions. ANOVA tests assume that the data are normally distributed, the variance is nearly equal across groups, and all observations are independent. If these assumptions are not met, ANOVA may not be useful for group comparisons.
 
-% \subsubsection{Tìm hiểu về ANOVA một chiều và ANOVA hai chiều}
+\subsubsection{One-way ANOVA}
+One-way ANOVA is used to assess the effect of a single factor on a single response variable. It determines whether all samples are similar i.e. determine whether there is a statistically significant difference between the means of three or more independent (unrelated) groups. One-way ANOVA is formulated as
+\begin{equation}
+ Y_{i,j}=\mu_j + \varepsilon_{i,j},
+\end{equation}
+where $i=1,\ldots,n_j$ are indices of observations within the same group, $j=1,\ldots,k$ are indices of influenced groups, $\mu_j$ s the mean for each affected group and $\varepsilon_{i,j} \sim N(0,\sigma^2)$ is normal-distributed errors, independent for all $i$ and $j$. Mean and variance of $Y_{i,j}$ are $E(Y_{i,j})=\mu_j$ and $Var(Y_{i,j})=\sigma^2$, respectively.
 
-% - Có hai loại ANOVA chính là ANOVA một chiều và ANOVA hai chiều. Ngoài ra còn có các biến thể của ANOVA như MANOVA (ANOVA đa biến) khác với ANOVA ở chỗ phương pháp trước kiểm tra đồng thời nhiều biến phụ thuộc trong khi phương pháp sau chỉ đánh giá một biến phụ thuộc tại một thời điểm. Một chiều hoặc hai chiều đề cập đến số lượng biến độc lập trong phân tích phương sai.
+\subsubsection{Two-way ANOVA}
 
-% - Hơn nữa, ANOVA dựa vào các giả định. Các thử nghiệm ANOVA giả định rằng dữ liệu thường được phân phối và mức độ phương sai trong mỗi nhóm gần như bằng nhau. Cuối cùng, chúng ta giả định rằng tất cả các quan sát được thực hiện độc lập. Nếu những giả định này không chính xác thì ANOVA có thể không hữu ích cho việc so sánh các nhóm.
-
-% - ANOVA một chiều:\\
-% + Được dùng để đánh giá tác động của một yếu tố duy nhất lên một biến phản hồi duy nhất. Nó xác định xem tất cả các mẫu có giống nhau hay không. \\
-% + Phân tích phương sai một chiều (ANOVA) được sử dụng để xác định xem có sự khác biệt có ý nghĩa thống kê giữa giá trị trung bình của ba nhóm độc lập (không liên quan) trở lên hay không.\\
-% + Mô hình ANOVA một chiều có thể được viết dưới dạng: $Y_{i,j}=\mu_ + \varepsilon_{i,j}$ với:\\
-% $i=1,2,3,...,n_j$ là số thứ tự các quan sát trong cùng một nhóm.\\
-% $j=1,2,3,...,k$ là số thứ tự đến các nhóm bị ảnh hưởng.\\
-% $\mu_j$ là trung bình cho từng nhóm bị ảnh hưởng.\\
-% $\varepsilon \sim N(0,\sigma^2)$ là sai số có phân phối chuẩn và độc lập với nhau cho tất cả $i$ và $j$.\\
-% + Giá trị trung bình và phương sai của $Y_{i,j}$: $E(Y_{i,j})=\mu_j$, $Var(Y_{i,j})=\sigma^2$
-
-% - ANOVA hai chiều:\\
-% + Là phần mở rộng của ANOVA một chiều. Với phương pháp một chiều, ta có một biến độc lập ảnh hưởng đến một biến phụ thuộc.\\
-% + Với ANOVA hai chiều, có hai yếu tố độc lập. Nó được sử dụng để quan sát sự tương tác giữa hai yếu tố và kiểm tra tác động của hai yếu tố cùng một lúc.\\
-% + Mô hình ANOVA hai chiều có thể được viết dưới dạng: $Y_{i,j}=\mu_j+\gamma_j+(\mu\gamma)_{i,j}+\varepsilon_{i,j,k}$\\
-% + Giả định về biến ngẫu nhiên tương tự như phân tích ANOVA một chiều.
+Two-way ANOVA is an extension of one-way ANOVA, where there are two independent factors. It is used to observe the interaction between two factors and test the effects of two factors simultaneously. It is formulated as
+\begin{equation}
+ Y_{i,j}=\mu_j+\gamma_j+(\mu\gamma){i,j}+\varepsilon{i,j,k}.
+\end{equation}
+Assumptions about random variables are similar to one-way ANOVA.

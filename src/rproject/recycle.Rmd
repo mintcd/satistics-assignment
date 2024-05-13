@@ -1,0 +1,17 @@
+```{r}
+length(unique(gpu_data$Architecture))
+```
+
+```{r}
+cpu_collections <- unique(cpu_data$Product_Collection)
+length(cpu_collections)
+```
+
+There are 75 distinct values of <code>Product_Collection</code>. We will find out the key of this data.
+
+```{r}
+difference <- nrow(cpu_data) - nrow(unique(cpu_data[, c("Product_Collection", "Vertical_Segment", "Processor_Number", "Launch_Date")]))
+difference
+```
+
+Let us check that the key of this data is the tuple <code>(Product_Collection, Processor_Number)</code>.

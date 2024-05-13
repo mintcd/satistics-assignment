@@ -1,13 +1,13 @@
 INFO:  ANSI Code Page: 1252
 INFO:  latexindent.exe version 3.24, 2024-04-28, a script to indent .tex files
        latexindent.exe lives here: C:/texlive/2024/bin/windows/
-       Mon May 13 18:14:55 2024
-       Filename: d:/Projects/statistics/template/chapters/__latexindent_temp_discussion.tex
+       Tue May 14 01:45:47 2024
+       Filename: d:/Projects/statistics/report/chapters/__latexindent_temp_foundations.tex
 INFO:  Processing switches:
        -y|--yaml: YAML settings specified via command line
        -c|--cruft: cruft directory
-INFO:  Directory for backup files and log file d:\Projects\statistics\template\indent.log:
-       d:\Projects\statistics\template\
+INFO:  Directory for backup files and log file d:\Projects\statistics\report\indent.log:
+       d:\Projects\statistics\report\
 INFO:  YAML settings read: defaultSettings.yaml
        Reading defaultSettings.yaml from C:/texlive/2024/bin/windows/defaultSettings.yaml
        Reading defaultSettings.yaml (2nd attempt) from C:/texlive/2024/bin/windows/../../texmf-dist/scripts/latexindent/defaultSettings.yaml
@@ -17,9 +17,9 @@ INFO:  YAML reading settings
        latexindent.pl didn't find indentconfig.yaml or .indentconfig.yaml
        see all possible locations: https://latexindentpl.readthedocs.io/en/latest/sec-appendices.html#indentconfig-options)
 INFO:  YAML settings read: -y switch
-       YAML setting: defaultIndent:'  '
-       single-quoted string found in -y switch: '  ', substitute to   
-       Updating mainSettings with defaultIndent:   
+       YAML setting: defaultIndent:' '
+       single-quoted string found in -y switch: ' ', substitute to  
+       Updating mainSettings with defaultIndent:  
 INFO:  Phase 1: searching for objects
 INFO:  Phase 2: finding surrounding indentation
 INFO:  Phase 3: indenting objects

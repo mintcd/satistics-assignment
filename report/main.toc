@@ -1,12 +1,23 @@
 \contentsline {chapter}{\numberline {I}Dataset Overview}{4}{chapter.1}%
 \contentsline {chapter}{\numberline {II}Foundations}{6}{chapter.2}%
-\contentsline {section}{\numberline {1}Theoretical Foundation of Sampling}{6}{section.2.1}%
+\contentsline {section}{\numberline {1}Theory of Sampling}{6}{section.2.1}%
 \contentsline {subsection}{\numberline {1.1}Terminology}{6}{subsection.2.1.1}%
 \contentsline {subsection}{\numberline {1.2}Statistical characteristics}{6}{subsection.2.1.2}%
-\contentsline {section}{\numberline {2}Some General Principles of Statistical Hypothesis Testing}{7}{section.2.2}%
-\contentsline {chapter}{\numberline {III}Data Preprocessing}{9}{chapter.3}%
-\contentsline {section}{\numberline {1}Data Cleaning}{9}{section.3.1}%
-\contentsline {section}{\numberline {2}Data Pre-computation}{11}{section.3.2}%
-\contentsline {chapter}{\numberline {IV}Descriptive Statistics}{14}{chapter.4}%
-\contentsline {chapter}{\numberline {V}Inferential Statistics}{15}{chapter.5}%
-\contentsline {chapter}{\numberline {VI}Discussion}{16}{chapter.6}%
+\contentsline {section}{\numberline {2}Statistical Hypothesis Testing}{7}{section.2.2}%
+\contentsline {section}{\numberline {3}Linear Regression}{8}{section.2.3}%
+\contentsline {section}{\numberline {4}Analysis of Variance}{9}{section.2.4}%
+\contentsline {subsection}{\numberline {4.1}ANOVA Usecases}{9}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {4.2}Types of ANOVA}{9}{subsection.2.4.2}%
+\contentsline {subsubsection}{\numberline {4.2.1}One-way ANOVA}{10}{subsubsection.2.4.2.1}%
+\contentsline {subsubsection}{\numberline {4.2.2}Two-way ANOVA}{10}{subsubsection.2.4.2.2}%
+\contentsline {chapter}{\numberline {III}Data Preprocessing}{11}{chapter.3}%
+\contentsline {section}{\numberline {1}Data Cleaning}{11}{section.3.1}%
+\contentsline {section}{\numberline {2}Data Pre-computation}{13}{section.3.2}%
+\contentsline {chapter}{\numberline {IV}Descriptive Statistics}{16}{chapter.4}%
+\contentsline {section}{\numberline {1}CPU Data}{16}{section.4.1}%
+\contentsline {section}{\numberline {2}GPU Data}{18}{section.4.2}%
+\contentsline {chapter}{\numberline {V}Inferential Statistics}{26}{chapter.5}%
+\contentsline {section}{\numberline {1}Two-way ANOVA}{26}{section.5.1}%
+\contentsline {subsection}{\numberline {1.1}Problem Statement}{26}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {1.2}Hypotheses Testing}{26}{subsection.5.1.2}%
+\contentsline {chapter}{\numberline {VI}Discussion}{27}{chapter.6}%

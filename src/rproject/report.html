@@ -582,6 +582,8 @@ guys</h4>
 </div>
 
 
+<div id="libraries" class="section level1">
+<h1>Libraries</h1>
 <pre class="r"><code># Libraries and options
 library(dplyr)
 library(here)
@@ -593,13 +595,12 @@ source(&quot;utils.R&quot;)
 
 # Working directory
 setwd(here())</code></pre>
-<div id="dataset-inspection" class="section level1">
-<h1>Dataset inspection</h1>
-<pre class="r"><code># Read the CSV file into a data frame
-cpu_data &lt;- read.csv(&quot;dataset/Intel_CPUs.csv&quot;)
-gpu_data &lt;- read.csv(&quot;dataset/All_GPUs.csv&quot;)</code></pre>
-<p>Get the formatted first rows of the data</p>
-<pre class="r"><code># Inspect the CPU data
+</div>
+<div id="dataset-preprocessing" class="section level1">
+<h1>Dataset Preprocessing</h1>
+<div id="data-reading-and-display" class="section level2">
+<h2>Data reading and display</h2>
+<pre class="r"><code>cpu_data &lt;- read.csv(&quot;dataset/Intel_CPUs.csv&quot;)
 kable(head(cpu_data), format = &quot;html&quot;) %&gt;%
   kable_styling()</code></pre>
 <table class="table" style="margin-left: auto; margin-right: auto;">
@@ -1550,7 +1551,8 @@ Yes
 </tr>
 </tbody>
 </table>
-<pre class="r"><code>kable(head(gpu_data), format = &quot;html&quot;) %&gt;%
+<pre class="r"><code>gpu_data &lt;- read.csv(&quot;dataset/All_GPUs.csv&quot;)
+kable(head(gpu_data), format = &quot;html&quot;) %&gt;%
   kable_styling()</code></pre>
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <thead>
@@ -2276,93 +2278,700 @@ Yes
 </ul></li>
 </ul></li>
 </ul>
-<p>Take a look at the columns.</p>
+</div>
+<div id="feature-inspection" class="section level2">
+<h2>Feature inspection</h2>
 <pre class="r"><code>cpu_columns &lt;- colnames(cpu_data)
 gpu_columns &lt;- colnames(gpu_data)
 intersect(cpu_columns, gpu_columns)</code></pre>
 <pre><code>## character(0)</code></pre>
-<pre class="r"><code>cpu_columns</code></pre>
-<pre><code>##  [1] &quot;Product_Collection&quot;                      
-##  [2] &quot;Vertical_Segment&quot;                        
-##  [3] &quot;Processor_Number&quot;                        
-##  [4] &quot;Status&quot;                                  
-##  [5] &quot;Launch_Date&quot;                             
-##  [6] &quot;Lithography&quot;                             
-##  [7] &quot;Recommended_Customer_Price&quot;              
-##  [8] &quot;nb_of_Cores&quot;                             
-##  [9] &quot;nb_of_Threads&quot;                           
-## [10] &quot;Processor_Base_Frequency&quot;                
-## [11] &quot;Max_Turbo_Frequency&quot;                     
-## [12] &quot;Cache&quot;                                   
-## [13] &quot;Bus_Speed&quot;                               
-## [14] &quot;TDP&quot;                                     
-## [15] &quot;Embedded_Options_Available&quot;              
-## [16] &quot;Conflict_Free&quot;                           
-## [17] &quot;Max_Memory_Size&quot;                         
-## [18] &quot;Memory_Types&quot;                            
-## [19] &quot;Max_nb_of_Memory_Channels&quot;               
-## [20] &quot;Max_Memory_Bandwidth&quot;                    
-## [21] &quot;ECC_Memory_Supported&quot;                    
-## [22] &quot;Processor_Graphics_&quot;                     
-## [23] &quot;Graphics_Base_Frequency&quot;                 
-## [24] &quot;Graphics_Max_Dynamic_Frequency&quot;          
-## [25] &quot;Graphics_Video_Max_Memory&quot;               
-## [26] &quot;Graphics_Output&quot;                         
-## [27] &quot;Support_4k&quot;                              
-## [28] &quot;Max_Resolution_HDMI&quot;                     
-## [29] &quot;Max_Resolution_DP&quot;                       
-## [30] &quot;Max_Resolution_eDP_Integrated_Flat_Panel&quot;
-## [31] &quot;DirectX_Support&quot;                         
-## [32] &quot;OpenGL_Support&quot;                          
-## [33] &quot;PCI_Express_Revision&quot;                    
-## [34] &quot;PCI_Express_Configurations_&quot;             
-## [35] &quot;Max_nb_of_PCI_Express_Lanes&quot;             
-## [36] &quot;T&quot;                                       
-## [37] &quot;Intel_Hyper_Threading_Technology_&quot;       
-## [38] &quot;Intel_Virtualization_Technology_VTx_&quot;    
-## [39] &quot;Intel_64_&quot;                               
-## [40] &quot;Instruction_Set&quot;                         
-## [41] &quot;Instruction_Set_Extensions&quot;              
-## [42] &quot;Idle_States&quot;                             
-## [43] &quot;Thermal_Monitoring_Technologies&quot;         
-## [44] &quot;Secure_Key&quot;                              
-## [45] &quot;Execute_Disable_Bit&quot;</code></pre>
-<pre class="r"><code>gpu_columns</code></pre>
-<pre><code>##  [1] &quot;Architecture&quot;           &quot;Best_Resolution&quot;        &quot;Boost_Clock&quot;           
-##  [4] &quot;Core_Speed&quot;             &quot;DVI_Connection&quot;         &quot;Dedicated&quot;             
-##  [7] &quot;Direct_X&quot;               &quot;DisplayPort_Connection&quot; &quot;HDMI_Connection&quot;       
-## [10] &quot;Integrated&quot;             &quot;L2_Cache&quot;               &quot;Manufacturer&quot;          
-## [13] &quot;Max_Power&quot;              &quot;Memory&quot;                 &quot;Memory_Bandwidth&quot;      
-## [16] &quot;Memory_Bus&quot;             &quot;Memory_Speed&quot;           &quot;Memory_Type&quot;           
-## [19] &quot;Name&quot;                   &quot;Notebook_GPU&quot;           &quot;Open_GL&quot;               
-## [22] &quot;PSU&quot;                    &quot;Pixel_Rate&quot;             &quot;Power_Connector&quot;       
-## [25] &quot;Process&quot;                &quot;ROPs&quot;                   &quot;Release_Date&quot;          
-## [28] &quot;Release_Price&quot;          &quot;Resolution_WxH&quot;         &quot;SLI_Crossfire&quot;         
-## [31] &quot;Shader&quot;                 &quot;TMUs&quot;                   &quot;Texture_Rate&quot;          
-## [34] &quot;VGA_Connection&quot;</code></pre>
-<pre class="r"><code>length(unique(gpu_data$Architecture))</code></pre>
-<pre><code>## [1] 705</code></pre>
-<pre class="r"><code>cpu_collections &lt;- unique(cpu_data$Product_Collection)
-length(cpu_collections)</code></pre>
-<pre><code>## [1] 75</code></pre>
-<p>There are 75 distinct values of <code>Product_Collection</code>. We
-will find out the key of this data.</p>
-<pre class="r"><code>difference &lt;- nrow(cpu_data) - nrow(unique(cpu_data[, c(&quot;Product_Collection&quot;, &quot;Vertical_Segment&quot;, &quot;Processor_Number&quot;, &quot;Launch_Date&quot;)]))
-difference</code></pre>
-<pre><code>## [1] 324</code></pre>
-<p>Let us check that the key of this data is the tuple
-<code>(Product_Collection, Processor_Number)</code>.</p>
+<p>It can be seen that there are no common columns between the
+dataframes. However, some columns may indicate the same feature, which
+needed to be handled manually.</p>
 </div>
-<div id="statistics" class="section level1">
-<h1>Statistics</h1>
-<div id="how-textttrecommended_customer_price-depends-on-other-manufacturing-properties" class="section level2">
-<h2>How <span class="math inline">\(\texttt{Recommended_Customer_Price}\)</span>
-depends on other manufacturing properties</h2>
-<ul>
-<li>Filter out instances with no <span class="math inline">\(\texttt{Recommended_Customer_Price}\)</span></li>
-<li>Choose concerned properties</li>
-</ul>
-<pre class="r"><code>filtered_cpu_data &lt;- filtered_data(cpu_data, valid_percentage=0.5)
+<div id="data-cleaning" class="section level2">
+<h2>Data cleaning</h2>
+<p>We take a look at invalid values in the dataframes</p>
+<pre class="r"><code># Count NA and empty strings
+na_counts &lt;- colSums(sapply(cpu_data, 
+                               function(x) 
+                                 is.na(x) | x == &quot;N/A&quot;))
+
+empty_counts &lt;- colSums(sapply(cpu_data, 
+                               function(x) 
+                                 is.character(x) &amp; 
+                                  (x == &quot;&quot; | x == &quot;-&quot;)))
+# Get percentage of invalid values
+invalid_percentage &lt;- (na_counts+empty_counts)/nrow(cpu_data)*100
+
+# Display
+invalid_df &lt;- 
+  data.frame(Property = names(na_counts), 
+             NA_Count = unname(na_counts),
+             Empty_Count = unname(empty_counts),
+             Invalid_Percentage = unname(invalid_percentage)) %&gt;%
+  arrange(desc(Invalid_Percentage))
+
+kable(invalid_df, format = &quot;html&quot;) %&gt;% 
+  kable_styling()</code></pre>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Property
+</th>
+<th style="text-align:right;">
+NA_Count
+</th>
+<th style="text-align:right;">
+Empty_Count
+</th>
+<th style="text-align:right;">
+Invalid_Percentage
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Processor_Graphics_
+</td>
+<td style="text-align:right;">
+2283
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+100.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Support_4k
+</td>
+<td style="text-align:right;">
+2283
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+100.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OpenGL_Support
+</td>
+<td style="text-align:right;">
+2283
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+100.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Max_Resolution_eDP_Integrated_Flat_Panel
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+2014
+</td>
+<td style="text-align:right;">
+88.7428822
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Max_Resolution_DP
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+1910
+</td>
+<td style="text-align:right;">
+84.1874726
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Max_Resolution_HDMI
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+1901
+</td>
+<td style="text-align:right;">
+83.9684625
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DirectX_Support
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+1876
+</td>
+<td style="text-align:right;">
+82.6982041
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Graphics_Video_Max_Memory
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1873
+</td>
+<td style="text-align:right;">
+82.0411739
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Graphics_Output
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+1716
+</td>
+<td style="text-align:right;">
+75.6898817
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Graphics_Max_Dynamic_Frequency
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1554
+</td>
+<td style="text-align:right;">
+68.0683311
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Secure_Key
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1518
+</td>
+<td style="text-align:right;">
+66.4914586
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Graphics_Base_Frequency
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1444
+</td>
+<td style="text-align:right;">
+63.2501095
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Max_Turbo_Frequency
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1369
+</td>
+<td style="text-align:right;">
+59.9649584
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PCI_Express_Configurations_
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1224
+</td>
+<td style="text-align:right;">
+53.6136662
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Max_Memory_Bandwidth
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1136
+</td>
+<td style="text-align:right;">
+49.7590889
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Max_nb_of_PCI_Express_Lanes
+</td>
+<td style="text-align:right;">
+1104
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+48.3574244
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Conflict_Free
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1076
+</td>
+<td style="text-align:right;">
+47.1309680
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Instruction_Set_Extensions
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1048
+</td>
+<td style="text-align:right;">
+45.9045116
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PCI_Express_Revision
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1015
+</td>
+<td style="text-align:right;">
+44.4590451
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Recommended_Customer_Price
+</td>
+<td style="text-align:right;">
+982
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+43.0135786
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Thermal_Monitoring_Technologies
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+891
+</td>
+<td style="text-align:right;">
+39.0275953
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Memory_Types
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+883
+</td>
+<td style="text-align:right;">
+38.6771792
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Max_Memory_Size
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+880
+</td>
+<td style="text-align:right;">
+38.5457731
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Max_nb_of_Memory_Channels
+</td>
+<td style="text-align:right;">
+869
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+38.0639509
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+nb_of_Threads
+</td>
+<td style="text-align:right;">
+856
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+37.4945247
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ECC_Memory_Supported
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+787
+</td>
+<td style="text-align:right;">
+34.4721857
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Idle_States
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+541
+</td>
+<td style="text-align:right;">
+23.6968901
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Launch_Date
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+412
+</td>
+<td style="text-align:right;">
+18.0464301
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Processor_Number
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+349
+</td>
+<td style="text-align:right;">
+15.2869032
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Intel_64_
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+307
+</td>
+<td style="text-align:right;">
+13.4472186
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Execute_Disable_Bit
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+295
+</td>
+<td style="text-align:right;">
+12.9215944
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Bus_Speed
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+294
+</td>
+<td style="text-align:right;">
+12.8777924
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+T
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+260
+</td>
+<td style="text-align:right;">
+11.3885239
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Intel_Hyper_Threading_Technology_
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+260
+</td>
+<td style="text-align:right;">
+11.3885239
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Instruction_Set
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+141
+</td>
+<td style="text-align:right;">
+6.1760841
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Intel_Virtualization_Technology_VTx_
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+87
+</td>
+<td style="text-align:right;">
+3.8107753
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lithography
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+71
+</td>
+<td style="text-align:right;">
+3.1099431
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TDP
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+67
+</td>
+<td style="text-align:right;">
+2.9347350
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Processor_Base_Frequency
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+0.7884363
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cache
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+0.5256242
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Embedded_Options_Available
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.0438020
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Product_Collection
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vertical_Segment
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Status
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+nb_of_Cores
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+</tbody>
+</table>
+<p>The dataframes to inference must not have any invalid values.
+Therefore, we select some features and instances from the original
+dataframes. Here we firstly select features where invalid percentage
+exceeds our threshold <span class="math inline">\(\texttt{valid\_percentage}\)</span>. Then select
+valid instances and filter features for the last time. Note that if the
+<span class="math inline">\(\texttt{valid\_percentage}\)</span> is low,
+the more features are retained, implying that less instances left.</p>
+<pre class="r"><code>filtered_cpu_data &lt;- filtered_data(cpu_data, valid_percentage=0.8)
 
 processed_cpu_data &lt;- 
   filtered_cpu_data[
@@ -2376,8 +2985,6 @@ kable(head(selected_cpu_data), format = &quot;html&quot;) %&gt;%
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
-<th style="text-align:left;">
-</th>
 <th style="text-align:left;">
 Product_Collection
 </th>
@@ -2402,9 +3009,6 @@ Recommended_Customer_Price
 <th style="text-align:right;">
 nb_of_Cores
 </th>
-<th style="text-align:right;">
-nb_of_Threads
-</th>
 <th style="text-align:left;">
 Processor_Base_Frequency
 </th>
@@ -2419,30 +3023,6 @@ TDP
 </th>
 <th style="text-align:left;">
 Embedded_Options_Available
-</th>
-<th style="text-align:left;">
-Conflict_Free
-</th>
-<th style="text-align:left;">
-Max_Memory_Size
-</th>
-<th style="text-align:left;">
-Memory_Types
-</th>
-<th style="text-align:right;">
-Max_nb_of_Memory_Channels
-</th>
-<th style="text-align:left;">
-Max_Memory_Bandwidth
-</th>
-<th style="text-align:left;">
-ECC_Memory_Supported
-</th>
-<th style="text-align:left;">
-PCI_Express_Revision
-</th>
-<th style="text-align:right;">
-Max_nb_of_PCI_Express_Lanes
 </th>
 <th style="text-align:left;">
 T
@@ -2460,24 +3040,12 @@ Intel_64_
 Instruction_Set
 </th>
 <th style="text-align:left;">
-Instruction_Set_Extensions
-</th>
-<th style="text-align:left;">
-Idle_States
-</th>
-<th style="text-align:left;">
-Thermal_Monitoring_Technologies
-</th>
-<th style="text-align:left;">
 Execute_Disable_Bit
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left;">
-1
-</td>
 <td style="text-align:left;">
 7th Generation Intel® Core™ i7 Processors
 </td>
@@ -2502,9 +3070,6 @@ $393.00
 <td style="text-align:right;">
 2
 </td>
-<td style="text-align:right;">
-4
-</td>
 <td style="text-align:left;">
 1.30 GHz
 </td>
@@ -2519,30 +3084,6 @@ $393.00
 </td>
 <td style="text-align:left;">
 No
-</td>
-<td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:left;">
-16 GB
-</td>
-<td style="text-align:left;">
-LPDDR3-1866, DDR3L-1600
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:left;">
-29.8 GB/s
-</td>
-<td style="text-align:left;">
-No
-</td>
-<td style="text-align:left;">
-3
-</td>
-<td style="text-align:right;">
-10
 </td>
 <td style="text-align:left;">
 100°C
@@ -2560,22 +3101,10 @@ Yes
 64-bit
 </td>
 <td style="text-align:left;">
-SSE4.1/4.2, AVX 2.0
-</td>
-<td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:left;">
 Yes
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
-2
-</td>
 <td style="text-align:left;">
 8th Generation Intel® Core™ i5 Processors
 </td>
@@ -2600,9 +3129,6 @@ $297.00
 <td style="text-align:right;">
 4
 </td>
-<td style="text-align:right;">
-8
-</td>
 <td style="text-align:left;">
 1.60 GHz
 </td>
@@ -2617,30 +3143,6 @@ $297.00
 </td>
 <td style="text-align:left;">
 No
-</td>
-<td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:left;">
-32 GB
-</td>
-<td style="text-align:left;">
-DDR4-2400, LPDDR3-2133
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:left;">
-34.1 GB/s
-</td>
-<td style="text-align:left;">
-No
-</td>
-<td style="text-align:left;">
-3
-</td>
-<td style="text-align:right;">
-12
 </td>
 <td style="text-align:left;">
 100°C
@@ -2658,22 +3160,10 @@ Yes
 64-bit
 </td>
 <td style="text-align:left;">
-SSE4.1/4.2, AVX 2.0
-</td>
-<td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:left;">
 Yes
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
-3
-</td>
 <td style="text-align:left;">
 8th Generation Intel® Core™ i7 Processors
 </td>
@@ -2698,9 +3188,6 @@ $409.00
 <td style="text-align:right;">
 4
 </td>
-<td style="text-align:right;">
-8
-</td>
 <td style="text-align:left;">
 1.80 GHz
 </td>
@@ -2715,30 +3202,6 @@ $409.00
 </td>
 <td style="text-align:left;">
 No
-</td>
-<td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:left;">
-32 GB
-</td>
-<td style="text-align:left;">
-DDR4-2400, LPDDR3-2133
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:left;">
-34.1 GB/s
-</td>
-<td style="text-align:left;">
-No
-</td>
-<td style="text-align:left;">
-3
-</td>
-<td style="text-align:right;">
-12
 </td>
 <td style="text-align:left;">
 100°C
@@ -2756,22 +3219,69 @@ Yes
 64-bit
 </td>
 <td style="text-align:left;">
-SSE4.1/4.2, AVX 2.0
+Yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Intel® Core™ X-series Processors
+</td>
+<td style="text-align:left;">
+Desktop
+</td>
+<td style="text-align:left;">
+i7-3820
+</td>
+<td style="text-align:left;">
+End of Life
+</td>
+<td style="text-align:left;">
+Q1’12
+</td>
+<td style="text-align:left;">
+32 nm
+</td>
+<td style="text-align:left;">
+$305.00
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+3.60 GHz
+</td>
+<td style="text-align:left;">
+10 MB SmartCache
+</td>
+<td style="text-align:left;">
+5 GT/s DMI2
+</td>
+<td style="text-align:left;">
+130 W
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+66.8°C
 </td>
 <td style="text-align:left;">
 Yes
 </td>
 <td style="text-align:left;">
 Yes
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+64-bit
 </td>
 <td style="text-align:left;">
 Yes
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
-5
-</td>
 <td style="text-align:left;">
 7th Generation Intel® Core™ i5 Processors
 </td>
@@ -2796,9 +3306,6 @@ $281.00
 <td style="text-align:right;">
 2
 </td>
-<td style="text-align:right;">
-4
-</td>
 <td style="text-align:left;">
 1.20 GHz
 </td>
@@ -2815,30 +3322,6 @@ $281.00
 No
 </td>
 <td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:left;">
-16 GB
-</td>
-<td style="text-align:left;">
-LPDDR3-1866, DDR3L-1600
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:left;">
-29.8 GB/s
-</td>
-<td style="text-align:left;">
-No
-</td>
-<td style="text-align:left;">
-3
-</td>
-<td style="text-align:right;">
-10
-</td>
-<td style="text-align:left;">
 100°C
 </td>
 <td style="text-align:left;">
@@ -2854,155 +3337,42 @@ Yes
 64-bit
 </td>
 <td style="text-align:left;">
-SSE4.1/4.2, AVX 2.0
-</td>
-<td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:left;">
 Yes
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-11
-</td>
-<td style="text-align:left;">
-Intel® Pentium® Processor 2000 Series
+Intel® Celeron® Processor 3000 Series
 </td>
 <td style="text-align:left;">
 Mobile
 </td>
 <td style="text-align:left;">
-2020M
+3205U
 </td>
 <td style="text-align:left;">
 Launched
 </td>
 <td style="text-align:left;">
-Q3’12
-</td>
-<td style="text-align:left;">
-22 nm
-</td>
-<td style="text-align:left;">
-$134.00
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:left;">
-2.40 GHz
-</td>
-<td style="text-align:left;">
-2 MB SmartCache
-</td>
-<td style="text-align:left;">
-5 GT/s DMI
-</td>
-<td style="text-align:left;">
-35 W
-</td>
-<td style="text-align:left;">
-No
-</td>
-<td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:left;">
-32 GB
-</td>
-<td style="text-align:left;">
-DDR3/L/-RS 1333/1600
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:left;">
-25.6 GB/s
-</td>
-<td style="text-align:left;">
-No
-</td>
-<td style="text-align:left;">
-2
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-90 C
-</td>
-<td style="text-align:left;">
-No
-</td>
-<td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:left;">
-64-bit
-</td>
-<td style="text-align:left;">
-SSE4.x
-</td>
-<td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:left;">
-Yes
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-14
-</td>
-<td style="text-align:left;">
-Intel® Pentium® Processor 4000 Series
-</td>
-<td style="text-align:left;">
-Mobile
-</td>
-<td style="text-align:left;">
-4405U
-</td>
-<td style="text-align:left;">
-Launched
-</td>
-<td style="text-align:left;">
-Q3’15
+Q1’15
 </td>
 <td style="text-align:left;">
 14 nm
 </td>
 <td style="text-align:left;">
-$161.00
+$107.00
 </td>
 <td style="text-align:right;">
 2
 </td>
-<td style="text-align:right;">
-4
+<td style="text-align:left;">
+1.50 GHz
 </td>
 <td style="text-align:left;">
-2.10 GHz
+2 MB
 </td>
 <td style="text-align:left;">
-2 MB SmartCache
-</td>
-<td style="text-align:left;">
-4 GT/s OPI
+5 GT/s DMI2
 </td>
 <td style="text-align:left;">
 15 W
@@ -3011,34 +3381,10 @@ $161.00
 No
 </td>
 <td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:left;">
-32 GB
-</td>
-<td style="text-align:left;">
-DDR4-1866/2133, LPDDR3-1600/1866
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:left;">
-34.1 GB/s
+105°C
 </td>
 <td style="text-align:left;">
 No
-</td>
-<td style="text-align:left;">
-2
-</td>
-<td style="text-align:right;">
-10
-</td>
-<td style="text-align:left;">
-100°C
-</td>
-<td style="text-align:left;">
-Yes
 </td>
 <td style="text-align:left;">
 Yes
@@ -3050,23 +3396,32 @@ Yes
 64-bit
 </td>
 <td style="text-align:left;">
-SSE4.1/4.2
-</td>
-<td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:left;">
 Yes
 </td>
 </tr>
 </tbody>
 </table>
+<p>For <span class="math inline">\(\texttt{valid\_percentage}=0.8\)</span>, 1303 out
+of 2283 are retained for further analysis.</p>
+</div>
+<div id="data-precomputations" class="section level2">
+<h2>Data Precomputations</h2>
+</div>
+</div>
+<div id="descriptive-statistics" class="section level1">
+<h1>Descriptive Statistics</h1>
+</div>
+<div id="statistics" class="section level1">
+<h1>Statistics</h1>
+<div id="how-textttrecommended_customer_price-depends-on-other-manufacturing-properties" class="section level2">
+<h2>How <span class="math inline">\(\texttt{Recommended_Customer_Price}\)</span>
+depends on other manufacturing properties</h2>
+<ul>
+<li>Filter out instances with no <span class="math inline">\(\texttt{Recommended_Customer_Price}\)</span></li>
+<li>Choose concerned properties</li>
+</ul>
 <pre class="r"><code>nrow(selected_cpu_data)-nrow(unique(selected_cpu_data[, c(&quot;Product_Collection&quot;, &quot;Processor_Number&quot;)]))</code></pre>
-<pre><code>## [1] 0</code></pre>
-<pre class="r"><code># Assuming selected_cpu_data is your data frame</code></pre>
+<pre><code>## [1] 7</code></pre>
 <pre class="r"><code>filtered_gpu_data &lt;- filtered_data(gpu_data, valid_percentage=0.5)
 
 processed_gpu_data &lt;- 

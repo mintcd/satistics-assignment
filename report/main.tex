@@ -34,7 +34,6 @@
 
 \sloppy
 \captionsetup[figure]{labelfont={small,bf},textfont={small,it},belowskip=-1pt,aboveskip=-9pt}
-%space remove between caption, figure, and text
 \captionsetup[table]{labelfont={small,bf},textfont={small,it},belowskip=-1pt,aboveskip=7pt}
 
 \setlength{\floatsep}{5pt plus 2pt minus 2pt}
@@ -52,6 +51,8 @@
 \date{}
 
 \begin{document}
+\counterwithin{lstlisting}{section}
+\renewcommand{\thelstlisting}{\arabic{chapter}.\arabic{section}.\arabic{lstlisting}}
 
 \begin{titlepage}
   \begin{tikzpicture}[remember picture, overlay]
@@ -67,7 +68,7 @@
 
   \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\textwidth]{hcmut.png}
+    \includegraphics[width=5cm]{hcmut.png}
   \end{figure}
 
   \vspace{1cm}
@@ -110,8 +111,6 @@
 \include{chapters/descriptive-statistics}
 \include{chapters/inferential-statistics}
 \include{chapters/discussion}
-
-
 
 
 \printindex
