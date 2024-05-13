@@ -1,24 +1,746 @@
-\begin{figure}[H]
-    \centering
-    \includegraphics[height = 15cm]{Img/Architecture.drawio.png}
-    \vspace{0.5cm}
-    \caption{Quy trình toàn hệ thống}
-\end{figure}
-Với video ghi hình trực tiếp bãi đỗ xe, thực chất là tập hợp các frame liên tiếp nhau. Việc theo dõi một xe máy vào bãi đỗ xe thực hiện như sau:
-\begin{enumerate}
-    \item Nhận diện xe máy bằng contour
-    \item Kiểm tra các bounding box nhận diện xe máy trên có đúng là xe máy hay không
-    \item Với đúng là xe máy:
+\section{Diffusion Models with Effective Sampling}
+
+Numerous iterations are typically required for sampling from a trained diffusion models. Several techniques to speed up the sampling process have been proposed, divided into two classes: learning-free (not involving learning) and learning-based (involving an additional learning with respect to an objective function) approaches.
+
+\subsection{Learning-free Sampling}
+
+\subsubsection{Noise-Conditional Score Networks}
+
+Instead of training a score network $s_\theta(\x)$ of the dataset, in which the loss function is calculated after the whole forward and reverse steps, the method introduces a sequence $\{\sigma_i\}_{i=1}^T$ \cite{song2019generative} and concerns every perturbated dataset with density function
+
+\begin{equation}
+    q_\sigma(\x)=\int p_{\text{data}}(\x)\mathcal{N}(\x; \mathbf{t},\sigma^2I)\d \mathbf{t}.
+\end{equation}
+
+Then it trains a network $s_\theta(\sigma, \x)$ to estimate their scores. The difference between a pair of perturbated datasets and estimating distributions is
+
+\begin{equation}
+    \ell(\theta,\sigma) = \dfrac{1}{2}\mathbb{E}_{p_{\text{data}}}\mathbb{E}_{\tilde{\x}\sim q_\sigma(\tilde{\x}|\x)}\left[\norm{s_\theta(\x)+\dfrac{\tilde{\x}-\x}{\sigma^2}}^2_2\right].
+\end{equation}
+
+The total loss function is the weighted sum of the differences
+
+\begin{equation}
+    \mathcal{L}(\theta)=\sum\limits_{i=1}^T \lambda(\sigma_i)\ell(\theta,\sigma_i).
+\end{equation}
+
+
+\subsubsection{Critically-Damped Langevin Diffusion}
+
+
+
+\subsubsection{Consistent Annealed Sampling}
+
+
+\section{The construction of the Lebesgue Measure}
+Recall that an interval $L$ in $\mathbb{R}$ has one of the forms $(a,b),[a,b],(a,b]$ and $[a,b)$, where $a<b$ and $|L|=b-a$ is the \textit{length} of $L$
+\label{appendix:lebmeasure}
+\begin{definition}[Boxes and elementary sets]
+    The Cartesian product of $n$ intervals
+    $$B=I_1\times\cdots\times I_n$$
+    is called a box in $\mathbb{R}^n$ whose volume is
+    $$|B|=|I_1|\cdots|I_k|.$$
+    An elementary set is the union of a finite number of boxes.
+\end{definition}
+
+\begin{definition}
+    The Lebesgue outer measure $\lambda^*:2^{\mathbb{R}^n}\to\mathbb{R}^n$ is defined on a subset $A$ of $\mathbb{R}^n$ as
+    \begin{equation}
+        \lambda^*(A)=\inf\left\{\sum\limits_{i=1}^\infty |B_i| \text{ where } B_1,B_2,\ldots \text{ are boxes and } A\subset\cup_{n=1}^\infty B_i\right\}.
+    \end{equation}
+\end{definition}
+
+\begin{proposition}
+    The Lebesgue outer measure satisfies
     \begin{itemize}
-        \item Nếu là xe mới: cấp ID và tạo một tracker bắt đầu theo dõi
-        \item Nếu là xe đang được theo dõi: cập nhật vị trí mới
+        \item $\lambda^*(\varnothing) = 0$.
+        \item Monotonicity. If $A\subset B$, then $\lambda^*(A)\le\lambda^*(B)$.
+        \item Countable subadditivity. If $A_1,A_2,\ldots$ are pairwise disjoint, then
+              $$\lambda^*\left(\bigcup\limits_{i=1}^\infty A_i\right)\le\sum\limits_{i=1}^\infty\lambda^*(A_i).$$
     \end{itemize}
-    \item Khi xe đã đỗ: tracker vào trạng thái sleep (giảm luồng tính toán của máy chủ). Đồng thời có một process sẽ theo dõi động tĩnh của các xe trong bãi đỗ
-    \item Khi phát hiện có xe máy bắt đầu chuyển động trong bãi đỗ. Tracker được đánh thức và theo dõi đến khi xe ra khỏi bãi
+\end{proposition}
+
+\begin{remark}
+    The Lebesgue outer measure exists for any subset $A$ of $\mathbb{R}^n$ and it is \textit{not necessarily} a measure.
+\end{remark}
+
+\begin{theorem}
+    Let $\lambda_n$ be the Lebesgue measure on the Borel $\sigma$-algebra $\mathbb{B}(\mathbb{R}^n)$
+    \begin{enumerate}
+        \item If $B$ is a box i.e. a Cartesian product of intervals $I_1,...,I_m$ on $\mathbb{R}$, then
+              $$\lambda_n(B)=|I_1|\cdot|I_1|\cdots|I_m|,$$
+              where $\lambda_1(I_k)=|I_k|$ is the length of the interval $I_k$, for $1\le k\le m$.
+        \item (Translation invariance) If $A\in \mathbb{B}(\mathbb{R}^n)$, then for any $x\in\mathbb{R}^n$
+              $$\lambda_n(A+x)=\lambda_n(A).$$
+    \end{enumerate}
+\end{theorem}
+
+Attention mechanism captures the information of a vector in different contexts. In natural languages, a word in different contexts may have different semantic meanings. For example, consider two following sentences:
+\begin{enumerate}
+    \item ``This is a new broom''.
+    \item ``He is a new broom''.
+\end{enumerate}
+The word ``broom'' in the first sentence indicates a sweeping broom, where as the second sentence's ``broom'' is a person. The difference is due to the effect of the words ``he'' and ``this''. Therefore, it is not a good practice to represented each token as a fixed vector. * Then one may ask how we decide the context where the meanings change * *it can be depicted that ``broom'' broadcasts a question that which other words are likely to make ``broom'' a person. In the first given sentence, the answer of ``he'' highly matches this question whereas no words in the second sentence do.* ( ask st about the context ) -> Attention Mechanism aims to modify the this vector by a quantity so that it better matches the context. -> Answer = key, question = query.
+
+% Each symbol broadcasts a \textit{query} and a \textit{key} to other symbols, which can be intuitively thought of as a question and an answer. Back two the example sentences, 
+
+\textcolor{red}{Technically, answer = key, question = query}
+
+The queries and keys are embedded by vectors of the same dimension $d$, denoted by $(\mathbf{q}_1,\ldots, \mathbf{q}_N)\in\mathbb{R}^{d\times N}$ and $(\mathbf{k}_1,\ldots, \mathbf{k}_N)\in\mathbb{R}^{d\times N}$, respectively. A symbol $s_i$ highly impacts a symbol $s_j$, where $i,j\in\{1,\ldots, N\}$, if the $j$-th key highly matches the $i$-th query i.e. the dot product $\mathbf{q}_i^\top\mathbf{k}_j$ is a large number.
+
+
+To this point, we introduce two learnable matrices, $\mathbf{W}_d, \mathbf{W}_k\in d\times D$ to extract vectors of queries and keys according to the original vectors $(\x_1,\ldots,\x_N)$.
+
+Concerning the first statement, matrix multiplication is enough to extract a query or a key from a token vector. Remind that the input sequence of vectors are $X=(\rvx_1,\ldots,\rvx_N)\in\sR^{D\times N}$. Let say we want to model each query or key as a $d$-dimensional vector. We apply multiplication by each of two learnable matrices $W_q$ and $W_k$ of size $d\times D$ for query extraction and key extraction, respectively.
+$$\mathbf{q}_i = \mathbf{W}_q\x_i \text{ and } k_i = \mathbf{W}_k\x_i, \text{ for } i \in \{1,\ldots, N\}.$$
+
+In matrix form, we get the matrices of queries and keys of size $d\times N$ as
+$$\mathbf{Q} = \mathbf{W}_q\mathbf{X} \text{ and } \mathbf{K} = \mathbf{W}_k\mathbf{X}.$$
+
+In the matrix $\mathbf{K}^\top \mathbf{Q}$, $j$-th column contains keys answering to the $j$-th query. We then normalize the matching scores by applying \texttt{softmax} columns-wise. In particular, to deal with quick convergence of \texttt{softmax}, the normalized matrix $\mathbf{P}$, called  an attention pattern, is computed as
+$$\mathbf{P}=(p_{ij})_{i,j=1}^N=\texttt{softmax}\left(\dfrac{\mathbf{K}^\top \mathbf{Q}}{\sqrt{d}}\right).$$
+
+The attention pattern $\mathbf{P}$ indicates that for each symbol $s_i$, where $i\in\{1,\ldots, N\}$, how much other symbols impact it. The more a symbol $s_j$, where $j\in\{1,\ldots, N\}$ affects $s_i$, the more $s_j$ contributes to the modification quantity of vector $\x_i$. We can model the modification quantities as
+$\Delta \rvx_i = \sum\limits_{j=1}^N p_{ij}\rvx_j$, for $i\in\{1,\ldots,N\}$. For more flexibility, a new value matrix $\mathbf{W}_V\in\sR^{D\times D}$ is introduced. The modification quantity of each $\rvx_i$, for $i\in\{1,\ldots, N\}$ is instead
+$$\Delta \rvx_i = \sum\limits_{j=1}^N p_{ij}\mathbf{W}_V\rvx_j = \sum\limits_{j=1}^N p_{ij}\rvv_j.$$
+In matrix form, all modification quantities are
+$$\Delta \mathbf{X} = \mathbf{W}_V \mathbf{X} \mathbf{P}  = \mathbf{V}\mathbf{P} = \mathbf{V}\texttt{softmax}\left(\dfrac{\mathbf{K}^\top \mathbf{Q}}{\sqrt{d}}\right).$$
+
+\textcolor{red}{(diagram needed here)}
+
+The output after Attention is
+$$\mathbf{Y} = \mathbf{X} + \Delta \mathbf{X}.$$
+
+A piece of data to be processed is called a \textit{context}, including a sequence of \textit{symbols} or \textit{tokens}. For example, each word is a symbol of a sentence, each $4\times 4$ patch is a symbol of an image. The symbols are converted into vectors of the same dimension. Such process is called embedding or vectorization such as GloVe \cite{pennington2014glove}, which contains embeddings of English words.
+
+\textcolor{red}{(Add a picture of embedding)}
+
+The cornerstones building up the Transformer is the Attention Mechanism and Positional Embedding. These concepts are discussed later in this section. At the end of the decoder, an Multilayer Perception and the \texttt{softmax} are applied for that the output is a probability distribution on the symbol corpus. Before delving into these building blocks of Transformer, let us denote by $N$ the context size, $(s_1,\ldots,s_N)$ the input sequence of symbols, $\mathbf{X}=(\x_1,\ldots,\x_N)\in\mathbb{R}^{d\times N}$ the representing vectors, and $(t_1,\ldots,t_M)$ the output sequence of symbols.
+
+
+\subsubsection{The Weak Markov Property of an Itô Diffusion}
+The (unique) solution of an SDE may be thought of as a model of the motion of a small particle in a fluid. Hence an SDE is also called a diffusion. Specifically, we consider a class of Itô diffusions.
+
+\begin{definition}
+    An Itô diffusion is a stochastic process $X_t(\omega)=X(t,\omega):\mathbb{R}^n\times[s,\infty)\to\mathbb{R}^n$ satisfying an SDE of the form
+    \begin{equation}
+        \label{equation:itodiff}
+        \d X_t = b(X_t)\d t+\sigma(X_t)\d W,\,\, t\ge s, X_s = x_0,
+    \end{equation}
+    where $W$ is the $m$-dimensional Brownian motion, $x_0\in\mathbb{R}^n$ and $b:\mathbb{R}^n\to\mathbb{R}^n$, $\sigma:\mathbb{R}^n\to\mathbb{R}^{n\times m}$ such that
+    \begin{equation}
+        \label{equation:lip}
+        |b(x)-b(y)|+|\sigma(x)-\sigma(y)|\le D|x-y|,\,\,x,y\in\mathbb{R}^n,
+    \end{equation}
+    for some constant $D$.
+\end{definition}
+
+\begin{remark}
+    The constraint (\ref{equation:lip}) is called Lipschitz continuity. In such case that the time $t$ is excluded from the coefficients, (\ref{equation:lip}) implies (\ref{equation:cons1}), since
+    \begin{align*}
+        |b(x)-b(x_0)| & \le |b(x)-b(x_0)| + |b(x_0)| \\
+                      & \le  D|x-x_0| + |b(x_0)|     \\
+                      & \le D|x|-D|x_0|+|b(x_0)|     \\
+                      & \le C(1+|x|),
+    \end{align*}
+    where $C=\max\left\{D,|b(x_0)|-D|x_0|\right\}$. Therefore, an Itô diffusion has a unique solution, according to Theorem \ref{theorem:unique}.
+\end{remark}
+
+We will denote the unique solution of $(\ref{equation:itodiff})$ by $X_t=X^{s,x_0}_t, t\ge s$. We have
+\begin{align*}
+    X^{s,x}_{s+h} & = x+\int\limits_{s}^{s+h}b(X_u^{s,x})\d u+\int\limits_{s}^{s+h}\sigma(X_u^{s,x})\d W_u    &                    \\
+                  & =x+\int\limits_{0}^{h}b(X_{s+v}^{s,x})\d v+\int\limits_{0}^{h}\sigma(X_{s+v}^{s,x})\d W_v & (\text{Let} u=s+v) \\
+                  & = X^{0,x}_h.
+\end{align*}
+
+Therefore,
+
+$$\{X_{s+h}^{s,x}\}_{h\ge0} \text{ and } \{X_{h}^{0,x}\}_{h\ge0}$$
+
+has the same $P^0$-distributions. That means, the initial time does not matter but the initial value. It is already evident since the time has been excluded from the coefficients. We refer to $\{X_t\}$ as \textit{time-homogeneous}\index{time-homogeneous}.
+
+From now on, denote by $Q^x$ the probability law of a time-homogeneous stochastic process whose initial value is $X_0=x\in\mathbb{R}^n$. The expectation with respect to $Q^x$ is $\mathbb{E}^x[\cdot]$. Hence we have
+
+$$\mathbb{E}^x\left[f_1(X_{t_1})\cdots f_k(X_{t_k})\right]=\mathbb{E}\left[f_1(X^x_{t_1})\cdots f_k(X^x_{t_k})\right],$$
+
+where $\mathbb{E}=\mathbb{E}_P$ is the expectation with respect to the probability law $P^0$.
+
+The Markov property is that the future behavior of the process given what has happened up to time $t$ is the
+same as the behavior obtained when starting the process at $X_t$. The formulation is the following theorem.
+
+\begin{theorem}[Weak Markov property]
+    Let $\{X_t\}$ is an $n$-dimensional Itô diffusion and $f:\mathbb{R}^n\to\mathbb{R}$ is a Borel function and. Then for $t,h\ge0$,
+    \begin{equation}
+        \mathbb{E}^x\left[b(X_{t+h})|\mathcal{W}^{(m)}\right](\omega)=\mathbb{E}^{X_t(\omega)}[b(X_h)].
+    \end{equation}
+\end{theorem}
+
+\subsubsection{The Generator of an Itô Diffusion}
+Besides the SDE representation, the revolution of an Itô diffusion can be associated to a second order
+partial differential operator, called its generator. We are going to find out the connection between a generator and the coefficients of a diffusion
+
+\begin{definition}
+    Let $\{X_t\}$ be an Itô diffusion in $\mathbb{R}^n$. The (infinitesimal) generator $A$ of $X_t$ is defined by
+    \begin{equation}
+        \label{definition:gen}
+        Af(x)=\lim\limits_{t\to0^+}\dfrac{\mathbb{E}^x[f(X_t)]-f(x)}{t},\,\,x\in\mathbb{R}^n.
+    \end{equation}
+    Denote by $\mathcal{D}_A(x)$ the set of functions $f:\mathbb{R}^n\to\mathbb{R}$ such that the limit exists at $x\in\mathbb{R}^n$ and $\mathcal{D}_A$ the set of functions $f$ such that the limit exists for all $x\in\mathbb{R}^n$.
+\end{definition}
+
+
+\begin{theorem}
+    Let $X_t=X^{0,x}_t$ be the Itô diffusion
+    $$\d X_t = x+b(X_t)\d t+\sigma(X_t)\d W_t.$$
+    If $f\in C^2_0(\mathbb{R}^n)$, then $f\in\mathcal{D}_A$ and
+    \begin{equation}
+        \label{equation:gen}
+        Af(x)=f(x)+\sum\limits_{i=1}^n f_i(x)\dfrac{\partial f}{\partial x_i} + \dfrac{1}{2}\sum\limits_{i=1}^n\sum\limits_{j=1}^m(\sigma \sigma^\top)_{ij}(x)\dfrac{\partial^2f}{\partial x_i\partial x_j}.
+    \end{equation}
+\end{theorem}
+
+\begin{proof}
+
+\end{proof}
+
+We suppress the time index $t$ for the order of the vector element i.e. $X_i$ is the $i$th element of $X$. By Itô's chain rule, we have
+
+\begin{align*}
+    \d f(X)
+     & =\sum\limits_{i}\dfrac{\partial f}{\partial x_i}(X)\d X_i+\dfrac{1}{2}\sum\limits_{i,j}\dfrac{\partial^2 f}{\partial x_i\partial x_j}(X)\d X_i\d X_j                                                                                           \\
+     & =\sum\limits_{i}b_i\dfrac{\partial f}{\partial x_i}\d t+\dfrac{1}{2}\sum\limits_{i,j}\dfrac{\partial^2 f}{\partial x_i\partial x_j}(\sigma\d W)_i(\sigma\d W)_j+\sum\limits_{i}+\sum\limits_{i}\dfrac{\partial f}{\partial x_i}(\sigma\d W)_i.
+\end{align*}
+Since $(\d W_k)^2=\d t$ and $\d W_k\d W_\ell=0$,
+\begin{align*}
+    (\sigma\d W)_i(\sigma\d W)_j & = \left(\sum\limits_{k}\sigma_{ik}\d W_k\right)\left(\sum\limits_{\ell}\sigma_{j\ell}\d W_\ell\right) & \\
+                                 & =\sum\limits_k \sigma_{ik} \sigma_{jk}\d t.
+\end{align*}
+
+Therefore,
+\begin{align*}
+    f(X_t)=f(x)+\int\limits_0^t\left(\sum\limits_{i}b_i\dfrac{\partial f}{\partial x_i}+\dfrac{1}{2}\sum\limits_{ij}(\sigma\sigma^\top)_{ij}\dfrac{\partial^2 f}{\partial x_i\partial x_j}\right)\d s + \sum\limits_{i,k}\int\limits_0^t\sigma_{ik}\dfrac{\partial f}{\partial x_i}\d W_k.
+\end{align*}
+
+From Property 2 in $(\ref{theorem:prop})$, we have
+$$\mathbb{E}\left[\int\limits_0^t\sigma_{ik}\dfrac{\partial f}{\partial x_i}\d W_k\right]=0.$$
+
+Note that these integrals does not depend on any probability law. Hence,
+$$\mathbb{E}^x\left[f(X_t)\right] - f(x) = \int\limits_0^t\mathbb{E}^x\left[\sum\limits_{i}b_i\dfrac{\partial f}{\partial x_i}+\dfrac{1}{2}\sum\limits_{ij}(\sigma\sigma^\top)_{ij}\dfrac{\partial^2 f}{\partial x_i\partial x_j}\right]\d s,$$
+
+in which have applied Fubini's theorem. This directly implies the theorem. \qed
+
+Denote by $(\Omega, \mathcal{F}, \mathbb{P})$ a probability space corresponding to $\{X_n\}_{n=0}^T$. The equality
+$$X_{n+1} - X_n = b(X_n,n) + \sigma(X_n,n)Z_n$$
+means for every $\omega\in\Omega$,
+$$X_{n+1}(\omega) - X_n(\omega) = b(X_n(\omega),n) + \sigma(X_n(\omega),n)Z_n.$$
+Hence $b(X_n(\omega),n)=\hat{b}(\omega,n)$ and $\sigma(X_n(\omega),n) = \hat{\sigma} (\omega,n)$ also random variables. Starting from $X_0=p_0$, we can sequentially sample until $X_n$, for each $n\in[0,T]$.
+
+In some cases, it is inconvenient to write explicitly an element of the set of events. For example, consider the problem of tossing a coin for $n$ times, where $n$ is a positive integer. Let $H$ for head and $T$ for tail be the possible outcomes of a single toss, we have $\Omega=\{H,T\}^n$ and $\mathcal{F}=2^\Omega$. The question is to calculate the probability of the event $E$ that the number of heads is equal to the number of tails. When $n=4$, we have
+$$E=\{(H,H,T,T),(H,T,H,T),(T,H,H,T),(H,T,T,H),(T,H,T,H),(T,T,H,H)\}.$$
+However, when $n$ is large, it is impossible to write $E$ explicitly. Therefore, we may use a function to map this $E$ into another space, such that the image of $E$ has a simpler expression. Also, the image of $E$ must be measurable in the new space. Hence, for computational purposes, the preferred measurable space is $(\mathbb{R}^n,\mathcal{B}(\mathbb{R}^n))$. This motivates the concept of random variables.
+
+\begin{remark}
+    \begin{enumerate}
+        \item []
+        \item Depending on whether $X(\Omega)$ is a continuous or discrete subset of $\mathbb{R}^n$, we call $X$ a continuous or discrete random variable.
+        \item Random variables can also take matrix values i.e. $X:\Omega\to\mathbb{R}^{n\times m}$.
+        \item Every random variable $X$ induces a probability measure
+              \begin{equation}
+                  \mu_X(B) = P(X^{-1}(B)).
+              \end{equation} The measure $\mu_X$ is called the \textit{distribution} of $X$.
+        \item We usually write $P(\{\omega\in\Omega : X(\omega)\in B\})$ briefly as $P(X\in B)$.
+    \end{enumerate}
+\end{remark}
+
+\begin{remark}
+    We qualify the set of matrices $\mathbb{R}^{n\times m}$ with the Frobenius norm and define a metric induced
+    $$d(A,B)=||A-B||_F,\forall A,B\in \mathbb{R}^{n\times m}.$$
+    Then we can generate the Borel $\sigma$-algebra $\mathcal{B}(\mathbb{R}^{n\times m})$.
+\end{remark}
+
+\begin{theorem}
+    Let $X:\Omega\to\mathbb{R}$ be a random variable defined on a probability space $(\Omega, \mathcal{F}, P)$. Then $\{X^{-1}(B) : B\in \mathcal{B}\}$ is the smallest sub-$\sigma$-algebra of $\mathcal{F}$ with respective to that $X$ is measurable.
+\end{theorem}
+
+\textit{Proof.} We show that $\mathcal{G}=\{X^{-1}(B) : B\in \mathcal{B}\}$ satisfies three axioms of a $\sigma$-algebra.
+
+\begin{enumerate}
+    \item It is obvious that $X^{-1}(\varnothing)=\varnothing$ and $X^{-1}(\mathbb{R}^n)=\Omega.$ Hence $\varnothing, \Omega\in\mathcal{G}$.
+    \item If $X^{-1}(B)\in \mathcal{G}$ for some $B\subset\mathbb{R}$, we have $B\in\mathcal{B}$. Since $\mathcal{B}$ is a $\sigma$-algebra, we have $\mathbb{R}\setminus B\in\mathcal{B}$. Therefore,
+          $$X^{-1}(\mathbb{R}\setminus B)\in\mathcal{G}.$$
+          Moreover, since $B$ and $\mathbb{R}\setminus B$ are disjoint subsets of $\mathbb{R}$, the sets $X^{-1}(B)$ and $X^{-1}(\mathbb{R}\setminus B)$ are disjoint subsets of $\Omega$ and $$\Omega\setminus X^{-1}(B)=X^{-1}(\mathbb{R}\setminus B)\in\mathcal{G}.$$
+    \item If $B_1,B_2\in\mathcal{B}$, then $B_1\cup B_2\in\mathcal{B}$. Therefore,
+
+          $$X^{-1}(B_1\cup B_2) = X^{-1}(B_1)\cup X^{-1}(B_2)\in \mathcal{G}.$$
+
+          Inductively, the third axiom of a $\sigma$-algebra is satisfied. \qed
 \end{enumerate}
 
-Các class chính sử dụng
+Since for any $B\in\mathcal{B}$, $X^{-1}(B)$ belongs to any $\sigma$-algebra such that $X$ is measurable and $\mathcal{G}$ contains only elements of the form $X^{-1}(B),\,B\in\mathcal{B}$, $\mathcal{G}$ must be the smallest $\sigma$-algebra such that $X$ is measurable.
+
+There are real-life problems that can be modeled recursively by number sequences. For example, let $p_1,\cdots, p_n$ be the population of an area in $n$ consecutive years. With an acceptable precision, one can find functions $f_n$ to estimate the population in next years i.e.
+$$p_{k+1}=f_k(p_{k},...,p_1), k \ge n.$$
+This is an example of deterministic models. For other problems, such as stock price predict, randomness should be carefully concerned. In such cases, we generalize a deterministic solution to a random variable and a number sequence to a stochastic process.
+
+
+Let $T>0$ and $b:\RR^n\times[0,T]\to\RR^n$, $\sigma:\RR^n\times[0,T]\to\RR^n$ be measurable functions satisfying
+\begin{equation}
+    \label{equation:cons1}
+    |b(x,t)|^2+|\sigma(x,t)|^2\le C(1+|x|), \,\,\forall x\in\RR^n, \forall t\in[0,T],
+\end{equation}
+where $|\sigma|=\sum|G_{ij}|^2$ and some constant $C$, and such that
+\begin{equation}
+    \label{equation:cons2}
+    |b(t,x)-b(t,y)|+|\sigma(t,x)-\sigma(t,y)|\le D|x-y|,\,\,\forall x,y\in\RR^n,t\in[0,T]
+\end{equation}
+for some constant $D$. Let $Z$ be a random variable which is \index{independent} of the $\sigma$-algebra $\F_\infty^{(m)}$ generated by $\{W_t\}_{t\in[0,T]}$ such that $$\EE(|Z|^2)<\infty.$$
+Then the stochastic differential equation
+\begin{equation}
+    \label{equation:sde:unique}
+    \d X_t=b(X_t,t)\d t+\sigma(X_t,t)\d W,\,\, 0\le t\le T, X_0=Z
+\end{equation}
+has a unique $t$\textbf{-continuous} solution solution $X_t$ such that $X_t$ is \textbf{adapted} to the $\sigma$-algebra $\F_t^Z$ generated by $\{W_s\}_{0\le s\le t}$ and $Z$ i.e.
+$$\F_t^Z=\sigma\left(\{W_s,Z\}_{0\le s\le t}\right).$$
+
+Before providing a proof, let us consider examples where either (\ref{equation:cons1}) or (\ref{equation:cons2}) is not satisfied, leading to the solution either not $t$-continuous or $\F_t^Z$-adapted.
+
+\begin{example}
+    The equation
+    \begin{equation}
+        \dfrac{\d X_t}{\d t}=X_t^2,\,\, X_0=1, 0\le t\le 1
+    \end{equation}
+    corresponding to $b(x,t)=x^2$, not satisfying constraint ($\ref{equation:cons1}$), has the unique solution
+    $$X_t=\dfrac{1}{1-t},\,\,0\le t<1.$$
+    However, $X_1$ does not exists. Therefore, ($\ref{equation:cons1}$) can be interpreted to ensure that the solution does not \textit{explode} i.e. $|X_t|<\infty$.
+\end{example}
+
+\begin{example}
+    The equation
+    \begin{equation}
+        \label{example:sde2}
+        \dfrac{\d X_t}{\d t}=3X_t^{2/3},\,\, X_0=0, t\ge0
+    \end{equation}
+    corresponding to $b(x,t)=3x^{2/3}$, not satisfying constraint ($\ref{equation:cons2}$), has more than one solution. Indeed, for any $a>0$, the function
+    $$X_t=\begin{cases}
+            0       & \text{ if } t\le a \\
+            (t-a)^3 & \text{ if } t>a
+        \end{cases}$$
+    solves (\ref{example:sde2}). Therefore, ($\ref{equation:cons2}$) can be interpreted to ensure that an equation has a unique solution i.e. if $\{X_t\}$ and $\{Y_t\}$ are solutions, then they are the other's version.
+\end{example}
+
+\begin{proof}[Proof of Theorem \ref{theorem:existence-and-uniqueness-solution-of-an-sde}]
+    In this proof only, let us denote $||\cdot||_2$ by $|\cdot|$ for brevity. Let $X(\omega,t)$ and $\hat{X}(\omega,t)$ be solutions with the same initial value $Z$, i.e.
+    $$X(\omega, 0)=\hat{X}(\omega,0)=Z,\forall\omega\in\Omega.$$
+    Also let $h(\omega,s)=b(X_s,s)-b(\hat{X}_s,s)$, $K(\omega,s)=\sigma(X_s,s)-\sigma(\hat{X}_s,s)$ and $v(t)=\EE\left[|X_t-\hat{X}_t|^2\right]$. We want to prove that $v(t)=0,\forall 0\le t\le T$. We have
+    \begin{align*}
+        v(t) & = \EE\left[\left|\int\limits_{0}^th\d t+\int\limits_{0}^s K\d W\right|^2\right]                                    \\
+             & \le 2\EE\left[\left|\int\limits_{0}^th\d s\right|^2\right]+2\EE\left[\left|\int\limits_{0}^t K\d W\right|^2\right]
+    \end{align*}
+
+    By Cauchy-Schwartz inequality,
+    \begin{equation}
+        \label{equation:afterCauchy}
+        \left|\int\limits_{0}^th\d s\right|^2\le \int\limits_{0}^t|h|^2\d s\int\limits_{0}^t\d s=t\int\limits_{0}^t|h|^2\d t.
+    \end{equation}
+
+    By constraint (\ref{equation:cons2}),
+    \begin{align*}
+        \EE\left[\int\limits_{0}^t|h|^2\d s\right]
+         & \le\EE\left[\int\limits_{0}^tD^2\left|X_s-\hat{X}_s\right|^2\d s\right] \\
+         & =D^2\EE\left[\int\limits_{0}^t\left|X_s-\hat{X}_s\right|^2\d s\right]   \\
+         & =D^2\int\limits_{0}^t\EE\left[\left|X_s-\hat{X}_s\right|^2\right]\d s.
+    \end{align*}
+    The last equality holds by approximating the integral by a Riemann sum. Using the same calculation along with Itô isometry, we have
+    $$\EE\left[\left|\int\limits_{0}^t K\d W\right|^2\right]=\EE\left[\int\limits_{0}^t |K|^2\d s\right]\le D^2\int\limits_{0}^t\EE\left[\left|X_s-\hat{X}_s\right|^2\d s\right].$$
+
+    Therefore,
+    \begin{align*}
+        v(t)\le  (2t+1)D^2\int\limits_0^t v(s)\d s\le(2T+1)D^2\int\limits_0^t v(s)\d s.
+    \end{align*}
+
+    Let $A=(2T+1)D^2$ and $V(t)=\int\limits_0^t v(s)\d s$, then $v(t)=V'(t)$. Hence $V'(t)\le AV(t)$, implying that
+
+    $$V'(t)-AV(t)\le0.$$
+
+    Let $f(t)=V(t)e^{-At}$, then
+    $$f'(t)=V'(t)e^{-At} - AV(t)e^{-At}=e^{-At}(V'(t)-AV(t))\le0.$$
+
+    Taking the integral from some $0$ to $t$ yields $b(t)=V(t)e^{-At}\le 0.$ Hence $V(t)\le 0$. But this only happens when $v(t)=0,\forall 0\le t\le T$.
+
+    Now we prove the existence. Define $Y_t^{(0)}=X_0$ and
+    $$Y_t^{(k+1)} = X_0+b(Y_s^k,s)\d s+\sigma(Y_s^{(k)},s)\d W.$$
+
+    Similar computations as in the argument of uniqueness give
+    $$\EE\left[\left|Y_t^{(k+1)}-Y_t^{(k)}\right|^2\right]\le C_1\int\limits_0^t \EE\left[\left|Y_s^{(k+1)}-Y_s^{(k)}\right|^2\right]\d s,\,\,\forall k\ge 1, t\le T, C_1 \text{ is some constant}.$$
+
+    According to the last computations, as well, except for that after (\ref{equation:afterCauchy}) we use constraint (\ref{equation:cons1}),
+    \begin{align*}
+        \EE\left[\left|Y_t^{(1)}-Y_t^{(0)}\right|^2\right]
+         & = 2C^2t^2\EE\left[\left(1+|X_0|\right)^2\right]+2C^2t\left(1+\EE\left[|X_0|^2\right]\right)          \\
+         & = 2C^2t\left(t\EE\left[\left(1+|X_0|\right)^2\right]+\left(1+\EE\left[|X_0|^2\right]\right)\right)   \\
+         & \le 2C^2t\left(T\EE\left[\left(1+|X_0|\right)^2\right]+\left(1+\EE\left[|X_0|^2\right]\right)\right) \\
+         & =C_2t.
+    \end{align*}
+    By induction on $k$, we obtain
+    \begin{equation}
+        \label{equation:upperY}
+        \EE\left[\left|Y_t^{(k+1)}-Y_t^{(k)}\right|^2\right]\le\dfrac{C_3^{k+1}t^{k+1}}{(k+1)!}, \,\, C_3 \text{ is some constant}.
+    \end{equation}
+
+    Denote by $\lambda$ the Lebesgue measure on $[0,T]$. For each $m\ge n\ge 0$, we have
+
+    \begin{align*}
+        \left\|Y_t^{(m)}-Y_t^{(n)}\right\|_{L^2(P\times\lambda)}
+         & =\left\|\sum\limits_{k=n}^{m-1} \left(Y_t^{(k+1)}-Y_t^{(k)}\right)\right\|_{L^2(P\times\lambda)}                                           &                                            \\
+         & \le \sum\limits_{k=n}^{m-1} \left\|Y_t^{(k+1)}-Y_t^{(k)}\right\|_{L^2(P\times\lambda)}                                                     & \text{(triangle inequality)}               \\
+         & = \sum\limits_{k=n}^{m-1}\left(\,\,\int\limits_{\Omega\times\lambda} \left|Y_t^{(k+1)}-Y_t^{(k)}\right|^2\d (P\times \lambda)\right)^{1/2} & \text{(definition of $L$-norm)}            \\
+         & = \sum\limits_{k=n}^{m-1} \left(\EE\left[\int\limits_0^T\left|Y_t^{(k+1)}-Y_t^{(k)}\right|^2\d t\right]\right)^{1/2}                       & \text{(definition of expectation)}         \\
+         & = \sum\limits_{k=n}^{m-1}  \left(\int\limits_0^T\EE\left[\left|Y_t^{(k+1)}-Y_t^{(k)}\right|^2\right]\d t\right)^{1/2}                      & \text{Fubini theorem \ref{theorem:fubini}} \\
+         & \le \sum\limits_{k=n}^{m-1}  \left(\int\limits_0^T\dfrac{C_3^{k+1}t^{k+1}}{(k+1)!}\d t\right)^{1/2}                                        & \text{(by \ref{equation:upperY})}          \\
+         & = \sum\limits_{k=n}^{m-1}\left(\dfrac{C_3^{k+1}T^{k+2}}{(k+2)!}\d t\right)^{1/2}                                                           &                                            \\
+         & \to 0
+    \end{align*}
+    as $m,n\to\infty$. Therefore, $\{Y_t^{(k)}\}_{\{k\in\NN\}}$ is a Cauchy sequence in $L^2(P\times\lambda)$ hence it has a limit. Let
+
+    $$X_t=\lim\limits_{k\to\infty}Y_t^{(k)}.$$
+
+    Then $X_t$ is $\F_t^Z$-measurable as the limit of $\F_t^Z$-measurable functions. By Itô isometry and Hölder inequality, we have
+    \begin{align*}
+        \EE\left[\left(\int\limits_0^t \left(b(s,Y_s^{(k)})\d s - b(s,X_s)\d s\right)\right)^2\right]
+         & \le \EE\left[\left(\int\limits_0^t \left(Y_s^{(k)}-X_s\right)\d s\right)^2\right]      & \text{(Lipschitz continuity)}       \\
+         & \le \EE\left[\int\limits_0^t\d s\int\limits_0^t\left(Y_s^{(k)}-X_s\right)^2\d s\right] & \text{(Cauchy-Schwartz inequality)} \\
+         & =t\EE\left[\int\limits_0^t\d s\int\limits_0^t\left(Y_s^{(k)}-X_s\right)^2\d s\right]                                         \\
+         & =t \int\limits_{\Omega}\int\limits_0^t\left(Y_s^{(k)}-X_s\right)^2\d s\d P                                                   \\
+         & \to 0.
+    \end{align*}
+    Therefore,
+    $$\int\limits_0^t b(s,Y_s^{(k)})\d s\to \int\limits_0^t b(s,X_s)\d s \text{ in } L^2(P).$$
+    Similarly,
+    $$\int\limits_0^t \sigma(s,Y_s^{(k)})\d W\to \int\limits_0^t \sigma(s,X_s)\d B \text{ in } L^2(P).$$
+
+    Thus, $X_t, t\in[0,T]$ is a solution for (\ref{equation:sde:unique}). It remains to prove that there exists a continuous version of $X_t$, which we fulfill later.
+\end{proof}
+
+Firstly, let us process a calculation to explore which conditions it requires for the limit $\lim\limits_{n\to\infty}\sum\limits_{k=0}^{m_n-1} \hat{\sigma}(\omega, t_k^n)\Delta W(t^n_{k})$ to exist.
+
+
+\begin{proposition}
+    Let $\phi_n(\omega, t) = \hat{\sigma}(\omega, t_k^n)\mathbf{1}_{[t_k^n, t_{k+1}^n)}$. We have
+    $$\EE\left[\left(\sum\limits_{k=0}^{m_n-1} \hat{\sigma}(t_k^n)\Delta W(t^n_{k})\right)^2\right] = \EE\left[\sum\limits_{k=0}^{m_n-1} \phi_n^2(t_{k}^n) \Delta t_k^n\right].$$
+\end{proposition}
+
+\begin{proof}
+    Let $R_n=\sum\limits_{k=0}^{m_n-1} \hat{\sigma}(t_k^n)\Delta W(t^n_{k})$. We have
+    \begin{align*}
+        \EE\left[R_n^2\right]
+         & = \EE\left[\sum\limits_{k,\ell = 0}^{m_n-1}\hat{\sigma}(t_k^n)\hat{\sigma}(t_\ell^n)\Delta W(t^n_{k}) \Delta W(t^n_{\ell})\right] \\
+         & = \sum\limits_{k,\ell = 0}^{m_n-1}\EE\left[\hat{\sigma}(t_k^n)\hat{\sigma}(t_\ell^n)\Delta W(t^n_{k}) \Delta W(t^n_{\ell})\right]
+    \end{align*}
+    If $k \ne \ell$, then $\Delta W(t^n_{k})$ and $\Delta W(t^n_{\ell})$ are independent. Hence
+    \begin{align*}
+        \EE\left[\hat{\sigma}(t_k^n)\hat{\sigma}(t_\ell^n)\Delta W(t^n_{k}) \Delta W(t^n_{\ell})\right]
+         & = \EE\left[\hat{\sigma}(t_k^n)\hat{\sigma}(t_\ell^n)\Delta W(t^n_{k})\right]\EE\left[\Delta W(t^n_{\ell})\right] \\
+         & =0.
+    \end{align*}
+
+    If $k = \ell$, then
+    \begin{align*}
+        \EE\left[\hat{\sigma}(t_k^n)\hat{\sigma}(t_\ell^n)\Delta W(t^n_{k}) \Delta W(t^n_{\ell})\right]
+         & =\EE\left[\hat{\sigma}^2(t_k^n)\right] \EE\left[\Delta W(t^n_{k})^2\right] \\
+         & = \EE\left[\hat{\sigma}^2(t_k^n)\right] (t_{k+1}^n-t_k^n).
+    \end{align*}
+    Therefore,
+    \begin{align*}
+        \EE\left[R_n^2\right]
+         & =\sum\limits_{k}^{m_n-1} \EE\left[\hat{\sigma}^2(t_k^n)\right] (t_{k+1}^n-t_k^n) \\
+         & =\EE\left[\sum\limits_{k=0}^{m_n-1} \phi_n(t_{k}^n)^2 \Delta t_k^n\right].
+    \end{align*}
+\end{proof}
+
+To ensure $\lim\limits_{n\to\infty}\sum\limits_{k=0}^{m_n-1} \hat{\sigma}(\omega, t_k^n)\Delta W(t^n_{k})$ converges, it must be guarantee that
+
+\begin{align*}
+    \EE\left[\sum\limits_{k=0}^{m_n-1} \phi_n^2(t_{k}^n) \Delta t_k^n\right]                    \\
+     & \xrightarrow{n\to\infty}  \EE\left[\int\limits_{0}^T \phi_n^2(s) \d s\right] \le \infty.
+\end{align*}
+
+Since $\phi_n\xrightarrow{n\to\infty}\hat{\sigma}$, following conditions must be satisfied
+
+\begin{enumerate}[label=(\roman*), ref=(\roman*)]
+    \item $\hat{\sigma}$ is $(\F\otimes\B(\RR), \B(\RR))$-measurable (see Theorem \ref{theorem:pointwise-limit-of-measurable-functions-is-measurable}).
+    \item $\EE\left[\sum\limits_{k=0}^{m_n-1} \phi_n(t_{k}^n)^2 \Delta t_k^n\right]$ converges.
+\end{enumerate}
+
+\begin{lemma}
+    Let $g\in \V(0,T)$ be bounded and $g(\cdot, \omega)$ is continuous for each $\omega\in\Omega$. Then there exists a sequence of elementary functions $(\phi_n)_{n\in\NN}$ such that
+    $$\EE\left[\int\limits_0^T(g-\phi_n)^2\right]\xrightarrow{n\to\infty}0.$$
+\end{lemma}
+
+\begin{lemma}
+    Let $h\in \V(0,T)$ be bounded. Then there exists a sequence of bounded, $t$-continuous functions $(g_n)_{n\in\NN}$ in $\V(0,T)$ such that
+    $$\EE\left[\int\limits_0^T(h-g_n)^2\right]\xrightarrow{n\to\infty}0.$$
+\end{lemma}
+
+\begin{lemma}
+    Let $f\in \V(0,T)$. Then there exists a sequence of bounded, functions $(h_n)_{n\in\NN}$ in $\V(0,T)$ such that
+    $$\EE\left[\int\limits_0^T(f-h_n)^2\right]\xrightarrow{n\to\infty}0.$$
+\end{lemma}
+
+\begin{theorem}
+    Let $f\in \V(0,T)$. Then there exists a sequence of elementary functions $(\phi_n)_{n\in\NN}$ such that
+    $$\EE\left[\int\limits_0^T(f-\phi_n)^2\right]\xrightarrow{n\to\infty}0.$$
+\end{theorem}
+
+On the other hand, let $\{t_1,...,t_k\}\subset I$ be a set of finite times. We can construct a joint probability measure
+$$\mu_{t_1,...t_k}(F_1\times F_2\times\cdots\times F_k)=P(X_{t_1}\in F_1,...,X_{t_k}\in F_k)$$
+
+on the measurable space $(\RR^{nk},\B(\RR^{nk}))$. The probability spaces $(\RR^{nk},\B(\RR^{nk}),\mu_{t_1,...t_k})$ are called \textit{finite-dimensional distributions}\index{finite-dimensional distributions} of the stochastic process $\{X_t\}$. Conversely, the famous Kolmogorov's Extension Theorem \cite{oksendal2013stochastic} states that under some conditions, there exists a stochastic process satisfying a set of finite-dimensional distributions.
+
+\subsubsection{Measure Theory}
+Measure theory includes a definition of a measure and relevant theorems. This branch of mathematics formally generalizes concepts like the length of intervals, the length of an arbitrary subset of $\RR$, the area of an arbitrary subset of $\RR^2$, or even the probability of an event. Let us begin by imitating a real-life example. Suppose that a farmer has a rectangular land whose width and length are both $100\,m$. The coordinated representation of the land is
+$$\Omega=[0,100]\times[0,100].$$
+
+The farmer allocates a region to build a warehouse. This region is a subset of $\Omega$, and it may not be rectangular. We call regions that the farmer can measure their areas measurable regions. Let us denote by $\mathcal{F}\subset 2^\Omega$ the family of measurable regions. Intuitively, we may make use of the following assumptions
+
+\begin{enumerate}
+    \item The area of whole land should be known. That is, $\Omega\in\mathcal{F}.$
+    \item If a region $A$ is measurable, it is possible to measure the area of the rest by taking the difference between the whole land's area and the area of $A$. That is, if $A\in\mathcal{F}$, then $A^c=\Omega\setminus A\in\mathcal{F}$.
+    \item We can measure a complex-shaped region by dividing into simpler regions. That is if $A_1,A_2\in\mathcal{F}$, then $A_1\cup A_2\in\mathcal{F}$.
+\end{enumerate}
+
+The set of measurable regions as above is defined formally as a $\sigma$-algebra, as below.
+
+\begin{definition}
+    \label{definition:sigma-algebra}
+    Given a set $\Omega$. A collection of subsets $\mathcal{F}$ of $\Omega$ is called a $\sigma$-algebra if
+    \begin{enumerate}
+        \item $\varnothing, \Omega\in\mathcal{F}$;
+        \item If $A\in\mathcal{F}$, then $A^c\in\mathcal{F}$;
+        \item If $A_1,A_2,...\in\mathcal{F}$, then $A_1\cup A_2\cup...\in\mathcal{F}$.
+    \end{enumerate}
+    The pair $(\Omega, \mathcal{F})$ is called a measurable space.
+\end{definition}
+
+\begin{example}
+    \label{example:1}
+    Given a set $\Omega$, then $\{\varnothing, \Omega\}$ and the power set $2^\Omega$ are two trivial $\sigma$-algebras. Specifically, if $\Omega=\{1,2,3\}$, then
+    $$\mathcal{F}=\{\varnothing,\Omega, \{1\}, \{2,3\}\}$$
+    is a $\sigma$-algebra on $\Omega$.
+\end{example}
+
+\begin{theorem}
+    The intersection of a family of $\sigma$-algebras defined on $\Omega$ is again a $\sigma$-algebra on $\Omega$.
+\end{theorem}
+
+\textit{Proof.} Let $\{\mathcal{F}_\alpha\}_{\alpha\in I}$, where $I$ is an index set, be a family of $\sigma$-algebras on $\Omega$, we will check that the intersection $\bigcap\limits_{\alpha\in I}\mathcal{F}_\alpha$ satisfies three conditions for a $\sigma$-algebra.
 \begin{itemize}
-    \item ObjectDetector
-    \item ObjectTrackers gồm các methods: khởi tạo tracker mới, update các trackers, xóa tracker.
+    \item Since $\varnothing,\Omega\in\mathcal{F}_\alpha,\forall\alpha\in I$, we have $\varnothing,\Omega\in\bigcap\limits_{\alpha\in I}\mathcal{F}_\alpha$.
+    \item If $A\in\bigcap\limits_{\alpha\in I}\mathcal{F}_\alpha$, then $A\in \mathcal{F}_\alpha,\forall\alpha\in I$, leading to $A^c\in \mathcal{F}_\alpha,\forall\alpha\in I$. Therefore,
+          $$A^c\in\bigcap\limits_{\alpha\in I}\mathcal{F}_\alpha.$$
+    \item If $A_i\in\mathcal{F}_\alpha,\forall i\in\mathbb{Z}^+,\forall \alpha\in I$, then $\bigcup\limits_{i\in\mathbb{Z}^+}A_i\in\mathcal{F}_\alpha,\forall\alpha\in I$. Therefore,
+          $$\bigcup\limits_{i\in\mathbb{Z}^+}A_i\in\bigcap\limits_{\alpha\in I}\mathcal{F}_\alpha.$$ \qed
 \end{itemize}
+
+\begin{remark}
+    The union of $\sigma$-algebras on $\Omega$ is not necessarily a $\sigma$-algebra. For example,
+    $$\mathcal{F}_1=\{\varnothing,\Omega, \{1\}, \{2,3\}\} \text{ and } \mathcal{F}_2=\{\varnothing,\Omega, \{2\}, \{1,3\}\}$$
+
+    are two $\sigma$-algebras on $\Omega=\{1,2,3\}$, but
+    $$\mathcal{F}=\mathcal{F}_1\cup\mathcal{F}_2=\{\varnothing,\Omega,\{1\},\{2\},\{2,3\},\{1,3\}\}$$ is not, since $\{3\}=\{2,3\}\cap\{1,3\}\notin \mathcal{F}$.
+\end{remark}
+
+Having mentioned in Example \ref{example:1}, any collection $\mathcal{C}$ of subsets of $\Omega$, has a trivial $\sigma$-algebra $2^\Omega$ that contains $\mathcal{C}$ i.e. $\mathcal{C}\subset2^\Omega$. Therefore, there exists the smallest $\sigma$-algebra containing $\mathcal{C}$.
+
+\begin{theorem}
+    \label{sigma-generated}
+    Given a set $\Omega$ and a collection of its subsets $\mathcal{C}$, there exists the smallest $\sigma$-algebra containing $\mathcal{C}$, denoted by $\mathcal{U}(\mathcal{C})$, given by
+    $$\mathcal{U}(\mathcal{C})=\bigcap\limits_{\alpha\in I}\mathcal{F}_\alpha,$$
+    where $\{\mathcal{F}_\alpha\}_{\alpha\in I}$ is the set of $\sigma$-algebras containing $\mathcal{C}$. We also called $\mathcal{U}(\mathcal{C})$ to be \textbf{generated}\index{generated} by $\mathcal{C}$.
+\end{theorem}
+
+\textit{Proof.} Since $\mathcal{U}(\mathcal{C})$ itself is a $\sigma$-algebra containing $\mathcal{C}$ so $\mathcal{U}(\mathcal{C})\in\{\mathcal{F}_\alpha\}$, leading to
+
+$$\bigcap\limits_{\alpha\in I}\mathcal{F}_\alpha\subset \mathcal{U}(\mathcal{C}).$$
+
+Moreover, $\bigcap\mathcal{F}_i$ is also a $\sigma$-algebra containing $\mathcal{C}$ and $\mathcal{U}(\mathcal{C})$ is the smallest one, hence
+
+$$\mathcal{U}(\mathcal{C})\subset\bigcap\limits_{\alpha\in I}\mathcal{F}_i.$$
+
+Thus $\mathcal{U}(\mathcal{C})=\bigcap\limits_{\alpha\in I}\mathcal{F}_i$. \qed
+
+\begin{remark}
+    Theorem \ref{sigma-generated} tells us the a collection of measurable subsets can be extended to a $\sigma$-algebra. For example, a collection $\mathcal{C}=\{\{1\}\}$ of subsets of $\Omega=\{1,2,3\}$ generates the $\sigma$-algebra
+    $$\mathcal{F}=\{\varnothing,\Omega,\{1\},\{2,3\}\}.$$
+\end{remark}
+An important $\sigma$-algebra is given in the definition below.
+
+\begin{definition}
+    Let $\Omega$ be a space induced with a metric $d$. The Borel $\sigma$-algebra on $\Omega$, denoted by $\mathcal{B}(\Omega)$  is the $\sigma$-algebra generated by open subsets of $\Omega$.
+\end{definition}
+
+\begin{remark}
+    We qualify the set of matrices $\RR^{n\times m}$ with the Frobenius norm and define a metric induced
+    $$d(A,B)=||A-B||_F,\forall A,B\in \RR^{n\times m}.$$
+    Then we can generate the Borel $\sigma$-algebra $\mathcal{B}(\RR^{n\times m})$.
+\end{remark}
+
+Having defined measurable subsets, we continue to define how we should measure them. Taking the example at the beginning of this section, the area of a region satisfies the following conditions:
+\begin{enumerate}
+    \item Non-negativity i.e. we want to give a non-negative real number of area for each measurable region.
+    \item A complex-shaped region area can be calculated by dividing it into simple-shaped sub-regions and add up their areas. The summation can be infinite as illustrated in Figure \ref{figure:circle}.
+\end{enumerate}
+
+\begin{definition}
+    Given a measurable space $(\Omega,\mathcal{F})$, a function $\mu:\mathcal{F}\to\RR$ is called a measure if it satisfies
+    \begin{enumerate}
+        \item Non-negativity: $\mu(A)\ge0,\forall A\in\mathcal{F}.$
+        \item $\mu(\varnothing)=0$.
+        \item Countable additivity: if $\{A_i\}_{i=1}^\infty\subset\mathcal{F}$ contains pairwise disjoint elements, then
+              $$\mu\left(\bigcup\limits_{i=1}^\infty A_i\right)=\sum\limits_{i=1}^\infty \mu(A_i).$$
+              The triplet $(\Omega,\mathcal{F},\mu)$ is called a measure space.
+    \end{enumerate}
+\end{definition}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.4\linewidth]{img/circle.png}
+    \vspace{0.5cm}
+    \caption[Circle area approximation]{The area of a circle can be calculated by dividing it into equal isosceles triangles. As the number of triangles tends to infinity, the sum of bottom sides tends to the perimeter $2\pi R$ of the circle and the attitude of a triangle tends to $R$. Hence the area is $A=\dfrac{1}{2}(2\pi R)R=\pi R^2$.}
+    \label{figure:circle}
+\end{figure}
+
+\begin{remark}
+    These properties imply \textit{monotonicity}\index{monotonicity}, i.e. if $A\subset B$, then
+    \begin{align}
+        \mu(A)\le\mu(B).
+    \end{align}
+    Indeed, we have $$\mu(B)=\mu(A)+\mu(B\setminus A)\ge \mu(A).$$
+\end{remark}
+
+\begin{example}
+    \begin{enumerate}
+        \item []
+        \item Consider the measurable space $(\RR, \mathcal{B}(\RR))  $. The function of taking the length of open intervals on the real line
+              $$\mu((x,y))=|y-x|,\forall x,y\in\RR,$$
+              which an assumption that $\mu(\varnothing)=0$, is a measure. Three properties of a measure are satisfied trivially.
+        \item Consider the measurable space $(\RR, \mathcal{F})$, where $\mathcal{F}$ is any $\sigma$-algebra on $\RR$. Given $a\in\RR$. The indicator function $\mathbf{1}_a: \mathcal{F}\to\{0,1\}$ given by
+              $$\begin{cases}
+                      \mathbf{1}_a(X)=1, & \text{ if } a\in X \\
+                      \mathbf{1}_a(X)=0, & \text{ otherwise }
+                  \end{cases}$$
+              is a measure. We already have $\mathbf{1}_a(X)\ge0, \forall a\in X$. Let us check the other two properties of a measure for this function.
+              \begin{itemize}
+                  \item Since $a\notin\varnothing$, we have $\mathbf{1}_a(\varnothing)=0$.
+                  \item For disjoints $X_1,X_2,...$ it cannot be the case that there are two of them contain $a$. If $a\notin X_k,\forall k\in\mathbb{Z}^+$, then countable additivity holds since both sides are zero. Otherwise, if there exists $k\in \mathbb{Z}^+$ such that $a\in X_k$, then it follows that $$a\notin X_\ell, \forall \ell\ne k,$$ implying both sides are one.
+              \end{itemize}
+    \end{enumerate}
+\end{example}
+
+Given measure spaces $(\Omega,\mathcal{F},\mu)$ and $(\Gamma,\mathcal{G},\nu)$, we also concern about which pair $(\omega,\gamma)\in\Omega\times\Gamma$ that can be measured and how to measure them.
+
+\begin{definition}
+    Let $(\Omega,\mathcal{F},\mu)$ and $(\Gamma,\mathcal{G},\nu)$ be measure spaces. The product $\sigma$-algebra $\mathcal{F}\otimes\mathcal{G}$ on $\Omega\times\Gamma$ is given by
+    $$\mathcal{F}\otimes\mathcal{G}=\mathcal{U}(\{A\times B\,|\, A\in\mathcal{F},B\in\mathcal{G}\}).$$
+\end{definition}
+
+\begin{definition}
+    Let $(\Omega,\mathcal{F},\mu)$ and $(\Gamma,\mathcal{G},\nu)$ be measure spaces. The product measure $\lambda(A\times B)$ on $\mathcal{F}\otimes\mathcal{G}$, where $A\in\mathcal{F},B\in\mathcal{G}$ is given by
+    $$\lambda(A\times B)=\mu(A)\nu(B)$$
+\end{definition}
+
+\begin{example}
+    The measure of area $\mu$ in a two-dimensional space can be thought of as the product of two identical measures of length $\lambda$ in a one-dimensional space. Given two intervals $[a,b]$ and $[c,d]$, the equality
+    $$\mu([a,b]\times [c,d])=\lambda([a,b])\cdot\lambda([c,d]),$$
+    meets our intuition about the area of a rectangle. Here it is also suggests that a rectangle with one size to be zero has area measure zero.
+\end{example}
+
+\begin{definition}
+    Given two measurable spaces $(\Omega, \mathcal{F})$ and $(\Gamma,\mathcal{G})$. A function $f:\Omega\to\Gamma$ is said to be measurable $\mathcal{F}\to\mathcal{G}$ if
+    $$f^{-1}(A)\in\mathcal{F},\forall A\in \mathcal{G}.$$
+\end{definition}
+
+\subsubsection{Lebesgue Integral}
+The Lebesgue integral extends the Riemann integral. If a function is Riemann-integrable, its Riemann integral equals its Lebesgue integral. However, Lebesgue integrals can handle functions not Riemann-integrable. This extension simplifies the formulation of theorems in probability, unifying discrete and continuous cases. The Riemann integral faces a limitation, demonstrated as follows.
+
+The Fundamental Theorem of Calculus tells us that the limit $(\ref{equation:riem})$ exists and equals $F(b)-F(a)$, where $F$ is an anti-derivative of $f$. Geometrically, the integral coincides with the area of the region bounded by the horizontal axis and $f$, from $a$ to $b$. Challenges arise in higher dimensions due to partition definition. For example, if we decide to divide the integrating region $\Omega$ into boxes $\{B_k\}_{k=0}^\infty$ i.e. the Cartesian product of intervals, we must prove that the region can be approximated by the union of the boxes. Moreover, a selection of a point $\tau_k\in B_k$ results in a limit similarly to (\ref{equation:riem}), and we have to prove that all limits are equal.
+
+The mathematician Henri Lebesgue came up with a new approach to approximate this area, or higher dimensional volumes, as illustrated in Figure $\ref{figure:schilling}$ in the case $d=1$. Suppose that $f$ is bounded on $[a,b]$. Consider partitions $$P^n=\left\{\inf\limits_{x\in K} f=t^n_0<t^n_1<...<t^n_{m_n}=\sup\limits_{x\in K} f\right\}, n\in\mathbb{N}$$ such that $|P^n|\to 0$ as $n\to\infty$. For each $k\in\{0,...,m_n-1\}$, there exists a set
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{img/riemann-vs-lebesgue.png}
+    \vspace{0.5cm}
+    \caption[Riemann and Lebesgue approximations]{Riemann and Lebesgue approximations \cite{schilling2017measures}}
+    \label{figure:schilling}
+\end{figure}
+
+
+
+$$L_k^n=\{x\in\mathbb{K} \,|\, t_k^n\le f(x)\le t_{k+1}^n\}.$$
+
+Let $\mu:2^{[a,b]}\to[0,\infty]$ be a measure for the length of each $L_k^n$, then
+\begin{equation}
+    I_n=\sum\limits_{k=0}^{m_n-1}(t_{k+1}-t_k)\mu(L_k^n)
+\end{equation}
+
+can be used as an approximation of the area under $f$. The measure for the length, area and volume of some subsets of $\RR$, $\RR^2$, $\RR^3$ and so on, is called \textit{Lebesgue measure}. The Lebesgue measure unifies Lebesgue integral and Riemann integral. Moreover, we can define Lebesgue integral for any measure rather than Lebesgue measure. Note that, each $L^n_k$ is $\mu$-measurable means that $f^{-1}([t_k^n, t^n_{k+1}])$ is $\mu$-measurable. Therefore, the function $f$ is required to be measurable $\mathcal{B}(\RR^d)\to\mathcal{B}(\RR)$. Let us formally develop Lebesgue integral for a general function $f:\Omega\to\RR$ as follows.
+
+\begin{definition}
+    Let $(\Omega, \mathcal{F}, \mu)$ be a measure space and $$A_1,...,A_n\in\mathcal{F}.$$ A \index{step function} step function (simple function, elementary function) $f$ has the form
+    \begin{equation}
+        f(x)=\sum\limits_{i=1}^nc_i\mathbf{1}_{A_i}(x),
+    \end{equation}
+    where $c_1,...,c_n$ are real constants.
+\end{definition}
+
+Since
+$$\mathbf{1}_{A_i\cup A_j} = \mathbf{1}_{A_i} + \mathbf{1}_{A_j} - \mathbf{1}_{A_i\cap A_j},$$
+we can choose $A_1,...,A_n$ to be pairwise disjoint. For a step function $f$, if $x\in A_i\subset\mathcal{F}$, then we can think of $x$ as contributing to the element $c_i\mathbf{1}_{A_i}(x)$, hence we may define the Lebesgue integral of $f$ as
+$$\mathcal{I}(f)=\sum\limits_{i=1}^nc_i\mu(A_i).$$
+However, some $c_i, 1\le i\le n$ are positive and some are negative, make it not a convenient way, especially for later extension requiring $n\to\infty$, where we cannot specify clearly when the sum is finite. Therefore, we have to consider the domain of $f$ where the value of $f$ is non-negative, and otherwise.
+
+\begin{definition}
+    Let $f$ be a step function
+    \begin{equation}
+        \label{equation:step:pos}
+        f(x)=\sum\limits_{i=1}^nc_i\mathbf{1}_{A_i}(x),
+    \end{equation}
+    where $c_i\ge0, 1\le i\le n$. The Lebesgue integral of $f$ is defined as
+    $$\mathcal{I}(f)=\sum\limits_{i=1}^nc_i\mu(A_i).$$
+\end{definition}
+
+Any non-negative function $f$ on $\Omega$ i.e.$f(x)\ge 0,\forall x\in\Omega$ has a representation (\ref{equation:step:pos}). Indeed, as shown before, we can choose $A_i, 1\le i\le n$ to be pairwise disjoint. Suppose that there is $j\in\{1,...,\}$ such that $c_j<0$, we take $x\in A_j$. Then $f(x)=c_j<0$, which contradicts to the non-negativity of $f$.
+
+\begin{definition}
+    Let $f:X\to[0,\infty)$ be measurable where $X\subset\Omega$. The Lebesgue integral of $f$ is defined as
+    \begin{equation}
+        \int\limits_{X}f\d \mu = \sup\left\{\mathcal{I}(h)\,|\, h\le f\right\}.
+    \end{equation}
+\end{definition}
+
+\begin{definition}
+    Let $f:X\to\RR$ be measurable where $X\subset\Omega$. Define
+    $$f^+(x)=\begin{cases}
+            f(x), & \text{ if } f(x)\ge 0 \\
+            0,    & \text{ otherwise}
+        \end{cases} \text{ and } f^-(x)=\begin{cases}
+            f(x), & \text{ if } f(x)\le 0 \\
+            0,    & \text{ otherwise.}
+        \end{cases}$$
+
+    The Lebesgue integral of $f$ is defined as
+    \begin{equation}
+        \int\limits_{X}f\d \mu = \int\limits_{X}f^+\d \mu - \int\limits_{X}(-f^-)\d \mu
+    \end{equation}
+    Then $f$ is said to be integrable or summable if $\int\limits_{X}f\d \mu<\infty$.
+\end{definition}
+
+To finish this section, we introduce $L^p$ space, an important class of spaces in analysis. Many later theorems in stochastic processes are proved in these spaces.
+
+\begin{definition}
+    Let $(\Omega,\mathcal{F},\mu)$ be a measure space, $f:\Omega\to\RR^m$ and $p\ge 1$. We define the $L^p(\mu)$-norm of $f$ (with respect to $\mu$) by
+    $$||f||_{L^p(\mu)}=\left(\int\limits_\Omega ||f(\omega)||^p_p\d \mu\right)^\frac{1}{p}.$$
+    If $p=\infty$, define
+    $$||f||_{L^\infty(\mu)}=\sup\{\|f(\omega)\|_p\}.$$
+    Denote by $L^p(\mu)$ the vector space of all functions $f$ such that $||f||_{L^p}<\infty$.
+\end{definition}

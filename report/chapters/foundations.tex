@@ -1,0 +1,186 @@
+\chapter{Foundations}
+
+The Statistical Hypothesis is a statement or assumption about the parameters of one or more populations, which may be true or false. Each such truth value can be expressed in the form of a hypothesis, usually denoted as $H_0$, called the null hypothesis, and an alternative hypothesis, usually denoted as $H_1$ or Halt, which is its complement.
+
+\section{Theoretical Foundation of Sampling}
+\subsection{Terminology}
+\begin{enumerate}
+ \item A population is a set $\{x_i\}_{i=1}^N$ of elements belonging to the object under study, which need to be observed, collected, and analyzed based on certain characteristics. A parameter is a numerical description of a population.
+ \item A sample is a subset $\{x_{i_j}\}_{j=1}^n$ of units selected from the population according to a certain sampling method. A statistic is a numerical description of a sample.
+ \item Let the population belong to a distribution represented by a random variable $X$. A random sample is a collection $\{X_i\}_{i=1}^n$ such that $X,X_1,\ldots,X_n$ are independent and identically distributed.
+\end{enumerate}
+
+\subsection{Statistical characteristics}
+
+Statistical characteristics are important properties on a population, a sample or a random sample directly related to the content of the study and survey, which need to be collected from the units of the population, generally divided into two groups
+
+\begin{enumerate}
+ \item Central tendency includes mean, median, mode, giving us an idea of the trend of the data points clustering around certain values.
+ \item Dispersion includes variance, standard deviation, which describe the spread or variability of the data points around the central tendency.
+\end{enumerate}
+
+In details, these quantities are formulated as followings.
+\begin{itemize}
+ \item Population mean
+       \begin{equation}
+        \mu = \frac{1}{N} \sum_{i=1}^N x_i.
+       \end{equation}
+ \item Sample mean
+       \begin{equation}
+        \bar{x} = \frac{1}{n} \sum_{j=1}^n x_{i_j}.
+       \end{equation}
+ \item Random sample mean
+       \begin{equation}
+        \bar{X} = \frac{1}{n} \sum_{i=1}^n X_i.
+       \end{equation}
+ \item Population variance
+       \begin{equation}
+        \sigma^2 = \dfrac{1}{N} \sum_{n=1}^N (x_n - \bar{x})^2.
+       \end{equation}
+ \item Sample variance
+       \begin{equation}
+        s^2 = \dfrac{1}{n-1} \sum_{j=1}^n (x_{i_j} - \bar{x})^2.
+       \end{equation}
+ \item Random sample variance
+       \begin{equation}
+        S^2 = \dfrac{1}{N-1} \sum_{n=1}^n (X_i - \bar{X})^2.
+       \end{equation}
+ \item Population, sample and random sample derivations are the square roots $\sigma$, $s$ and $S$, respectively.
+
+ \item Sample ratio
+       \begin{equation}
+        f = \dfrac{n}{N}
+       \end{equation}
+ \item Coefficient of variation
+       \begin{equation}
+        \mathrm{CV} = \left(\frac{s}{\bar{x}}\right) \cdot 100\%
+       \end{equation}
+ \item Suppose that the sample $\{x_{i_j}\}_{j=1}^n$ is in increasing order. The sample median is calculated as
+       \begin{equation}
+        \mathrm{med} = \begin{cases}
+         x_{i_{k+1}},                           & \text{ if } n = 2k+1 \\
+         \frac{1}{2} (x_{i_{k}} + x_{i_{k+1}}), & \text{ if } n = 2k.
+        \end{cases}
+       \end{equation}
+ \item Quartiles include three values $Q_1,Q_2$ and $Q_3$. Where $Q_2$ is the median, $Q_1$ and $Q_3$ is the median of the set of samples less than and more than $Q_2$, respectively. The quantity $\mathrm{IQR} = Q_3-Q_1$ is called the interquartile range.
+ \item An outlier is a point outsize $(Q1 - 1.5 \times IQR, Q3 + 1.5 \times IQR)$.
+\end{itemize}
+
+\section{Some General Principles of Statistical Hypothesis Testing}
+The process of testing a statistical hypothesis is a standardized procedure for making decisions to reject or not reject a hypothesis based on sample data. This process is called hypothesis testing and typically involves four steps:
+
+\begin{enumerate}
+ \item \textbf{Setting Hypotheses:} This step involves stating which hypothesis is null and which is alternative. The hypotheses are formulated in a mutually exclusive manner, meaning if one is true, the other must be false.
+ \item \textbf{Constructing an Analysis Plan:} The analysis plan outlines how sample data will be used to evaluate the null hypothesis. Evaluation typically centers around a single test statistic.
+ \item \textbf{Analyzing Sample Data:} Determine the values of the sample statistic (mean, proportion, t-statistic, z-score, etc.) as described in the analysis plan.
+ \item \textbf{Interpreting Results:} Apply decision rules outlined in the analysis plan. If the observed result is inconsistent with the null hypothesis, reject it.
+\end{enumerate}
+
+Similar to estimation, statistical hypothesis testing does not provide results with 100\% certainty but rather with a certain level of confidence, and errors can occur. Errors can be classified into two types:
+
+\begin{itemize}
+ \item \textbf{Type I Error:} Rejecting the null hypothesis $H_0$
+       and accepting the alternative hypothesis $H_1$ whereas $H_0$ is true.
+ \item \textbf{Type II Error:} Failing to reject the null hypothesis $H_0$ and not accepting the alternative hypothesis $H_1$ whereas $H_1$ is true.
+\end{itemize}
+
+Both types of errors can have adverse consequences. Depending on the situation, it's assessed which type of error leads to more serious consequences and should be minimized.
+
+To make decisions about rejecting the null hypothesis, statisticians rely on specific rules. These rules are listed in the analysis plan. Traditionally, statisticians describe these decision rules in two ways: referencing a p-value or referencing a region of acceptance.
+
+\begin{itemize}
+ \item \textbf{$p$-value:} The strength of evidence in favor of a null hypothesis is measured by the p-value. Suppose the test statistic is denoted by S. The p-value is the probability of observing a test statistic as extreme as S, assuming the null hypothesis is true. If the p-value is smaller than the significance level, we reject the null hypothesis.
+ \item \textbf{Region of Acceptance:} The region of acceptance is a range of values. If the sample statistic falls within the region of acceptance, the null hypothesis is not rejected. The region of acceptance is set so that the probability of committing a Type I error is equivalent to the significance level.
+\end{itemize}
+
+Values outside the region of acceptance are called the region of rejection. If the sample statistic falls within the region of rejection, the null hypothesis is rejected. In such cases, it's said that the null hypothesis has been rejected at the  significance level.
+
+% \subsection{Hồi quy tuyến tính}
+
+% \subsubsection{Hai loại hồi quy tuyến tính}
+
+% \textbf{- Hồi quy tuyến tính đơn: }\\
+% + Nếu một biến độc lập duy nhất được sử dụng để dự đoán giá trị của một biến phụ thuộc số, thì thuật toán hồi quy tuyến tính như vậy được gọi là Hồi quy tuyến tính đơn.\\
+% + Giá trị kỳ vọng của $Y$ ở mỗi mức $x$ là biến ngẫu nhiên $E(Y|x) = \beta_0 + \beta_{1}x$. Ta cho rằng mỗi biến $Y$ có thể được mô tả bằng mô hình $Y = \beta_0 + \beta_{1}x + \varepsilon$.\\
+% + Trong đó: $Y$ là biến độc lập, $\beta_0$ là giao điểm của $Y$ khi $x$ bằng 0, $\beta_1$ là hệ số của $x$, $\varepsilon$ là hệ số độc lập của mô hình.\\
+% + Tức là $Y_i = \beta_0 + \beta_{1}x_i + \varepsilon_i $ với $i=1,2,...,n$.\\
+% + Để đạt được đường hồi quy phù hợp nhất, điều cần thiết là phải đưa ra dự đoán giá trị mà sự khác biệt giữa giá trị dự đoán và giá trị thực $Y$ là nhỏ nhất. Vì vậy, chúng ta phải thay đổi giá trị của $\beta_0,  \beta_{1}$ , để đạt được giá trị tốt nhất của cả hai.
+
+% \textbf{- Hồi quy tuyến tính bội:}\\
+% + Nếu sử dụng nhiều hơn một biến độc lập để dự đoán giá trị của một biến phụ thuộc số lượng thì thuật toán hồi quy tuyến tính như vậy được gọi là Đa tuyến tính hồi quy.\\
+% + Giá trị kỳ vọng của $Y$ ở mỗi mức $x$ là biến ngẫu nhiên $E(Y|x) = \beta_0 + \beta_{1}x_1 + ... + \beta_{i}x_i$. Ta cho rằng mỗi biến $Y$,
+% có thể được mô tả bằng mô hình $Y = \beta_0 + \beta_{1}x_1 + ... + \beta_{i}x_i \varepsilon_i $.\\
+% + Trong đó: $Y$ là biến độc lập, $\beta_0$ là giao điểm của $Y$ khi $x$ bằng 0, $\beta_1$ là hệ số của $x$, $\varepsilon$ là hệ số độc lập của mô hình.\\
+% + Tức là $Y_i = \beta_0 + \beta_{1}x_1 + ... + \beta_{i}x_i  \varepsilon_i $ với $i=1,2,...,n$.\\
+
+% \subsubsection{Mô hình hồi quy tuyến tính}
+% - Hồi quy tuyến tính là một công cụ hữu ích để tìm hiểu và dự đoán cách thức hoạt động của một biến, tuy nhiên nó cần phải đáp ứng một số điều kiện để có thể trở thành giải pháp chính xác và đáng tin cậy.
+
+% - Tính tuyến tính: Các biến độc lập và biến phụ thuộc có mối quan hệ tuyến tính với nhau. Điều này có nghĩa rằng những thay đổi trong biến phụ thuộc sẽ theo sau những thay đổi trong một hoặc nhiều biến độc lập một cách tuyến tính.
+
+% - Tính độc lập: Các dữ liệu quan sát được trong tập dữ liệu độc lập với nhau. Điều này có nghĩa là giá trị của biến phụ thuộc cho một dữ liệu quan sát được không phụ thuộc vào giá trị của biến phụ thuộc cho một dữ liệu quan sát được khác.
+
+% - Tính đồng nhất: Trên tất cả các cấp độ của các biến độc lập, phương sai của sai số luôn không thay đổi. Điều này chỉ ra rằng số lượng các biến độc lập không có tác động đến sự khác biệt của các lỗi.
+
+% - Tính phân phối chuẩn: Các sai số trong mô hình có phân phối chuẩn.
+
+% - Không đa cộng tuyến: Không có sự tương quan cao giữa các biến độc lập. Cái này chỉ ra rằng có rất ít hoặc thậm chí không có mối tương quan nào giữa các biến độc lập.
+% \subsection{Hồi quy từng bước}
+
+% \subsubsection{Định nghĩa hồi quy từng bước}
+
+% - Hồi quy từng bước là một phương pháp điều chỉnh mô hình hồi quy bằng cách lặp đi lặp lại, thêm hoặc loại bỏ các biến. Nó được sử dụng để xây dựng một mô hình chính xác và chi tiết, có nghĩa là nó có số lượng biến nhỏ nhất có thể giải thích dữ liệu.
+
+% - Có hai loại hồi quy từng bước là:\\
+% + Lựa chọn chuyển tiếp: Thuật toán bắt đầu với một mô hình trống và lặp đi lặp lại hoặc thêm các biến vào mô hình cho đến khi không có cải tiến nào nữa.\\
+% + Loại bỏ ngược: Thuật toán bắt đầu với một mô hình bao gồm tất cả các biến và loại bỏ lặp đi lặp lại các biến cho đến khi không còn cải tiến nào nữa.\\
+% + Ưu điểm của hồi quy từng bước là nó có thể tự động chọn các biến quan trọng nhất cho mô hình và xây dựng một mô hình chi tiết. Điểm bất lợi là nó không phải lúc nào cũng chọn được mô hình tốt nhất và có thể nhạy cảm với thứ tự các biến được thêm vào hoặc loại bỏ.
+% \subsubsection{Hồi quy từng bước và hồi quy tuyến tính}
+
+% - Hồi quy tuyến tính là một phương pháp thống kê được sử dụng để mô hình hóa mối quan hệ giữa một biến phụ thuộc và một hoặc nhiều biến độc lập bằng cách khớp phương trình tuyến tính với dữ liệu quan sát được. Nói cách khác, đây là phương pháp dự đoán phản hồi (hoặc biến phụ thuộc) dựa trên một hoặc nhiều biến dự đoán.
+
+% - Hồi quy từng bước là phương pháp xây dựng mô hình hồi quy bằng cách thêm hoặc loại bỏ các yếu tố dự đoán theo kiểu từng bước. Mục tiêu của hồi quy từng bước là xác định tập hợp con các yếu tố dự đoán mang lại hiệu suất dự đoán tốt nhất cho biến phản hồi. Điều này được thực hiện bằng cách bắt đầu với một mô hình trống và lặp đi lặp lại việc thêm hoặc loại bỏ các yếu tố dự đoán dựa trên mức độ mối quan hệ của chúng với biến phản hồi.
+
+% - Tóm lại, hồi quy tuyến tính là phương pháp mô hình hóa mối quan hệ giữa phản hồi và một hoặc nhiều biến dự đoán, trong khi hồi quy từng bước là phương pháp xây dựng mô hình hồi quy bằng cách lặp đi lặp lại thêm hoặc loại bỏ các yếu tố dự đoán.
+
+% \subsection{Phân tích phương sai (ANOVA)}
+
+% \subsubsection{Định nghĩa phân tích phương sai:}
+% - Phân tích phương sai (ANOVA) là một công cụ phân tích được sử dụng trong thống kê nhằm mục đích phân chia biến thiên tổng hợp quan sát được tìm thấy trong một tập dữ liệu thành hai phần gồm: Các yếu tố hệ thống và Các yếu tố ngẫu nhiên. Các yếu tố hệ thống có ảnh hưởng thống kê đến tập dữ liệu nhất định, trong khi đó các yếu tố ngẫu nhiên thì không. Chúng ta sử dụng phân tích ANOVA để xác định sự ảnh hưởng của các biến độc lập đến biến phụ thuộc trong nghiên cứu hồi quy.
+
+% - Các phương pháp kiểm định T (T-Test) và kiểm định Z (Z-Test) được phát triển trong thế kỷ 20 được sử dụng để phân tích thống kê cho đến năm 1918, khi Ronald Fisher tạo ra phương pháp phân tích phương sai.
+% - ANOVA còn được gọi là phân tích phương sai của Fisher và là phần mở rộng của các kiểm định T và kiểm định Z. Cả hai đều đóng vai trò kiểm tra giả thuyết để đánh giá liệu có sự khác biệt đáng chú ý nào giữa các phương tiện hay không.
+
+% - Kiểm định T được sử dụng khi chưa biết phương sai tổng thể hoặc cỡ mẫu nhỏ (n < 30). Đồng thời, kiểm định Z được áp dụng khi đã biết phương sai tổng thể và cỡ mẫu là lớn (n > 30). Kiểm định T sử dụng phân phối Student, trong khi kiểm định Z sử dụng phân phối chuẩn chuẩn. Khi cỡ mẫu tăng lên, phân phối T sẽ hội tụ về phân phối chuẩn hóa.
+
+% - Kiểm định T có thể được hiểu là một kiểm định thống kê dùng để so sánh và phân tích xem liệu giá trị trung bình của hai tổng thể có khác nhau hay không khi độ lệch chuẩn không được biết đến. Ngược lại với nó, thì kiểm định Z lại là một thử nghiệm tham số, được áp dụng khi biết độ lệch chuẩn, để xác định xem phương tiện của hai bộ dữ liệu có khác nhau hay không.
+
+% \subsubsection{Phân tích phương sai (ANOVA) có tác dụng như thế nào}
+
+% - Thử nghiệm ANOVA là bước đầu trong việc phân tích các yếu tố ảnh hưởng đến một tập dữ liệu nhất định. Khi kiểm tra kết thúc một lần kiểm tra, ta sẽ thực hiện kiểm tra bổ sung về các yếu tố phương pháp có thể đo lường được góp phần vào sự không nhất quán của tập dữ liệu. Ta có thể sử dụng kết quả kiểm tra ANOVA trong chuẩn F để tạo dữ liệu bổ sung phù hợp với các mô hình hồi quy được đề xuất.
+
+% - Thử nghiệm ANOVA cho phép so sánh nhiều hơn hai nhóm cùng một lúc để xác định giữa họ có tồn tại mối quan hệ hay không. Kết quả của công thức phân tích ANOVA, thống kê F (còn được gọi là tỷ lệ F), cho phép phân tích nhiều nhóm dữ liệu để xác định độ biến thiên giữa các mẫu và trong các mẫu.
+
+% - Nếu không có sự khác biệt đáng kể nào giữa các nhóm được kiểm tra (được gọi là giả thuyết khống) thì kết quả thống kê F của ANOVA sẽ gần bằng 1. Phân phối của tất cả các giá trị có thể có của thống kê F là phân phối F. Đây là một nhóm hàm phân bố, có hai số đặc trưng, được gọi là bậc tự do của tử số và bậc tự do của mẫu số.
+
+% \subsubsection{Tìm hiểu về ANOVA một chiều và ANOVA hai chiều}
+
+% - Có hai loại ANOVA chính là ANOVA một chiều và ANOVA hai chiều. Ngoài ra còn có các biến thể của ANOVA như MANOVA (ANOVA đa biến) khác với ANOVA ở chỗ phương pháp trước kiểm tra đồng thời nhiều biến phụ thuộc trong khi phương pháp sau chỉ đánh giá một biến phụ thuộc tại một thời điểm. Một chiều hoặc hai chiều đề cập đến số lượng biến độc lập trong phân tích phương sai.
+
+% - Hơn nữa, ANOVA dựa vào các giả định. Các thử nghiệm ANOVA giả định rằng dữ liệu thường được phân phối và mức độ phương sai trong mỗi nhóm gần như bằng nhau. Cuối cùng, chúng ta giả định rằng tất cả các quan sát được thực hiện độc lập. Nếu những giả định này không chính xác thì ANOVA có thể không hữu ích cho việc so sánh các nhóm.
+
+% - ANOVA một chiều:\\
+% + Được dùng để đánh giá tác động của một yếu tố duy nhất lên một biến phản hồi duy nhất. Nó xác định xem tất cả các mẫu có giống nhau hay không. \\
+% + Phân tích phương sai một chiều (ANOVA) được sử dụng để xác định xem có sự khác biệt có ý nghĩa thống kê giữa giá trị trung bình của ba nhóm độc lập (không liên quan) trở lên hay không.\\
+% + Mô hình ANOVA một chiều có thể được viết dưới dạng: $Y_{i,j}=\mu_ + \varepsilon_{i,j}$ với:\\
+% $i=1,2,3,...,n_j$ là số thứ tự các quan sát trong cùng một nhóm.\\
+% $j=1,2,3,...,k$ là số thứ tự đến các nhóm bị ảnh hưởng.\\
+% $\mu_j$ là trung bình cho từng nhóm bị ảnh hưởng.\\
+% $\varepsilon \sim N(0,\sigma^2)$ là sai số có phân phối chuẩn và độc lập với nhau cho tất cả $i$ và $j$.\\
+% + Giá trị trung bình và phương sai của $Y_{i,j}$: $E(Y_{i,j})=\mu_j$, $Var(Y_{i,j})=\sigma^2$
+
+% - ANOVA hai chiều:\\
+% + Là phần mở rộng của ANOVA một chiều. Với phương pháp một chiều, ta có một biến độc lập ảnh hưởng đến một biến phụ thuộc.\\
+% + Với ANOVA hai chiều, có hai yếu tố độc lập. Nó được sử dụng để quan sát sự tương tác giữa hai yếu tố và kiểm tra tác động của hai yếu tố cùng một lúc.\\
+% + Mô hình ANOVA hai chiều có thể được viết dưới dạng: $Y_{i,j}=\mu_j+\gamma_j+(\mu\gamma)_{i,j}+\varepsilon_{i,j,k}$\\
+% + Giả định về biến ngẫu nhiên tương tự như phân tích ANOVA một chiều.

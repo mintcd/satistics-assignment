@@ -1,0 +1,99 @@
+\ProvidesPackage{styles}
+
+\RequirePackage{graphicx}
+\RequirePackage{algorithmic}
+\RequirePackage{algorithm}
+
+%%%%%%%% LSTLISTING SETUP %%%%%%%%
+%%%%%%%% DEFINE %%%%%%%%
+\definecolor{BLUE}{rgb}{0.54,0.86,0.87}
+\definecolor{ORANGE}{rgb}{0.99, 0.95, 0,96}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{backcolor}{rgb}{0.95,0.95,0.92}
+%%%%%%%% LSTLISTING SETUP %%%%%%%%
+\lstset{language=R,
+    basicstyle=\small\ttfamily,
+    otherkeywords={0,1,2,3,4,5,6,7,8,9},
+    morekeywords={TRUE,FALSE},
+    deletekeywords={data,frame,length,as,character},
+    keywordstyle=\color{blue},
+    commentstyle=\color{dkgreen},
+    stringstyle=\color{dkgreen},
+    numberstyle=\tiny\color{gray},
+    frame=tb,
+    aboveskip=3mm,
+    belowskip=3mm,
+    showstringspaces=false,
+    columns=flexible,
+    basicstyle={\small\ttfamily},
+    numbers=left,
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=3,
+    backgroundcolor=\color{backcolor}
+}
+
+
+%%%%%%%%%% ENVIRONMENTS %%%%%%%%%%
+\newenvironment{solution}{
+  \renewcommand{\qedsymbol}{$\blacksquare$}
+  \proof[Solution]
+}{
+  \endproof
+}
+
+%%%%%%%%%% THEOREMS %%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}
+  {10pt} % Space above
+  {10pt} % Space below
+  {} % Font style of the body
+  {} % Indent amount
+  {\bfseries} % Theorem head font style (bold)
+  {} % Punctuation after theorem head
+  {.5em} % Space after theorem head
+  {\textbf{\thmname{#1}\thmnumber{ #2}\thmnote{ (#3)}}} % Theorem head spec (bold name and brackets)
+
+\newtheoremstyle{nonitalic}
+  {\topsep}   
+  {\topsep}   
+  {}          
+  {}          
+  {\bfseries} 
+  {.}         
+  {.5em}      
+  {}          
+
+
+\theoremstyle{mytheoremstyle}
+\newtheorem{theorem}{Theorem}[subsection]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{nonitalic}
+\newtheorem{example}{Example}[section]
+\newtheorem{remark}{Remark}[section]
+  
+%%%%%%%%%% NAMES %%%%%%%%%%%%%
+\renewcommand{\chaptername}{Chapter}
+\renewcommand{\figurename}{Figure}
+\renewcommand{\tablename}{Table}
+\renewcommand{\contentsname}{Contents}
+\renewcommand{\listfigurename}{List of Figures}
+\renewcommand{\listtablename}{List of Tables}
+\renewcommand{\bibname}{References}
+\renewcommand{\listofalgorithms}{\listof{algorithm}{\listalgorithmname}}
+
+%%%%%%%%%% COUNTER %%%%%%%%%%
+\counterwithin{figure}{section}
+\renewcommand{\thefigure}{\arabic{chapter}.\arabic{section}.\arabic{figure}}
+
+\counterwithin{equation}{section}
+\renewcommand{\theequation}{\arabic{chapter}.\arabic{section}.\arabic{equation}}
+
+\renewcommand\thesection{\arabic{section}}
+\renewcommand\thechapter{\Roman{chapter}}
+
+

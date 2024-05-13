@@ -1,4 +1,4 @@
-\chapter{Preprocessing}
+\chapter{Data Preprocessing}
 
 \section{Data Cleaning}
 
@@ -37,7 +37,7 @@ Now our working directory have been explicated, we can use relative paths to rea
   \caption{First instances of CPUs data}
 \end{figure}
 
-Invalid cells may contain \texttt{NA}, an empty string, or other values showing us that this cell's data was not collecting correctly. At the very first step, we want to selected only columns whose the percentage of valid cells exceeds our predefined value. Then we filter out all instances with invalid features. Note that careful column selection possibly remains more instances for later tasks. For CPU data, we concerning about the price, so let us choose a quota for which the column of prices is maintained.
+Invalid cells may contain \texttt{NA}, an empty string, or other values showing us that this cell's data was not collecting correctly. At the very first step, we want to select only columns such that the percentage of valid cells exceeds our predefined value. Then we filter out all instances with invalid features. Note that careful column selection possibly remains more instances for later tasks. For CPU data, we concern about the price, so let us choose a quota for which the column of prices is maintained.
 
 \begin{lstlisting}[caption={Cleaning functions}]
   # Check if a cell has a valid value

@@ -1,111 +1,36 @@
 \documentclass[a4paper]{report}
-%%%%%%%% FONT %%%%%%%%
-\usepackage[utf8]{inputenc}
-\usepackage[T1,T2A,T5]{fontenc}
-%%%%%%%% MATH %%%%%%%%
-\usepackage{amsmath}
-\usepackage{amsthm}
-\usepackage{a4wide,amssymb,epsfig,latexsym,array,hhline,fancyhdr}
-\usepackage[normalem]{ulem}
-\usepackage[export]{adjustbox}
-\usepackage{float}
-%%%%%%%% CODE %%%%%%%%
-\usepackage{listings}
-%%%%%%%% COLOR %%%%%%%%
-\usepackage{color}
-\usepackage{xcolor, colortbl, rotating, multirow, booktabs, bigstrut}
-\usepackage[makeroom]{cancel}
-\usepackage{booktabs}
-\usepackage{alltt}
-\usepackage[framemethod=tikz]{mdframed}
-\usepackage{caption,subcaption}
-\usepackage{placeins}
-\usepackage[lined,boxed,commentsnumbered]{algorithm2e}
-\usepackage{enumerate}
-%%%%%%%% GRAPHIC %%%%%%%%
-\usepackage{graphicx}
-\usepackage{graphics}
-\usepackage{geometry}
-\usepackage{tikz}
-% \usetikzlibrary{arrows,snakes,backgrounds}
-%%%%%%%% TABLE %%%%%%%%
-\usepackage{multicol,longtable,amscd}
-\usepackage{tabularx, caption}
-\usepackage{multirow}
-\usepackage{multicol}
-\usepackage[export]{adjustbox}
-%%%%%%%% FORMAT %%%%%%%%
-\usepackage{lastpage}
-\usepackage{array}
-\usepackage{rotating}
-\usepackage{setspace}
-\usepackage{epsfig}
-\usepackage{blindtext}
-\usepackage{enumitem}
-%%%%%%%% HYPERREF %%%%%%%%
-\usepackage[unicode]{hyperref}
-\hypersetup{urlcolor = blue,linkcolor=black,citecolor=black,colorlinks=true} 
-\usepackage{tabularray}
-\captionsetup[table]{name=Table}
 
-%%%%%%%% DEFINE %%%%%%%%
-\definecolor{BLUE}{rgb}{0.54,0.86,0.87}
-\definecolor{ORANGE}{rgb}{0.99, 0.95, 0,96}
-\definecolor{dkgreen}{rgb}{0,0.6,0}
-\definecolor{gray}{rgb}{0.5,0.5,0.5}
-\definecolor{backcolor}{rgb}{0.95,0.95,0.92}
-%%%%%%%% BK THESIS %%%%%%%%
-\usepackage{bkthesis}
+\input{packages}
+\usepackage{styles}
+\usepackage{commands}
 
-\usepackage[normalem]{ulem}
+
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=black,citecolor=black}
+% \captionsetup[table]{name=Table}
+\makeindex[columns=3, title=Index, intoc]
 
 \def\thesislayout{
-    \geometry{
-        a4paper,
-        total={160mm,240mm}, 
-        left=30mm,
-        top=30mm,
-    }
+	\geometry{
+		a4paper,
+		total={160mm,240mm}, 
+		left=30mm,
+		top=30mm,
+	}
 }
 \thesislayout
 
 \setlength{\headheight}{40pt}
 \pagestyle{fancy}
-\fancyhead{}
-\fancyhead[L]{
- \begin{tabular}{rl}
-    \begin{picture}(25,15)(0,0)
-    \put(0,-8){\includegraphics[width=8mm, height=8mm]{hcmut.png}}
-   \end{picture}&
-    \begin{tabular}{l}
-        \textbf{\bf \ttfamily Ho Chi Minh City University of Technology}\\
-    \end{tabular}     
- \end{tabular}
-}
-\fancyhead[R]{
-    \begin{tabular}{l}
-        \tiny \bf \\
-        \tiny \bf 
-    \end{tabular}  }
-\fancyfoot{} % clear all footer fields
-\fancyfoot[L]{\scriptsize \ttfamily Probability and Statistics}
-\fancyfoot[R]{\scriptsize \ttfamily Page {\thepage}/\pageref{LastPage}}
+
+\fancyhead[L]{}
+\fancyhead[R]{\nouppercase{\textbf{\Roman{chapter}.\rightmark}}}
+
 \renewcommand{\headrulewidth}{0.3pt}
-\renewcommand{\footrulewidth}{0.3pt}
+
 \setcounter{secnumdepth}{4}
 \setcounter{tocdepth}{3}
 \makeatletter
-\newcounter {subsubsubsection}[subsubsection]
-\renewcommand\thesubsubsubsection{\thesubsubsection .\@alph\c@subsubsubsection}
-\newcommand\subsubsubsection{\@startsection{subsubsubsection}{4}{\z@}%
-                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
-                                     {1.5ex \@plus .2ex}%
-                                     {\normalfont\normalsize\bfseries}}
-\newcommand*\l@subsubsubsection{\@dottedtocline{3}{10.0em}{4.1em}}
-\newcommand*{\subsubsubsectionmark}[1]{}
-\makeatother
-
-\everymath{\color{blue}}%make in-line maths symbols blue to read/check easily
+\everymath{\color{blue}}
 
 \sloppy
 \captionsetup[figure]{labelfont={small,bf},textfont={small,it},belowskip=-1pt,aboveskip=-9pt}
@@ -115,122 +40,80 @@
 \setlength{\floatsep}{5pt plus 2pt minus 2pt}
 \setlength{\textfloatsep}{5pt plus 2pt minus 2pt}
 \setlength{\intextsep}{10pt plus 2pt minus 2pt}
-
 \thesislayout
-
-%%%%%%%% LSTLISTING SETUP %%%%%%%%
-\lstset{language=R,
-    basicstyle=\small\ttfamily,
-    otherkeywords={0,1,2,3,4,5,6,7,8,9},
-    morekeywords={TRUE,FALSE},
-    deletekeywords={data,frame,length,as,character},
-    keywordstyle=\color{blue},
-    commentstyle=\color{dkgreen},
-    stringstyle=\color{dkgreen},
-    numberstyle=\tiny\color{gray},
-    frame=tb,
-    aboveskip=3mm,
-    belowskip=3mm,
-    showstringspaces=false,
-    columns=flexible,
-    basicstyle={\small\ttfamily},
-    numbers=left,
-    breaklines=true,
-    breakatwhitespace=true,
-    tabsize=3,
-    backgroundcolor=\color{backcolor}
-}
 
 \everymath{\color{black}}
-\newcommand{\marking}[2]{$\color{blue}M_{#1} = [#2]$}
-%%%%%%%% DATE %%%%%%%%
-% \cttime{4/2022}
-%%%%%%%% THESIS %%%%%%%%
-\thesislayout
-\usepackage[flushleft]{threeparttable} 
 
-%%%%%%%% DOCUMENT %%%%%%%%
+\thesislayout
+% \addbibresource{refs.bib}
+
+\author{}
+\title{}
+\date{}
+
 \begin{document}
-% \maketitle
+
 \begin{titlepage}
+  \begin{tikzpicture}[remember picture, overlay]
+    \draw[line width = 4pt] ($(current page.north west) + (2.5cm,-2cm)$) rectangle ($(current page.south east) + (-1.5cm,2cm)$);
+  \end{tikzpicture}
   \begin{center}
     VIETNAM NATIONAL UNIVERSITY, HO CHI MINH CITY\\
-    UNIVERSITY OF TECHNOLOGY \\
-    FACULTY OF COMPUTER SCIENCE \& ENGINEERING
+    UNIVERSITY OF TECHNOLOGY\\
+    FACULTY OF COMPUTER SCIENCE AND ENGINEERING
   \end{center}
 
   \vspace{1cm}
 
-  \IncImg{hcmut.png}{3cm}{}
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{hcmut.png}
+  \end{figure}
 
   \vspace{1cm}
-
 
   \begin{center}
     \begin{tabular}{c}
-      %%%%%%%% MÔN %%%%%%%%
-      \textbf{{\Large PROBABILITY AND STATISTICS}}          \\
-      ~~                                                    \\
+      \multicolumn{1}{c}{\textbf{{\Large \color{blue} PROBABILITY AND STATISTICS}}} \\ \\
+      ~~                                                                            \\
       \hline
       \\
-      %%%%%%%% ĐỀ TÀI %%%%%%%%
-      \textbf{\large THE EVOLUTION OF COMPUTER PROCESSORS:} \\
-      \\
-      \textbf{\large A STATISTIC OF COMMON PROPERTIES}      \\
-      \\
+      \textcolor{black}{\textbf{{\Large THE EVOLUTION OF COMPUTER PROCESSORS:}}}    \\\\
+      \textcolor{black}{\textbf{{\Large A STATISTICS OF COMMON PROPERTIES}}}        \\
+      ~~                                                                            \\
       \hline
+      \\
     \end{tabular}
   \end{center}
 
-  \vspace{1.5cm}
-
   \begin{table}[h]
-    \begin{tabular}{rrl}
-      \hspace{5 cm} & Supervisor: & Nguyen Thi Mong Ngoc, PhD \\
+    \begin{tabular}{rrll}
 
-                    & Students:   & Chau Dang Minh - 2013748
+      \hspace{5 cm}
+       & Instructor: & Dr. Nguyen Thi Mong Ngoc \\
+       & Students:   & Chau Dang Minh - 2013748 \\
+       &             &
     \end{tabular}
   \end{table}
-  \vspace{1.5cm}
+  \vspace{2cm}
   \begin{center}
-    {\footnotesize Ho Chi Minh City, April 2024}
+    {\footnotesize Ho Chi Minh City, May 2024}
   \end{center}
 \end{titlepage}
 
-\include{contents/evaluation}
-
+\include{chapters/evaluation}
+\include{chapters/introduction}
 \tableofcontents
-
-% Redefine plain page style to match fancy style
-\fancypagestyle{plain}{%
-  \fancyhf{} % clear all header and footer fields
-  \fancyhead[L]{
-    \begin{tabular}{rl}
-      \begin{picture}(25,15)(0,0)
-        \put(0,-8){\includegraphics[width=8mm, height=8mm]{hcmut.png}}
-      \end{picture} &
-      \begin{tabular}{l}
-        \textbf{\bf \ttfamily Ho Chi Minh City University of Technology} \\
-      \end{tabular}
-    \end{tabular}
-  }
-  \fancyhead[R]{
-    \begin{tabular}{l}
-      \tiny \bf \\
-      \tiny \bf
-    \end{tabular}  }
-  \fancyfoot{} % clear all footer fields
-  \fancyfoot[L]{\scriptsize \ttfamily Probability and Statistics}
-  \fancyfoot[R]{\scriptsize \ttfamily Page {\thepage}/\pageref{LastPage}}
-  \renewcommand{\headrulewidth}{0.3pt}
-  \renewcommand{\footrulewidth}{0.3pt}
-}
-
-\include{contents/intro}
-
-\include{contents/data-overview}
-\include{contents/preprocessing}
+\include{chapters/data-overview}
+\include{chapters/foundations}
+\include{chapters/preprocessing}
+\include{chapters/descriptive-statistics}
+\include{chapters/inferential-statistics}
+\include{chapters/discussion}
 
 
 
+
+\printindex
+% \printbibliography
 \end{document}
