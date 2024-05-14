@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.5.7)  14 MAY 2024 12:17
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.5.7)  14 MAY 2024 14:11
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1990,7 +1990,7 @@ Chapter II.
  (./chapters/preprocessing.tex
 Chapter III.
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 7.
-<img/cpu-head.png, id=171, 874.467pt x 369.17924pt>
+<img/cpu-head.png, id=174, 874.467pt x 369.17924pt>
 File: img/cpu-head.png Graphic file (type png)
 <use img/cpu-head.png>
 Package pdftex.def Info: img/cpu-head.png  used on input line 35.
@@ -2001,12 +2001,12 @@ Package pdftex.def Info: img/cpu-head.png  used on input line 35.
 
 
 ] [12 <./img/cpu-head.png>]
-<img/cpu-selected-head.png, id=248, 877.47826pt x 392.667pt>
+<img/cpu-selected-head.png, id=251, 877.47826pt x 392.667pt>
 File: img/cpu-selected-head.png Graphic file (type png)
 <use img/cpu-selected-head.png>
 Package pdftex.def Info: img/cpu-selected-head.png  used on input line 102.
 (pdftex.def)             Requested size: 455.24408pt x 203.72067pt.
-<img/gpu-selected-head.png, id=249, 843.75224pt x 505.89pt>
+<img/gpu-selected-head.png, id=252, 843.75224pt x 505.89pt>
 File: img/gpu-selected-head.png Graphic file (type png)
 <use img/gpu-selected-head.png>
 Package pdftex.def Info: img/gpu-selected-head.png  used on input line 109.
@@ -2016,67 +2016,67 @@ Package pdftex.def Info: img/gpu-selected-head.png  used on input line 109.
 
  (./chapters/descriptive-statistics.tex
 Chapter IV.
-<img/CPU_histo_Cache.png, id=319, 602.25pt x 602.25pt>
+<img/CPU_histo_Cache.png, id=322, 602.25pt x 602.25pt>
 File: img/CPU_histo_Cache.png Graphic file (type png)
 <use img/CPU_histo_Cache.png>
 Package pdftex.def Info: img/CPU_histo_Cache.png  used on input line 6.
 (pdftex.def)             Requested size: 150.23137pt x 150.2313pt.
-<img/CPU_histo_Freq.png, id=320, 602.25pt x 602.25pt>
+<img/CPU_histo_Freq.png, id=323, 602.25pt x 602.25pt>
 File: img/CPU_histo_Freq.png Graphic file (type png)
 <use img/CPU_histo_Freq.png>
 Package pdftex.def Info: img/CPU_histo_Freq.png  used on input line 7.
 (pdftex.def)             Requested size: 150.23137pt x 150.2313pt.
-<img/CPU_histo_Core.png, id=321, 602.25pt x 602.25pt>
+<img/CPU_histo_Core.png, id=324, 602.25pt x 602.25pt>
 File: img/CPU_histo_Core.png Graphic file (type png)
 <use img/CPU_histo_Core.png>
 Package pdftex.def Info: img/CPU_histo_Core.png  used on input line 8.
 (pdftex.def)             Requested size: 150.23137pt x 150.2313pt.
-<img/CPU_histo_MMB.png, id=322, 602.25pt x 602.25pt>
+<img/CPU_histo_MMB.png, id=325, 602.25pt x 602.25pt>
 File: img/CPU_histo_MMB.png Graphic file (type png)
 <use img/CPU_histo_MMB.png>
 Package pdftex.def Info: img/CPU_histo_MMB.png  used on input line 10.
 (pdftex.def)             Requested size: 150.23137pt x 150.2313pt.
-<img/CPU_histo_MNMC.png, id=323, 602.25pt x 602.25pt>
+<img/CPU_histo_MNMC.png, id=326, 602.25pt x 602.25pt>
 File: img/CPU_histo_MNMC.png Graphic file (type png)
 <use img/CPU_histo_MNMC.png>
 Package pdftex.def Info: img/CPU_histo_MNMC.png  used on input line 11.
 (pdftex.def)             Requested size: 150.23137pt x 150.2313pt.
-<img/CPU_histo_MMS.png, id=324, 602.25pt x 602.25pt>
+<img/CPU_histo_MMS.png, id=327, 602.25pt x 602.25pt>
 File: img/CPU_histo_MMS.png Graphic file (type png)
 <use img/CPU_histo_MMS.png>
 Package pdftex.def Info: img/CPU_histo_MMS.png  used on input line 12.
 (pdftex.def)             Requested size: 150.23137pt x 150.2313pt.
-<img/CPU_histo_Thread.png, id=325, 602.25pt x 602.25pt>
+<img/CPU_histo_Thread.png, id=328, 602.25pt x 602.25pt>
 File: img/CPU_histo_Thread.png Graphic file (type png)
 <use img/CPU_histo_Thread.png>
 Package pdftex.def Info: img/CPU_histo_Thread.png  used on input line 14.
 (pdftex.def)             Requested size: 150.23137pt x 150.2313pt.
-<img/CPU_histo_Litho.png, id=326, 602.25pt x 602.25pt>
+<img/CPU_histo_Litho.png, id=329, 602.25pt x 602.25pt>
 File: img/CPU_histo_Litho.png Graphic file (type png)
 <use img/CPU_histo_Litho.png>
 Package pdftex.def Info: img/CPU_histo_Litho.png  used on input line 15.
 (pdftex.def)             Requested size: 150.23137pt x 150.2313pt.
-<img/CPU_histo_TDP.png, id=327, 602.25pt x 602.25pt>
+<img/CPU_histo_TDP.png, id=330, 602.25pt x 602.25pt>
 File: img/CPU_histo_TDP.png Graphic file (type png)
 <use img/CPU_histo_TDP.png>
 Package pdftex.def Info: img/CPU_histo_TDP.png  used on input line 16.
 (pdftex.def)             Requested size: 150.23137pt x 150.2313pt.
-<img/Litho_Year.png, id=328, 789.95125pt x 526.96875pt>
+<img/Litho_Year.png, id=331, 789.95125pt x 526.96875pt>
 File: img/Litho_Year.png Graphic file (type png)
 <use img/Litho_Year.png>
 Package pdftex.def Info: img/Litho_Year.png  used on input line 43.
 (pdftex.def)             Requested size: 455.24408pt x 303.68814pt.
-<img/Status_Year.png, id=329, 1053.9375pt x 526.96875pt>
+<img/Status_Year.png, id=332, 1053.9375pt x 526.96875pt>
 File: img/Status_Year.png Graphic file (type png)
 <use img/Status_Year.png>
 Package pdftex.def Info: img/Status_Year.png  used on input line 59.
 (pdftex.def)             Requested size: 455.24408pt x 227.62137pt.
-<img/VSegment_Year.png, id=330, 789.95125pt x 526.96875pt>
+<img/VSegment_Year.png, id=333, 789.95125pt x 526.96875pt>
 File: img/VSegment_Year.png Graphic file (type png)
 <use img/VSegment_Year.png>
 Package pdftex.def Info: img/VSegment_Year.png  used on input line 74.
 (pdftex.def)             Requested size: 455.24408pt x 303.68814pt.
-<img/6432bit_year.png, id=331, 789.95125pt x 526.96875pt>
+<img/6432bit_year.png, id=334, 789.95125pt x 526.96875pt>
 File: img/6432bit_year.png Graphic file (type png)
 <use img/6432bit_year.png>
 Package pdftex.def Info: img/6432bit_year.png  used on input line 89.
@@ -2087,44 +2087,44 @@ Package pdftex.def Info: img/6432bit_year.png  used on input line 89.
 
 
 ] [17 <./img/CPU_histo_Cache.png (PNG copy)> <./img/CPU_histo_Freq.png (PNG copy)> <./img/CPU_histo_Core.png (PNG copy)> <./img/CPU_histo_MMB.png (PNG copy)> <./img/CPU_histo_MNMC.png (PNG copy)> <./img/CPU_histo_MMS.png (PNG copy)> <./img/CPU_histo_Thread.png (PNG copy)> <./img/CPU_histo_Litho.png (PNG copy)> <./img/CPU_histo_TDP.png (PNG copy)>]
-<img/CPU_ThreadCore.png, id=375, 1927.2pt x 1005.7575pt>
+<img/CPU_ThreadCore.png, id=379, 1927.2pt x 1005.7575pt>
 File: img/CPU_ThreadCore.png Graphic file (type png)
 <use img/CPU_ThreadCore.png>
 Package pdftex.def Info: img/CPU_ThreadCore.png  used on input line 104.
 (pdftex.def)             Requested size: 455.24408pt x 237.58076pt.
-<img/CPU_cor.png, id=376, 1927.2pt x 1005.7575pt>
+<img/CPU_cor.png, id=380, 1927.2pt x 1005.7575pt>
 File: img/CPU_cor.png Graphic file (type png)
 <use img/CPU_cor.png>
 Package pdftex.def Info: img/CPU_cor.png  used on input line 111.
 (pdftex.def)             Requested size: 455.24408pt x 237.58076pt.
-<img/Market_Year.png, id=377, 789.95125pt x 526.96875pt>
+<img/Market_Year.png, id=381, 789.95125pt x 526.96875pt>
 File: img/Market_Year.png Graphic file (type png)
 <use img/Market_Year.png>
 Package pdftex.def Info: img/Market_Year.png  used on input line 134.
 (pdftex.def)             Requested size: 455.24408pt x 303.68814pt.
  [18 <./img/Litho_Year.png (PNG copy)>]
-<img/Market_Percent_Year.png, id=410, 1053.9375pt x 526.96875pt>
+<img/Market_Percent_Year.png, id=413, 1053.9375pt x 526.96875pt>
 File: img/Market_Percent_Year.png Graphic file (type png)
 <use img/Market_Percent_Year.png>
 Package pdftex.def Info: img/Market_Percent_Year.png  used on input line 151.
 (pdftex.def)             Requested size: 455.24408pt x 227.62137pt.
-<img/GPU_Memo_Year.png, id=411, 1053.9375pt x 526.96875pt>
+<img/GPU_Memo_Year.png, id=414, 1053.9375pt x 526.96875pt>
 File: img/GPU_Memo_Year.png Graphic file (type png)
 <use img/GPU_Memo_Year.png>
 Package pdftex.def Info: img/GPU_Memo_Year.png  used on input line 168.
 (pdftex.def)             Requested size: 455.24408pt x 227.62137pt.
-<img/MeaMedMem_Year.png, id=412, 789.95125pt x 526.96875pt>
+<img/MeaMedMem_Year.png, id=415, 789.95125pt x 526.96875pt>
 File: img/MeaMedMem_Year.png Graphic file (type png)
 <use img/MeaMedMem_Year.png>
 Package pdftex.def Info: img/MeaMedMem_Year.png  used on input line 190.
 (pdftex.def)             Requested size: 455.24408pt x 303.68814pt.
  [19 <./img/Status_Year.png (PNG copy)>]
-<img/LogMeaMedMem_Year.png, id=452, 789.95125pt x 526.96875pt>
+<img/LogMeaMedMem_Year.png, id=455, 789.95125pt x 526.96875pt>
 File: img/LogMeaMedMem_Year.png Graphic file (type png)
 <use img/LogMeaMedMem_Year.png>
 Package pdftex.def Info: img/LogMeaMedMem_Year.png  used on input line 217.
 (pdftex.def)             Requested size: 455.24408pt x 303.68814pt.
-<img/GPU_cor.png, id=453, 1927.2pt x 1005.7575pt>
+<img/GPU_cor.png, id=456, 1927.2pt x 1005.7575pt>
 File: img/GPU_cor.png Graphic file (type png)
 <use img/GPU_cor.png>
 Package pdftex.def Info: img/GPU_cor.png  used on input line 225.
@@ -2134,7 +2134,7 @@ Package pdftex.def Info: img/GPU_cor.png  used on input line 225.
 
  (./chapters/inferential-statistics.tex
 Chapter V.
-<img/1.png, id=495, 639.13782pt x 188.20313pt>
+<img/1.png, id=499, 639.13782pt x 188.20313pt>
 File: img/1.png Graphic file (type png)
 <use img/1.png>
 Package pdftex.def Info: img/1.png  used on input line 20.
@@ -2145,7 +2145,7 @@ Package pdftex.def Info: img/1.png  used on input line 20.
 
 
  <./img/1.png>]
-<img/5.png, id=519, 615.0478pt x 360.59718pt>
+<img/5.png, id=522, 615.0478pt x 360.59718pt>
 File: img/5.png Graphic file (type png)
 <use img/5.png>
 Package pdftex.def Info: img/5.png  used on input line 41.
@@ -2175,18 +2175,18 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 44150 strings out of 474050
- 835149 string characters out of 5746299
+ 44157 strings out of 474050
+ 835260 string characters out of 5746299
  2050754 words of memory out of 5000000
- 65419 multiletter control sequences out of 15000+600000
+ 65423 multiletter control sequences out of 15000+600000
  580972 words of font info for 80 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 114i,14n,128p,1199b,2111s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 114i,14n,128p,1219b,2111s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb><c:/texlive/2024/texmf-dist/fonts/type1/vntex/vnr/vnbx10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/vntex/vnr/vnbx12.pfb><c:/texlive/2024/texmf-dist/fonts/type1/vntex/vnr/vnbx9.pfb><c:/texlive/2024/texmf-dist/fonts/type1/vntex/vnr/vnr10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/vntex/vnr/vnr5.pfb><c:/texlive/2024/texmf-dist/fonts/type1/vntex/vnr/vnr8.pfb><c:/texlive/2024/texmf-dist/fonts/type1/vntex/vnr/vnr9.pfb><c:/texlive/2024/texmf-dist/fonts/type1/vntex/vnr/vntt10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/vntex/vnr/vntt9.pfb>
-Output written on main.pdf (30 pages, 1252833 bytes).
+Output written on main.pdf (30 pages, 1257433 bytes).
 PDF statistics:
- 800 PDF objects out of 1000 (max. 8388607)
- 686 compressed objects within 7 object streams
- 374 named destinations out of 1000 (max. 500000)
+ 803 PDF objects out of 1000 (max. 8388607)
+ 689 compressed objects within 7 object streams
+ 377 named destinations out of 1000 (max. 500000)
  340 words of extra memory for PDF output out of 10000 (max. 10000000)
 

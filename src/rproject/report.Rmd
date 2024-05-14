@@ -34,20 +34,20 @@ setwd(here())
 ## Data reading and display
 
 ```{r}
-raw_cpu_data <- read.csv("dataset/Intel_CPUs.csv")
-kable(head(raw_cpu_data), format = "html") %>%
+CPUs_raw <- read.csv("dataset/Intel_CPUs.csv")
+kable(head(CPUs_raw), format = "html") %>%
   kable_styling()
 
-raw_gpu_data <- read.csv("dataset/All_GPUs.csv")
-kable(head(raw_gpu_data), format = "html") %>%
+GPUs_raw <- read.csv("dataset/All_GPUs.csv")
+kable(head(GPUs_raw), format = "html") %>%
   kable_styling()
 ```
 
 ## Feature inspection
 
 ```{r}
-cpu_columns <- colnames(raw_cpu_data)
-gpu_columns <- colnames(raw_gpu_data)
+cpu_columns <- colnames(CPUs_raw)
+gpu_columns <- colnames(GPUs_raw)
 intersect(cpu_columns, gpu_columns)
 ```
 It can be seen that there are no common columns between the dataframes. However, some columns may indicate the same feature, which needed to be handled manually.
@@ -57,66 +57,16 @@ It can be seen that there are no common columns between the dataframes. However,
 We take a look at invalid values in the dataframes
 
 ```{r}
-# Count NA and empty strings
-na_counts <- colSums(sapply(raw_cpu_data, 
-                               function(x) 
-                                 is.na(x) | x == "N/A"))
+inspect_invalid(CPUs_raw)
+```
 
-empty_counts <- colSums(sapply(raw_cpu_data, 
-                               function(x) 
-                                 is.character(x) & 
-                                  (x == "" | x == "-")))
-# Get percentage of invalid values
-invalid_percentage <- (na_counts+empty_counts)/nrow(raw_cpu_data)*100
+The dataframes to inference must not have any invalid values. Here, we select features where invalid percentage precedes our threshold $\texttt{invalid_thres}$.
 
-# Display
-invalid_df <- 
-  data.frame(Property = names(na_counts), 
-             NA_Count = unname(na_counts),
-             Empty_Count = unname(empty_counts),
-             Invalid_Percentage = unname(invalid_percentage)) %>%
-  arrange(desc(Invalid_Percentage))
+```{r}
+CPUs_selected <- select_data(CPUs_raw, invalid_thres=0.5)
 
-kable(invalid_df, format = "html") %>% 
+kable(head(CPUs_selected), format = "html") %>%
   kable_styling()
-```
-
-The dataframes to inference must not have any invalid values. Therefore, we select some features and instances from the original dataframes. Here we firstly select features where invalid percentage exceeds our threshold $\texttt{valid\_percentage}$. Then select valid instances and filter features for the last time. Note that if the $\texttt{valid\_percentage}$ is low, the more features are retained, implying that less instances left.
-
-```{r}
-filtered_cpu_data <- filtered_data(raw_cpu_data, valid_percentage=0.8)
-
-is_valid <- function(value) {
-  value <- tolower(trimws(value))
-  return(!is.na(value)
-         & !is.null(value)
-         & !value == ""
-         & !value == "n/a"
-         & !value == "-"
-         & !grepl("missing", value)
-         & !grepl("unknown", value))
-}
-
-filtered_cpu_data <- 
-  filtered_cpu_data[
-    apply(filtered_cpu_data, 1, 
-          function(row) 
-            all(sapply(row, is_valid))), ]
-
-selected_cpu_data <- filtered_cpu_data[]
-selected_cpu_data <- unique(selected_cpu_data)
-
-kable(head(selected_cpu_data), format = "html") %>%
-  kable_styling()
-```
-
-For $\texttt{valid\_percentage}=0.8$, 1303 out of 2283 are retained for further analysis.
-
-```{r}
-colnames(selected_cpu_data)
-```
-```{r}
-colnames(raw_cpu_data)
 ```
 
 
@@ -151,39 +101,39 @@ recommended_price <- function(price_range) {
   return (price_range)
 }
 
-names(selected_cpu_data)[names(selected_cpu_data) == "Launch_Date"] <- "Release_Date"
+names(CPUs_selected)[names(CPUs_selected) == "Launch_Date"] <- "Release_Date"
 
-processed_cpu_data <- selected_cpu_data
+CPUs_processed <- CPUs_selected
 
-processed_cpu_data$Release_Year <- 
+CPUs_processed$Release_Year <- 
   as.integer(sub("Q[1-4]'(\\d+)", "\\1",
-    gsub("\\s+", "", selected_cpu_data$Release_Date)))
-processed_cpu_data$Release_Year <- 
-  ifelse(processed_cpu_data$Release_Year > 60, 
-         1900 + processed_cpu_data$Release_Year, 
-         2000 + processed_cpu_data$Release_Year)
+    gsub("\\s+", "", CPUs_selected$Release_Date)))
+CPUs_processed$Release_Year <- 
+  ifelse(CPUs_processed$Release_Year > 60, 
+         1900 + CPUs_processed$Release_Year, 
+         2000 + CPUs_processed$Release_Year)
 
-processed_cpu_data$Release_Quarter <- 
+CPUs_processed$Release_Quarter <- 
   as.integer(sub("Q([1-4])'.*", "\\1",
-    gsub("\\s+", "", selected_cpu_data$Release_Date)))
+    gsub("\\s+", "", CPUs_selected$Release_Date)))
 
-processed_cpu_data <- processed_cpu_data %>%
+CPUs_processed <- CPUs_processed %>%
   mutate(
     Recommended_Customer_Price = as.double(sapply(gsub("[\\$,]", "", Recommended_Customer_Price), recommended_price))
   )
 
-processed_cpu_data$Lithography <- 
+CPUs_processed$Lithography <- 
   as.integer(gsub("nm", "", 
-                 processed_cpu_data$Lithography))
+                 CPUs_processed$Lithography))
 
-kable(head(processed_cpu_data), format = "html") %>%
+kable(head(CPUs_processed), format = "html") %>%
   kable_styling()
 ```
 
 # Descriptive Statistics
 
 ```{r}
-litho_year <- processed_cpu_data %>% 
+litho_year <- CPUs_processed %>% 
   group_by(Release_Year) %>%
   summarize(mean_litho = mean(Lithography),
             median_litho = median(Lithography),
@@ -204,18 +154,20 @@ ggplot(litho_year, aes(x = Release_Year)) +
 # Inferential Statistics
 
 ## Two-way ANOVA 
+
+
 ```{r}
 
-shapiro.test(processed_cpu_data$nb_of_Cores)
+shapiro.test(CPUs_processed$nb_of_Cores)
 
-ggqqplot(processed_cpu_data$nb_of_Cores)
+ggqqplot(CPUs_processed$nb_of_Cores)
 
-leveneTest(nb_of_Cores~Product_Collection*Vertical_Segment, data = processed_cpu_data)
+leveneTest(nb_of_Cores~Product_Collection*Vertical_Segment, data = CPUs_processed)
 
 
-new_data <- processed_cpu_data[processed_cpu_data$Product_Collection %in% 
+new_data <- CPUs_processed[CPUs_processed$Product_Collection %in% 
                                           c("Core", "Legacy") & 
-                                          processed_cpu_data$Vertical_Segment %in% 
+                                          CPUs_processed$Vertical_Segment %in% 
                                           c("Desktop", "Embedded", "Mobile"),]
 
 Product_Collection <- as.factor(new_data$Product_Collection)
@@ -224,4 +176,7 @@ nb_of_Cores <- new_data$nb_of_Cores
 
 av <- aov(nb_of_Cores ~ Product_Collection*Vertical_Segment, data = new_data)
 summary(av)
-``
+```
+
+## Linear Regression
+

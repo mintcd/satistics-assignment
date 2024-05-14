@@ -35,12 +35,19 @@ In details, these quantities are formulated as followings.
        \end{equation}
  \item Population variance
        \begin{equation}
-        \sigma^2 = \dfrac{1}{N} \sum_{n=1}^N (x_n - \bar{x})^2.
+        \sigma^2 = \dfrac{1}{N} \sum_{i=1}^N (x_i - \mu)^2.
        \end{equation}
  \item Sample variance
        \begin{equation}
         s^2 = \dfrac{1}{n-1} \sum_{j=1}^n (x_{i_j} - \bar{x})^2.
        \end{equation}
+       The quantity $s^2$ is also called corrected sample variance using Bessel's correction, because the denominator is $n-1$, instead of $n$. This is briefly explained as that since $$\mu = \argmin\limits_{y} \sum_{i=1}^N (x_i - y)^2 \text{ and } \bar{x} = \argmin\limits_{y} \sum_{i=1}^n (x_{i_j} - y)^2,$$ we have
+       \begin{align*}
+        \dfrac{1}{n} \sum_{j=1}^n (x_{i_j} - \bar{x})^2
+         & \le \dfrac{1}{n} \sum_{j=1}^n (x_{i_j} - \mu)^2                                               \\
+         & = \dfrac{1}{N} \sum_{j=1}^n (x_{i} - \mu)^2.    & \text{(assume that the sample is unbiased)}
+       \end{align*}
+       Hence, dividing by $n-1$ slightly increases the sample variance to better estimate the population variance.
  \item Random sample variance
        \begin{equation}
         S^2 = \dfrac{1}{N-1} \sum_{n=1}^n (X_i - \bar{X})^2.
@@ -63,14 +70,14 @@ In details, these quantities are formulated as followings.
         \end{cases}
        \end{equation}
  \item Quartiles include three values $Q_1,Q_2$ and $Q_3$. Where $Q_2$ is the median, $Q_1$ and $Q_3$ is the median of the set of samples less than and more than $Q_2$, respectively. The quantity $\mathrm{IQR} = Q_3-Q_1$ is called the interquartile range.
- \item An outlier is a point outsize $(Q1 - 1.5 \times IQR, Q3 + 1.5 \times IQR)$.
+ \item An outlier is a point outsize the range $(Q1 - 1.5 \times \mathrm{IQR}, Q3 + 1.5 \times \mathrm{IQR})$.
 \end{enumerate}
 
 \section{Statistical Hypothesis Testing}
 The process of testing a statistical hypothesis is a standardized procedure for making decisions to reject or not reject a hypothesis based on sample data. This process is called hypothesis testing and typically involves four steps:
 
 \begin{enumerate}
- \item \textbf{Setting Hypotheses} involves stating which hypothesis is null and which is alternative. The hypotheses are formulated in a mutually exclusive manner, meaning if one is true, the other must be false.
+ \item \textbf{Setting Hypotheses} states the null hypothesis ($H_0$) and the  alternative hypothesis ($H_0$). The hypotheses are formulated in a mutually exclusive manner, meaning if one is true, the other must be false.
  \item \textbf{Constructing an Analysis Plan} outlines how sample data will be used to evaluate the null hypothesis. Evaluation typically centers around a single test statistic.
  \item \textbf{Analyzing Sample Data} determines the values of the sample statistic (mean, proportion, $t$-statistic, $z$-score, etc.) as described in the analysis plan.
  \item \textbf{Interpreting Results} applies decision rules outlined in the analysis plan. If the observed result is inconsistent with the null hypothesis, reject it.
@@ -80,8 +87,8 @@ Similar to estimation, statistical hypothesis testing does not provide results w
 
 \begin{itemize}
  \item \textbf{Type I Error:} Rejecting the null hypothesis $H_0$
-       and accepting the alternative hypothesis $H_1$ whereas $H_0$ is true.
- \item \textbf{Type II Error:} Failing to reject the null hypothesis $H_0$ and not accepting the alternative hypothesis $H_1$ whereas $H_1$ is true.
+       and accepting the alternative hypothesis $H_1$ while $H_0$ is true.
+ \item \textbf{Type II Error:} Failing to reject the null hypothesis $H_0$ and not accepting the alternative hypothesis $H_1$ while $H_1$ is true.
 \end{itemize}
 
 Both types of errors can have adverse consequences. Depending on the situation, it's assessed which type of error leads to more serious consequences and should be minimized.
@@ -100,9 +107,7 @@ Linear regression constructs a linear model between independent variables $\math
 
 \begin{equation}
  \begin{aligned}
-  y
-   & = w_0 + \sum\limits_{i=1}^n w_ix_i \\
-   & = \mathbf{x}^\top\mathbf{w},
+  y = w_0 + \sum\limits_{i=1}^n w_ix_i = \mathbf{w}^\top\mathbf{x},
  \end{aligned}
 \end{equation}
 
@@ -124,13 +129,29 @@ Equivalently, $\mathbf{X}^\top \mathbf{X} \mathbf{w} =  \mathbf{X}^\top\hat{\mat
  \mathbf{w} = (\mathbf{X}^\top \mathbf{X})^{-1}\mathbf{X}^\top\hat{\mathbf{y}}.
 \end{equation}
 
-Along with the independence of independent variables, some requirements need to be satisfies for an accurate and reliable solution.
+Linear regression can be formulated extensively in a probabilistic way. Let $\epsilon\sim\N(0,\sigma^2)$ be a normal-distributed noise, we have the model
+
+\begin{equation}
+ y = \mathbf{w}^\top\mathbf{x} + \epsilon \sim \N(\mathbf{w}^\top\mathbf{x}, \sigma^2).
+\end{equation}
+
+Hence, for each data $\mathbf{x}_n, n=1,\ldots, N$, the probability density of $\hat{y}_n$ given $\mathbf{w}$ and $\sigma^2$ is
+\begin{equation}
+ p(\hat{y}_n | \mathbf{x}_n, \mathbf{w}, \sigma^2) = \dfrac{1}{\sqrt{2\pi}\sigma}\exp\left(-\dfrac{1}{2\sigma^2}(\hat{y}_n - \mathbf{w}^\top\mathbf{x})^2\right).
+\end{equation}
+
+Maximizing the likelihood $\prod\limits_{i=1}^N p(\hat{y}_n | \mathbf{x}_n, \mathbf{w}, \sigma^2)$ yields the same solution $\mathbf{w}$ as the original linear regression. Additionally,
+\begin{equation}
+ \sigma^2 = \dfrac{1}{N}\sum\limits_{i=1}^N(\hat{y}_n - \mathbf{w}^\top\mathbf{x})^2.
+\end{equation}
+
+In summary, some requirements need to be satisfies for an accurate and reliable solution.
 
 \begin{enumerate}
- \item  Linearity: The independent and dependent variables correlate. This means that the change in one or more independent variables induces the change in the dependent variable.
- \item Independence: The observed data in the dataset are independent of each other. This means that the value of the dependent variable for one observed data point does not depend on the value of the dependent variable for another observed data point.
+ \item  The independent and dependent variables correlate. This means that the change in one or more independent variables induces the change in the dependent variable.
+ \item The observed data in the dataset are independent of each other. This means that the value of the dependent variable for one observed data point does not depend on the value of the dependent variable for another observed data point.
  \item Across all levels of the independent variables, the variance of the errors remains constant. This indicates that the number of independent variables does not affect the variability of the errors.
- \item Normality: The errors in the model follow a normal distribution.
+ \item The errors in the model follow a normal distribution.
 \end{enumerate}
 
 % \subsubsection{Hai loại hồi quy tuyến tính}
@@ -169,13 +190,11 @@ Along with the independence of independent variables, some requirements need to 
 
 Analysis of Variance (ANOVA) is a statistical analysis tool used to partition the total observed variability found in a dataset into two parts: Systematic factors and Random factors. Systematic factors statistically influence a certain dataset, while random factors do not. We use ANOVA to determine the influence of independent variables on the dependent variable in regression studies.
 
-The T-Test and Z-Test methods, developed in the 20th century, were used for statistical analysis until 1918 when Ronald Fisher introduced the Analysis of Variance method. Both serve as hypothesis tests to assess whether there is any significant difference between means. The T-Test is used when the population variance is unknown or the sample size is small $(n < 30)$. Meanwhile, the Z-Test is applied when the population variance is known and the sample size is large $(n > 30)$. The T-Test uses the Student's t-distribution, while the Z-Test uses the standard normal distribution. As the sample size increases, the T-distribution converges to the standard normal distribution. The T-Test can be understood as a statistical test used to compare and analyze whether the mean values of two populations are different when the standard deviation is unknown. Conversely, the Z-Test is a parametric test applied when the standard deviation is known to determine whether the means of two datasets are different. ANOVA is also known as Fisher's analysis of variance and is an extension of both T-Tests and Z-Tests.
+The $t$-test and $z$-test methods, developed in the 20th century, were used for statistical analysis until 1918 when Ronald Fisher introduced the Analysis of Variance method. Both serve as hypothesis tests to assess whether there is any significant difference between means. The $t$-test is used when the population variance is unknown or the sample size is small $(n < 30)$. Meanwhile, the $z$-test is applied when the population variance is known and the sample size is large $(n > 30)$. The $t$-test uses the Student's t-distribution, while the $z$-test uses the standard normal distribution. As the sample size increases, the T-distribution converges to the standard normal distribution. The $t$-test can be understood as a statistical test used to compare and analyze whether the mean values of two populations are different when the standard deviation is unknown. Conversely, the $z$-test is a parametric test applied when the standard deviation is known to determine whether the means of two datasets are different. ANOVA is also known as Fisher's analysis of variance and is an extension of both $t$-tests and $z$-tests.
 
 \subsection{ANOVA Usecases}
 
-ANOVA test is the initial step in analyzing factors influencing a specific dataset. Upon completing a test, additional checks on measurable methodological factors contributing to dataset inconsistency are conducted. The results, using $F$-distribution, can be utilized to generate supplementary data suitable for proposed regression models.
-
-ANOVA test enables comparison of more than two groups simultaneously to determine whether a relationship exists among them. The outcome of ANOVA analysis, the F-statistic (also known as the F-ratio), allows for analysis across multiple datasets to ascertain variation between samples and within samples.
+ANOVA test is the initial step in analyzing factors influencing a specific dataset. Upon completing a test, additional checks on measurable methodological factors contributing to dataset inconsistency are conducted. The results, using $F$-distribution, can be utilized to generate supplementary data suitable for proposed regression models. The test enables comparison of more than two groups simultaneously to determine whether a relationship exists among them. The outcome of ANOVA analysis, the F-statistic (also known as the F-ratio), allows for analysis across multiple datasets to ascertain variation between samples and within samples.
 
 If no significant differences exist among the tested groups (known as the null hypothesis), the $F$-statistic result of ANOVA will be close to $1$. The distribution of all possible values of the F-statistic follows the $F$-distribution. This is a family of probability distributions characterized by two parameters, known as the degrees of freedom of the numerator and the degrees of freedom of the denominator.
 
