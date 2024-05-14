@@ -13,7 +13,7 @@ library(DescTools)
 library(plotly)
 
 
-setwd("D:/School++/XSTK")
+setwd(file.path(getwd(), "dataset")) # Lấy địa chỉ của file này, nếu không lấy được thì vào tab session trong R studio chọn Set Working Directory -> To Source file Location
 
 Intel_CPUs = read.csv("Intel_CPUs.csv",na.strings = c("", "N/A"))
 
