@@ -19,5 +19,6 @@
 \contentsline {chapter}{\numberline {V}Inferential Statistics}{26}{chapter.5}%
 \contentsline {section}{\numberline {1}Two-way ANOVA}{26}{section.5.1}%
 \contentsline {subsection}{\numberline {1.1}Problem Statement}{26}{subsection.5.1.1}%
-\contentsline {subsection}{\numberline {1.2}Hypotheses Testing}{26}{subsection.5.1.2}%
-\contentsline {chapter}{\numberline {VI}Discussion}{27}{chapter.6}%
+\contentsline {subsection}{\numberline {1.2}Tests of Conditional Hypotheses}{26}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {1.3}ANOVA Test}{27}{subsection.5.1.3}%
+\contentsline {chapter}{\numberline {VI}Discussion}{29}{chapter.6}%

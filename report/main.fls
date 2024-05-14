@@ -605,7 +605,6 @@ INPUT ./img/cpu-head.png
 INPUT ./img/cpu-head.png
 INPUT ./img/cpu-head.png
 INPUT c:/texlive/2024/texmf-dist/fonts/tfm/vntex/vnr/vnbx9.tfm
-INPUT c:/texlive/2024/texmf-dist/fonts/tfm/vntex/vnr/vnti9.tfm
 INPUT ./img/cpu-selected-head.png
 INPUT ./img/cpu-selected-head.png
 INPUT ./img/cpu-selected-head.png
@@ -738,7 +737,11 @@ INPUT ./img/1.png
 INPUT ./img/1.png
 INPUT ./img/1.png
 INPUT ./img/1.png
-INPUT c:/texlive/2024/texmf-dist/fonts/tfm/vntex/vnr/vnitt10.tfm
+INPUT ./img/5.png
+INPUT ./img/5.png
+INPUT ./img/5.png
+INPUT ./img/5.png
+INPUT ./img/5.png
 INPUT ./chapters/discussion.tex
 INPUT ./chapters/discussion.tex
 OUTPUT chapters/discussion.aux
@@ -790,10 +793,9 @@ INPUT c:/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb
 INPUT c:/texlive/2024/texmf-dist/fonts/type1/vntex/vnr/vnbx10.pfb
 INPUT c:/texlive/2024/texmf-dist/fonts/type1/vntex/vnr/vnbx12.pfb
 INPUT c:/texlive/2024/texmf-dist/fonts/type1/vntex/vnr/vnbx9.pfb
-INPUT c:/texlive/2024/texmf-dist/fonts/type1/vntex/vnr/vnitt10.pfb
 INPUT c:/texlive/2024/texmf-dist/fonts/type1/vntex/vnr/vnr10.pfb
 INPUT c:/texlive/2024/texmf-dist/fonts/type1/vntex/vnr/vnr5.pfb
 INPUT c:/texlive/2024/texmf-dist/fonts/type1/vntex/vnr/vnr8.pfb
-INPUT c:/texlive/2024/texmf-dist/fonts/type1/vntex/vnr/vnti9.pfb
+INPUT c:/texlive/2024/texmf-dist/fonts/type1/vntex/vnr/vnr9.pfb
 INPUT c:/texlive/2024/texmf-dist/fonts/type1/vntex/vnr/vntt10.pfb
 INPUT c:/texlive/2024/texmf-dist/fonts/type1/vntex/vnr/vntt9.pfb
