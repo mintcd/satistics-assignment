@@ -21,7 +21,7 @@
 
 
 \begin{lstlisting}[language=R]
-litho_year <- extracted_selected_cpu_data %>% 
+litho_year <- CPUs_processed %>% 
   group_by(Release_Year) %>%
   summarize(mean_litho = mean(Lithography),
             median_litho = median(Lithography),
@@ -47,7 +47,7 @@ ggplot(litho_year, aes(x = Release_Year)) +
 
 \begin{lstlisting}[language=R]
 options(repr.plot.width = 15, repr.plot.height =8) 
-ggplot(data = Intel_clean, aes(y = Status, x = Launch_Year, fill = Status)) +
+ggplot(data = CPUs_processed, aes(y = Status, x = Launch_Year, fill = Status)) +
   geom_boxplot() +
   labs(x = "Status", y = "Launch Date",title = "Boxplot of Status over Year") +
   scale_x_continuous(breaks = seq(min(Litho_year$Launch_Year), max(Litho_year$Launch_Year), by = 1))
@@ -63,7 +63,7 @@ ggplot(data = Intel_clean, aes(y = Status, x = Launch_Year, fill = Status)) +
 
 \begin{lstlisting}[language=R]
 options(repr.plot.width = 15, repr.plot.height =8) 
-ggplot(data = Intel_clean, aes(y = Vertical_Segment, x = Launch_Year, fill = Vertical_Segment)) +
+ggplot(data = CPUs_processed, aes(y = Vertical_Segment, x = Launch_Year, fill = Vertical_Segment)) +
   geom_boxplot() +
   labs(x = "Year", y = "Vertical Segment",title = "Boxplot of Vertical Segment over Year") +
   scale_x_continuous(breaks = seq(min(Litho_year$Launch_Year), max(Litho_year$Launch_Year), by = 1))
@@ -78,7 +78,7 @@ ggplot(data = Intel_clean, aes(y = Vertical_Segment, x = Launch_Year, fill = Ver
 
 \begin{lstlisting}[language=R]
 options(repr.plot.width = 15, repr.plot.height =8) 
-ggplot(data = Intel_clean, aes(y = Instruction_Set, x = Launch_Year, fill = Instruction_Set)) +
+ggplot(data = CPUs_processed, aes(y = Instruction_Set, x = Launch_Year, fill = Instruction_Set)) +
   geom_violin() +
   labs(x = "Launch Date", y = "Instruction set",title = "Violinplot of Instruction set over Year") +
   scale_x_continuous(breaks = seq(min(Litho_year$Launch_Year), max(Litho_year$Launch_Year), by = 1))
@@ -90,14 +90,6 @@ ggplot(data = Intel_clean, aes(y = Instruction_Set, x = Launch_Year, fill = Inst
   \vspace{1pt}
   \caption{Instruction set over years}
 \end{figure}
-
-\begin{lstlisting}[language=R]
-options(repr.plot.width = 15, repr.plot.height =8) 
-ggplot(data = Intel_clean, aes(y = Instruction_Set, x = Launch_Year, fill = Instruction_Set)) +
-  geom_violin() +
-  labs(x = "Launch Date", y = "Instruction set",title = "Violinplot of Instruction set over Year") +
-  scale_x_continuous(breaks = seq(min(Litho_year$Launch_Year), max(Litho_year$Launch_Year), by = 1))
-\end{lstlisting}
 
 \begin{figure}[ht]
   \centering
@@ -116,7 +108,7 @@ ggplot(data = Intel_clean, aes(y = Instruction_Set, x = Launch_Year, fill = Inst
 \section{GPU Data}
 
 \begin{lstlisting}[language=R]
-freq <- table(clean_GPUs$Manufacturer, clean_GPUs$Release_Year)
+freq <- table(GPUs_processed$Manufacturer, GPUs_processed$Release_Year)
 total_count <- colSums(freq)
 percentage <- prop.table(freq, margin = 2) * 100
 
@@ -155,7 +147,7 @@ barplot(percentage,
 
 \begin{lstlisting}[language=R]
 scatter_plot <- 
-  ggplot(clean_GPUs, aes(x = Release_Year + Release_Month/12, y = Memory, color = Manufacturer)) +
+  ggplot(GPUs_processed, aes(x = Release_Year + Release_Month/12, y = Memory, color = Manufacturer)) +
   geom_point() +
   scale_color_manual(values = c("skyblue", "salmon", "lightgreen", "yellow")) +
   labs(x = "Year", y = "GPU Memory", title = "Scatter Plot of GPU Memory over Years") +
@@ -171,7 +163,7 @@ print(scatter_plot)
 \end{figure}
 
 \begin{lstlisting}[language=R]
-memory_summary <- clean_GPUs %>%
+memory_summary <- GPUs_processed %>%
   group_by(Release_Year) %>%
   summarise(mean_memory = mean(Memory),
             median_memory = median(Memory))

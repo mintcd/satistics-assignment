@@ -1,1 +1,0 @@
-#bartlett.test(processed_cpu_data$nb_of_Cores ~ #processed_cpu_data$Product_Collection, data = processed_cpu_data)

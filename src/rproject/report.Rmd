@@ -1,13 +1,13 @@
 ---
 title: "Probability and Statistics"
-subtitle: "The Evolution of Computer Processors: A statistic on Common Properties"
-author: "Chau Dang Minh - 2013748 <br> Provide your name guys"
-output: 
-  # pdf_document: default
+author: "Chau Dang Minh - 2013748 <br> Ha Khoi Nguyen - 2212287 <br> Nguyen Thi Mai Anh - 2210103 <br> Võ Ninh Giang - 2210834 <br> Trinh Viet Cuong - 2210447"
+subtitle: 'The Evolution of Computer Processors: A statistic on Common Properties'
+output:
   html_document: default
+  pdf_document: default
 ---
 
-# Libraries
+# Setups
 
 ```{r message=FALSE}
 # Libraries and options
@@ -21,11 +21,12 @@ library(car)
 
 options(repr.plot.width = 15, repr.plot.height =8)
 
+# Working directory
+setwd(here())
+
 # Self-defined functions
 source("utils.R")
 
-# Working directory
-setwd(here())
 ```
 
 
@@ -50,6 +51,7 @@ cpu_columns <- colnames(CPUs_raw)
 gpu_columns <- colnames(GPUs_raw)
 intersect(cpu_columns, gpu_columns)
 ```
+
 It can be seen that there are no common columns between the dataframes. However, some columns may indicate the same feature, which needed to be handled manually.
 
 ## Data cleaning
@@ -57,41 +59,27 @@ It can be seen that there are no common columns between the dataframes. However,
 We take a look at invalid values in the dataframes
 
 ```{r}
-inspect_invalid(CPUs_raw)
+inspect_valid(CPUs_raw)
 ```
 
-The dataframes to inference must not have any invalid values. Here, we select features where invalid percentage precedes our threshold $\texttt{invalid_thres}$.
+The dataframes to inference must not have any invalid values. Here, we select features whose invalid percentage precedes our threshold $\texttt{invalid_thres}$.
 
 ```{r}
-CPUs_selected <- select_data(CPUs_raw, invalid_thres=0.5)
+CPUs_selected <- select_data(CPUs_raw, valid_thres=0.5)
 
-kable(head(CPUs_selected), format = "html") %>%
-  kable_styling()
+cat("Removed ", length(setdiff(colnames(CPUs_raw),colnames(CPUs_selected))), " columns.")
+
+# Output: Removed  14  columns.
 ```
 
 
 ## Data Precomputations
 1. Extract $\texttt{Release_Date}$ string to number pair $\texttt{Release_Year}$ and $\texttt{Release_Quarter}$.
 2. Convert $\texttt{Recommended_Customer_Price}$ to number. If a range is presented, take the average.
+3. Convert base frequency to MHz.
+4. Convert memory size to GB
 
 ```{r}
-month_to_quarter <- function(month) {
-  quarter <- switch(month,
-    "Jan" = "1",
-    "Feb" = "1",
-    "Mar" = "1",
-    "Apr" = "2",
-    "May" = "2",
-    "Jun" = "2",
-    "Jul" = "3",
-    "Aug" = "3",
-    "Sep" = "3",
-    "Oct" = "4",
-    "Nov" = "4",
-    "Dec" = "4",
-    "Unknown")
-    return(quarter)
-}
 
 recommended_price <- function(price_range) {
   if(grepl('-', price_range)) {
@@ -101,13 +89,15 @@ recommended_price <- function(price_range) {
   return (price_range)
 }
 
-names(CPUs_selected)[names(CPUs_selected) == "Launch_Date"] <- "Release_Date"
+names(CPUs_selected)[names(CPUs_selected) == "Launch_Date"] <- 
+  "Release_Date"
 
 CPUs_processed <- CPUs_selected
 
 CPUs_processed$Release_Year <- 
   as.integer(sub("Q[1-4]'(\\d+)", "\\1",
     gsub("\\s+", "", CPUs_selected$Release_Date)))
+
 CPUs_processed$Release_Year <- 
   ifelse(CPUs_processed$Release_Year > 60, 
          1900 + CPUs_processed$Release_Year, 
@@ -123,35 +113,179 @@ CPUs_processed <- CPUs_processed %>%
   )
 
 CPUs_processed$Lithography <- 
-  as.integer(gsub("nm", "", 
-                 CPUs_processed$Lithography))
+  as.integer(gsub(" nm", "", CPUs_processed$Lithography))
+
+CPUs_processed$Processor_Base_Frequency <-
+  as.double(sapply(CPUs_processed$Processor_Base_Frequency, function(value) {
+    if (grepl(' MHz', value)) {
+      return (as.double(gsub(" MHz","",value))/1000)
+    }
+    return (as.double(gsub(" GHz","",value)))
+  }))
+
+CPUs_processed$Max_Memory_Size <-
+  as.integer(sapply(CPUs_processed$Max_Memory_Size, function(value) {
+    if (grepl(' TB', value)) {
+      return (as.double(gsub(" TB","",value))*1024)
+    }
+    return (as.double(gsub(" GB","",value)))
+  }))
+
+CPUs_processed$Cache <- as.numeric(sub("([0-9]+) MB.*", "\\1", CPUs_processed$Cache))
+
+CPUs_processed$Max_Memory_Bandwidth <-
+ as.double(gsub(" GB/s", "", CPUs_processed$Max_Memory_Bandwidth))
+
+CPUs_processed$Lithography <- 
+  as.integer(gsub(" nm", "", CPUs_processed$Lithography))
 
 kable(head(CPUs_processed), format = "html") %>%
   kable_styling()
 ```
 
+
+
 # Descriptive Statistics
+## Lithography over Years
 
 ```{r}
-litho_year <- CPUs_processed %>% 
+# Select only the relevant columns
+CPUs_selected <- get_valid(CPUs_processed %>% 
+  select(Release_Year, Lithography))
+
+# Group by Release_Year and calculate mean and median lithography
+litho_year <- CPUs_selected %>% 
   group_by(Release_Year) %>%
   summarize(mean_litho = mean(Lithography),
             median_litho = median(Lithography),
-    .groups = "drop"
+            .groups = "drop"
   )
-
+# Plot mean and median lithography by year
 ggplot(litho_year, aes(x = Release_Year)) +
   geom_line(aes(y = mean_litho, color = "Mean")) +
   geom_line(aes(y = median_litho, color = "Median")) +
   scale_color_manual(values = c("Mean" = "blue", "Median" = "red")) +
-  labs(x = "Year", y = "Lithography", title = "Mean and Median Lithography by Year") +
-  scale_x_continuous(breaks = seq(min(litho_year$Release_Year), max(litho_year$Release_Year),
-  by = 1)) +
+  labs(x = "Year", y = "Lithography (nm)", title = "Mean and Median Lithography by Year") +
+  scale_x_continuous(breaks = seq(min(litho_year$Release_Year), max(litho_year$Release_Year), by = 1)) +
   theme_minimal()
 ```
 
 
+
+
+## Status over Years
+```{r}
+CPUs_selected <- get_valid(CPUs_processed %>% 
+  select(Release_Year, Status))
+
+options(repr.plot.width = 50, repr.plot.height = 8) 
+ggplot(data = CPUs_selected, aes(y = Status, x = Release_Year, fill = Status)) +
+  geom_boxplot() +
+  labs(x = "Launch Year", y = "Status", title = "Boxplot of Status over Year") +
+  scale_x_continuous(breaks = seq(min(CPUs_selected$Release_Year), max(CPUs_selected$Release_Year), by = 1), expand = c(0.02, 0.5)) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+```
+## Segment over Years
+```{r}
+CPUs_selected <- get_valid(CPUs_processed %>% 
+  select(Release_Year, Vertical_Segment))
+
+options(repr.plot.width = 50, repr.plot.height = 8) 
+ggplot(data = CPUs_selected, aes(y = Vertical_Segment, x = Release_Year, fill = Vertical_Segment)) +
+  geom_boxplot() +
+  labs(x = "Launch Year", y = "Status", title = "Boxplot of Vertical Segment over Year") +
+  scale_x_continuous(breaks = seq(min(CPUs_selected$Release_Year), max(CPUs_selected$Release_Year), by = 1), expand = c(0.02, 0.5)) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+```
+
+
+
+
+## Intruction Set over Years
+```{r}
+CPUs_selected <- get_valid(CPUs_processed %>% 
+  select(Release_Year, Instruction_Set))
+
+options(repr.plot.width = 15, repr.plot.height =8) 
+ggplot(data = CPUs_processed, aes(y = Instruction_Set, x = Release_Year, fill = Instruction_Set)) +
+  geom_violin() +
+  labs(x = "Launch Date", y = "Instruction set",title = "Violinplot of Instruction set over Year") +
+  scale_x_continuous(breaks = seq(min(CPUs_selected$Release_Year), max(CPUs_selected$Release_Year), by = 1), expand = c(0.02, 0.5)) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+```
+
+
+
+The same conformance is applied for GPUs. Results are shown in report.
+
 # Inferential Statistics
+
+## Linear Regression
+We will try to infer if there is a linear relation between the price and other features.
+
+```{r}
+inspect_valid(GPUs_raw)
+```
+
+Since the percentage of GPUs having price is low, we work on the CPU data
+
+```{r}
+
+# List of features to plot against Recommended_Customer_Price
+features <- c("Processor_Base_Frequency",
+              "Lithography",
+              "Cache",
+              "nb_of_Cores",
+              "Vertical_Segment",
+              "Max_Memory_Size",
+              "Max_Memory_Bandwidth")
+# Loop through each feature and create a plot
+for (feature in features) {
+  p <- ggplot(CPUs_processed, aes_string(x = feature, 
+                                         y = "Recommended_Customer_Price", 
+                                         color = paste0("as.factor(", feature, ")"))) + 
+       geom_point() + 
+       geom_smooth(method = "lm", se = FALSE) + 
+       labs(title = paste("Recommended Customer Price vs", feature),
+            color = feature)
+  
+  print(p)
+}
+
+CPUs_LR_input <- get_valid(CPUs_processed[, c(features, "Recommended_Customer_Price")])
+
+
+# Convert Vertical_Segment to a factor with specified levels
+CPUs_LR_input$Vertical_Segment <- factor(CPUs_LR_input$Vertical_Segment, 
+                                         levels = c("Embedded", "Mobile", "Desktop", "Server"),
+                                         labels = c(1, 2, 3, 4))
+
+CPUs_LR_input$Vertical_Segment <- as.numeric(as.character(CPUs_LR_input$Vertical_Segment))
+
+
+lr_CPUs <- lm(Recommended_Customer_Price ~ 
+                Max_Memory_Bandwidth*
+                Cache*
+                Lithography*
+                nb_of_Cores, data = CPUs_LR_input)
+
+summary(lr_CPUs)
+
+
+# Calculate residuals
+residuals <- residuals(lr_CPUs)
+
+# Compute Mean Squared Error (MSE)
+RMSE <- sqrt(mean(residuals^2))
+
+# Print the MSE
+print(RMSE)
+
+# Output: 435.6237
+
+```
+
 
 ## Two-way ANOVA 
 
@@ -165,18 +299,12 @@ ggqqplot(CPUs_processed$nb_of_Cores)
 leveneTest(nb_of_Cores~Product_Collection*Vertical_Segment, data = CPUs_processed)
 
 
-new_data <- CPUs_processed[CPUs_processed$Product_Collection %in% 
-                                          c("Core", "Legacy") & 
+CPUs_ANOVA_input <- CPUs_processed[grepl("Core|Legacy", CPUs_processed$Product_Collection) &
                                           CPUs_processed$Vertical_Segment %in% 
                                           c("Desktop", "Embedded", "Mobile"),]
 
-Product_Collection <- as.factor(new_data$Product_Collection)
-Vertical_Segment <- as.factor(new_data$Vertical_Segment)
-nb_of_Cores <- new_data$nb_of_Cores
-
-av <- aov(nb_of_Cores ~ Product_Collection*Vertical_Segment, data = new_data)
+av <- aov(nb_of_Cores ~ Product_Collection*Vertical_Segment, data = CPUs_ANOVA_input)
 summary(av)
 ```
 
-## Linear Regression
 

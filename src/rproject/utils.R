@@ -24,14 +24,14 @@ is_valid <- function(value) {
   # Add your criteria
 }
 
-filtered_data <- function(data, valid_percentage=0.8) {
+select_data <- function(data, valid_thres=0.8) {
   selected_columns <- character(0) 
   
   for (col in colnames(data)) { 
     valid_count <- sum(is_valid(data[[col]])) 
     total_instances <- length(data[[col]]) 
     
-    if ((valid_count / total_instances) >= valid_percentage) {
+    if ((valid_count / total_instances) >= valid_thres) {
       selected_columns <- c(selected_columns, col)
     }
   }
@@ -55,4 +55,35 @@ month_to_quarter <- function(month) {
                     "Dec" = "4",
                     "Unknown")
   return(quarter)
+}
+
+inspect_valid = function(data) {
+  # Count NA and empty strings
+  na_counts <- colSums(sapply(data, 
+                              function(x) 
+                                is.na(x) | x == "N/A"))
+  empty_counts <- colSums(sapply(data, 
+                                 function(x) 
+                                   is.character(x) & 
+                                   (x == "" | x == "-")))
+  # Get percentage of invalid values
+  valid_percentage <- round(100 - (na_counts+empty_counts)/nrow(data)*100,1)
+  
+  # Display
+  invalid_df <- 
+    data.frame(Property = names(na_counts), 
+               NA_Count = unname(na_counts),
+               Empty_Count = unname(empty_counts),
+               Valid_Percentage = unname(valid_percentage)) %>%
+    arrange(desc(Valid_Percentage))
+  
+  kable(invalid_df, format = "html") %>% 
+    kable_styling()
+}
+
+get_valid = function(data) {
+  return (data[
+    apply(data, 1, 
+          function(row) 
+            all(sapply(row, is_valid))), ])
 }

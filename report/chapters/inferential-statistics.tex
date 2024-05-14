@@ -1,5 +1,62 @@
 \chapter{Inferential Statistics}
 
+\section{Linear Regression}
+We will try to infer if there is a linear relation between the price and other features. Since the percentage of GPUs having price is low ($16.3\%$), we work on the CPU data. As illustrated in Figure \ref{figure:factor-price}, linear relations can be seen through \texttt{Max\_Memory\_Bandwidth}, \texttt{Cache}, \texttt{Lithography} and \texttt{nb\_of\_Cores} towards \texttt{Recommended\_Customer\_Price}. Let us see how well a linear model can fit the price based on these features.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.45\linewidth]{img/frequency-price.png}\hfill
+  \includegraphics[width=0.45\linewidth]{img/bandwidth-year.png}\hfill
+  \\[\smallskipamount]
+  \includegraphics[width=0.45\linewidth]{img/cache-price.png}
+  \includegraphics[width=0.45\linewidth]{img/lith-year.png}\hfill
+  \\[\smallskipamount]
+  \includegraphics[width=0.45\linewidth]{img/memory-price.png}\hfill
+  \includegraphics[width=0.45\linewidth]{img/nb_of_cores-price.png}\hfill
+  \\[\smallskipamount]
+  \includegraphics[width=0.45\linewidth]{img/segment-price.png}
+  \vspace{0.5cm}
+  \caption{Plots of several features against the price}
+  \label{figure:factor-price}
+\end{figure}
+
+\begin{lstlisting}[language = R]
+  CPUs_LR_input <- get_valid(CPUs_processed[, c(features, "Recommended_Customer_Price")])
+
+
+  # Convert Vertical_Segment to a factor with specified levels
+  CPUs_LR_input$Vertical_Segment <- factor(CPUs_LR_input$Vertical_Segment, 
+                                           levels = c("Embedded", "Mobile", "Desktop", "Server"),
+                                           labels = c(1, 2, 3, 4))
+  
+  CPUs_LR_input$Vertical_Segment <- as.numeric(as.character(CPUs_LR_input$Vertical_Segment))
+  
+  
+  lr_CPUs <- lm(Recommended_Customer_Price ~ 
+                  Max_Memory_Bandwidth*
+                  Cache*
+                  Lithography*
+                  nb_of_Cores, data = CPUs_LR_input)
+  
+  summary(lr_CPUs)
+
+  # Compute RMSE
+  RMSE <- sqrt(mean(residuals(lr_CPUs)^2))
+  print(RMSE)
+  
+  # Output: 435.6237
+\end{lstlisting}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics{img/lr-summary.png}
+  \vspace{0.5cm}
+  \caption{Linear regression summary}
+  \label{figure:lr-summary}
+\end{figure}
+
+In Figure \ref{figure:lr-summary}, the coefficients of \texttt{Cache} and \texttt{Lithography} are positive and negative, respectively, matching our intuition that larger cache and smaller  lithographic technology cost more. The increase of \texttt{nb\_of\_Cores} does not lead to higher price can be interpreted as a consequence of Moore's law.
+
 \section{Two-way ANOVA}
 \subsection{Problem Statement}
 
@@ -40,7 +97,7 @@ Before ANOVA test, let us test whether initial conditions are satisfied.
           \centering
           \includegraphics[width=0.6\textwidth]{img/5.png}
           \vspace{0.5cm}
-          \caption{Q-Q plot returned by \texttt{ggqqplot(nb\_of\_Cores)}. Observed values are far away from normal expectation.}
+          \caption{Q-Q plot returned by \texttt{ggqqplot(nb\_of\_Cores)} function. Observed values are far away from normal expectation.}
         \end{figure}
 
   \item Testing whether the variances are equal $(H_0)$ or there exist two groups of different variances $(H_1)$. Since $p_{\mathrm{value}} = 1.339e-07 < 0.05$, we reject $H_0$.
